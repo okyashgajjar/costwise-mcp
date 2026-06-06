@@ -1,0 +1,182 @@
+[
+  {
+    "id": "repo-001",
+    "query": "What is this repository about?",
+    "category": "repository",
+    "expected_files": ["README.md"],
+    "expected_symbols": [],
+    "expected_keywords": ["aider", "AI", "pair", "programming", "assistant"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-002",
+    "query": "What does aider do?",
+    "category": "repository",
+    "expected_files": ["README.md"],
+    "expected_symbols": [],
+    "expected_keywords": ["AI", "programming", "chat", "code", "edit"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-003",
+    "query": "Give repository overview.",
+    "category": "repository",
+    "expected_files": ["README.md"],
+    "expected_symbols": [],
+    "expected_keywords": ["aider", "features", "usage", "install"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-004",
+    "query": "Describe this project.",
+    "category": "repository",
+    "expected_files": ["README.md"],
+    "expected_symbols": [],
+    "expected_keywords": ["clone", "repository", "AI", "LLM"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-005",
+    "query": "What problem does this project solve?",
+    "category": "repository",
+    "expected_files": ["README.md"],
+    "expected_symbols": [],
+    "expected_keywords": ["problem", "solution", "code", "assistant"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-006",
+    "query": "How is the code structured?",
+    "category": "repository",
+    "expected_files": ["README.md"],
+    "expected_symbols": [],
+    "expected_keywords": ["structure", "module", "package"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-007",
+    "query": "What are the main components?",
+    "category": "repository",
+    "expected_files": ["README.md"],
+    "expected_symbols": [],
+    "expected_keywords": ["component", "module", "feature"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-008",
+    "query": "What are the key features?",
+    "category": "repository",
+    "expected_files": ["README.md"],
+    "expected_symbols": [],
+    "expected_keywords": ["feature", "key", "capability"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-009",
+    "query": "What technologies does this project use?",
+    "category": "repository",
+    "expected_files": ["README.md"],
+    "expected_symbols": [],
+    "expected_keywords": ["python", "LLM", "AI", "technology"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-010",
+    "query": "How to install this project?",
+    "category": "repository",
+    "expected_files": ["README.md", "setup.py"],
+    "expected_symbols": [],
+    "expected_keywords": ["install", "pip", "setup", "requirements"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-011",
+    "query": "What is the main entry point?",
+    "category": "repository",
+    "expected_files": ["aider/main.py", "README.md"],
+    "expected_symbols": ["main"],
+    "expected_keywords": ["main", "entry", "point", "run"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-012",
+    "query": "How to configure aider?",
+    "category": "repository",
+    "expected_files": ["aider/args.py", "README.md"],
+    "expected_symbols": ["get_parser"],
+    "expected_keywords": ["config", "configuration", "option", "argument"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-013",
+    "query": "What LLM models are supported?",
+    "category": "repository",
+    "expected_files": ["aider/models.py", "README.md"],
+    "expected_symbols": ["Model"],
+    "expected_keywords": ["model", "LLM", "GPT", "Claude", "chat"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-014",
+    "query": "How to use aider with git?",
+    "category": "repository",
+    "expected_files": ["aider/repo.py", "README.md"],
+    "expected_symbols": ["Repo"],
+    "expected_keywords": ["git", "repo", "repository", "commit"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-015",
+    "query": "What is the licensing model?",
+    "category": "repository",
+    "expected_files": ["LICENSE", "README.md"],
+    "expected_symbols": [],
+    "expected_keywords": ["license", "MIT", "copyright"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-016",
+    "query": "What version is this?",
+    "category": "repository",
+    "expected_files": ["aider/versioncheck.py", "setup.py"],
+    "expected_symbols": ["version"],
+    "expected_keywords": ["version", "__version__", "versioncheck"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-017",
+    "query": "What dependencies are required?",
+    "category": "repository",
+    "expected_files": ["setup.py", "requirements.txt"],
+    "expected_symbols": [],
+    "expected_keywords": ["dependencies", "install_requires", "requirements"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-018",
+    "query": "How does the chat system work?",
+    "category": "repository",
+    "expected_files": ["aider/sendchat.py", "aider/coders/base_coder.py"],
+    "expected_symbols": ["send_completion"],
+    "expected_keywords": ["chat", "message", "send", "completion"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-019",
+    "query": "What file formats are supported?",
+    "category": "repository",
+    "expected_files": ["aider/coders/editblock_coder.py", "README.md"],
+    "expected_symbols": ["EditBlockCoder"],
+    "expected_keywords": ["format", "file", "edit", "coder"],
+    "expected_retriever": "grep"
+  },
+  {
+    "id": "repo-020",
+    "query": "Where is the documentation?",
+    "category": "repository",
+    "expected_files": ["README.md", "docs"],
+    "expected_symbols": [],
+    "expected_keywords": ["documentation", "docs", "read", "help"],
+    "expected_retriever": "grep"
+  }
+]

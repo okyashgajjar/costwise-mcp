@@ -1,0 +1,362 @@
+[
+  {
+    "id": "concept-151",
+    "query": "What is the purpose of UserProps?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "UserProps"
+    ],
+    "expected_keywords": [
+      "UserProps"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-99",
+    "query": "What is the purpose of IA?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "IA"
+    ],
+    "expected_keywords": [
+      "IA"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-50",
+    "query": "What is the purpose of SwitchCoder?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "SwitchCoder"
+    ],
+    "expected_keywords": [
+      "SwitchCoder"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-37",
+    "query": "What is the purpose of PatchPrompts?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "PatchPrompts"
+    ],
+    "expected_keywords": [
+      "PatchPrompts"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-145",
+    "query": "What is the purpose of TestBrowser?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "TestBrowser"
+    ],
+    "expected_keywords": [
+      "TestBrowser"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-5",
+    "query": "What is the purpose of ArchitectCoder?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "ArchitectCoder"
+    ],
+    "expected_keywords": [
+      "ArchitectCoder"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-17",
+    "query": "What is the purpose of EditBlockCoder?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "EditBlockCoder"
+    ],
+    "expected_keywords": [
+      "EditBlockCoder"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-32",
+    "query": "What is the purpose of ActionType?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "ActionType"
+    ],
+    "expected_keywords": [
+      "ActionType"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-85",
+    "query": "What is the purpose of Voice?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Voice"
+    ],
+    "expected_keywords": [
+      "Voice"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-35",
+    "query": "What is the purpose of Patch?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Patch"
+    ],
+    "expected_keywords": [
+      "Patch"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-38",
+    "query": "What is the purpose of RelativeIndenter?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "RelativeIndenter"
+    ],
+    "expected_keywords": [
+      "RelativeIndenter"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-33",
+    "query": "What is the purpose of Chunk?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Chunk"
+    ],
+    "expected_keywords": [
+      "Chunk"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-10",
+    "query": "What is the purpose of MissingAPIKeyError?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "MissingAPIKeyError"
+    ],
+    "expected_keywords": [
+      "MissingAPIKeyError"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-66",
+    "query": "What is the purpose of LazyLiteLLM?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "LazyLiteLLM"
+    ],
+    "expected_keywords": [
+      "LazyLiteLLM"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-72",
+    "query": "What is the purpose of ModelInfoManager?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "ModelInfoManager"
+    ],
+    "expected_keywords": [
+      "ModelInfoManager"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-93",
+    "query": "What is the purpose of S?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "S"
+    ],
+    "expected_keywords": [
+      "S"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-26",
+    "query": "What is the purpose of EditorEditBlockPrompts?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "EditorEditBlockPrompts"
+    ],
+    "expected_keywords": [
+      "EditorEditBlockPrompts"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-36",
+    "query": "What is the purpose of PatchCoder?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "PatchCoder"
+    ],
+    "expected_keywords": [
+      "PatchCoder"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-130",
+    "query": "What is the purpose of DummyResponse?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "DummyResponse"
+    ],
+    "expected_keywords": [
+      "DummyResponse"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-125",
+    "query": "What is the purpose of TestModelInfoManager?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "TestModelInfoManager"
+    ],
+    "expected_keywords": [
+      "TestModelInfoManager"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  }
+]

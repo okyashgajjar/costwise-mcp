@@ -1,0 +1,427 @@
+[
+  {
+    "id": "caller-19",
+    "query": "Who calls ClipboardWatcher?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/copypaste.py",
+      "aider/main.py"
+    ],
+    "expected_symbols": [
+      "ClipboardWatcher"
+    ],
+    "expected_keywords": [
+      "ClipboardWatcher"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/copypaste.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-1013",
+    "query": "Who calls fuzzy_match_models?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/models.py"
+    ],
+    "expected_symbols": [
+      "fuzzy_match_models"
+    ],
+    "expected_keywords": [
+      "fuzzy_match_models"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/models.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-854",
+    "query": "Who calls thread?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "benchmark/benchmark.py"
+    ],
+    "expected_symbols": [
+      "thread"
+    ],
+    "expected_keywords": [
+      "thread"
+    ],
+    "source": "callgraph",
+    "source_file": "benchmark/benchmark.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-681",
+    "query": "Who calls interact?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/run_cmd.py"
+    ],
+    "expected_symbols": [
+      "interact"
+    ],
+    "expected_keywords": [
+      "interact"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/run_cmd.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-1063",
+    "query": "Who calls OSError?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "tests/basic/test_coder.py"
+    ],
+    "expected_symbols": [
+      "OSError"
+    ],
+    "expected_keywords": [
+      "OSError"
+    ],
+    "source": "callgraph",
+    "source_file": "tests/basic/test_coder.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-619",
+    "query": "Who calls basic_help?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/commands.py"
+    ],
+    "expected_symbols": [
+      "basic_help"
+    ],
+    "expected_keywords": [
+      "basic_help"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/commands.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-636",
+    "query": "Who calls drop_rel_fname?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/gui.py"
+    ],
+    "expected_symbols": [
+      "drop_rel_fname"
+    ],
+    "expected_keywords": [
+      "drop_rel_fname"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/gui.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-482",
+    "query": "Who calls upper?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/coders/base_coder.py",
+      "aider/utils.py",
+      "aider/io.py",
+      "aider/main.py",
+      "aider/models.py",
+      "scripts/logo_svg.py",
+      "aider/history.py",
+      "tests/basic/test_coder.py"
+    ],
+    "expected_symbols": [
+      "upper"
+    ],
+    "expected_keywords": [
+      "upper"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/coders/base_coder.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-937",
+    "query": "Who calls ljust?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/commands.py",
+      "aider/io.py"
+    ],
+    "expected_symbols": [
+      "ljust"
+    ],
+    "expected_keywords": [
+      "ljust"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/commands.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-56",
+    "query": "Who calls parse_token_value?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/models.py",
+      "tests/basic/test_models.py"
+    ],
+    "expected_symbols": [
+      "parse_token_value"
+    ],
+    "expected_keywords": [
+      "parse_token_value"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/models.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-916",
+    "query": "Who calls writelines?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "scripts/clean_metadata.py"
+    ],
+    "expected_symbols": [
+      "writelines"
+    ],
+    "expected_keywords": [
+      "writelines"
+    ],
+    "source": "callgraph",
+    "source_file": "scripts/clean_metadata.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-614",
+    "query": "Who calls get_readonly_files_messages?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/coders/base_coder.py"
+    ],
+    "expected_symbols": [
+      "get_readonly_files_messages"
+    ],
+    "expected_keywords": [
+      "get_readonly_files_messages"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/coders/base_coder.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-120",
+    "query": "Who calls plot_model_series?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "benchmark/over_time.py"
+    ],
+    "expected_symbols": [
+      "plot_model_series"
+    ],
+    "expected_keywords": [
+      "plot_model_series"
+    ],
+    "source": "callgraph",
+    "source_file": "benchmark/over_time.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-108",
+    "query": "Who calls raw_completer?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/io.py"
+    ],
+    "expected_symbols": [
+      "raw_completer"
+    ],
+    "expected_keywords": [
+      "raw_completer"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/io.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-923",
+    "query": "Who calls get_cur_message_text?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/coders/base_coder.py"
+    ],
+    "expected_symbols": [
+      "get_cur_message_text"
+    ],
+    "expected_keywords": [
+      "get_cur_message_text"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/coders/base_coder.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-691",
+    "query": "Who calls list?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/coders/base_coder.py",
+      "aider/commands.py",
+      "aider/coders/search_replace.py",
+      "aider/diffs.py",
+      "aider/special.py",
+      "aider/utils.py",
+      "benchmark/refactor_tools.py",
+      "aider/models.py",
+      "aider/main.py",
+      "aider/repo.py",
+      "aider/coders/editblock_coder.py",
+      "aider/coders/udiff_coder.py",
+      "aider/io.py",
+      "aider/args.py",
+      "aider/repomap.py",
+      "aider/coders/patch_coder.py",
+      "aider/gui.py",
+      "aider/linter.py",
+      "scripts/clean_metadata.py",
+      "scripts/recording_audio.py",
+      "tests/basic/test_find_or_blocks.py",
+      "benchmark/benchmark.py",
+      "aider/scrape.py",
+      "tests/basic/test_io.py",
+      "tests/basic/test_editblock.py",
+      "tests/basic/test_commands.py",
+      "tests/basic/test_coder.py",
+      "tests/basic/test_repomap.py",
+      "tests/basic/test_reasoning.py"
+    ],
+    "expected_symbols": [
+      "list"
+    ],
+    "expected_keywords": [
+      "list"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/coders/base_coder.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-960",
+    "query": "Who calls get_index?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/help.py"
+    ],
+    "expected_symbols": [
+      "get_index"
+    ],
+    "expected_keywords": [
+      "get_index"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/help.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-414",
+    "query": "Who calls random?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/gui.py",
+      "aider/repomap.py"
+    ],
+    "expected_symbols": [
+      "random"
+    ],
+    "expected_keywords": [
+      "random"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/gui.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-23",
+    "query": "Who calls LintResult?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "aider/linter.py"
+    ],
+    "expected_symbols": [
+      "LintResult"
+    ],
+    "expected_keywords": [
+      "LintResult"
+    ],
+    "source": "callgraph",
+    "source_file": "aider/linter.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-1124",
+    "query": "Who calls init?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "tests/basic/test_sanity_check_repo.py",
+      "aider/gui.py",
+      "aider/main.py",
+      "aider/utils.py",
+      "tests/basic/test_commands.py",
+      "tests/basic/test_coder.py",
+      "tests/basic/test_repo.py"
+    ],
+    "expected_symbols": [
+      "init"
+    ],
+    "expected_keywords": [
+      "init"
+    ],
+    "source": "callgraph",
+    "source_file": "tests/basic/test_sanity_check_repo.py",
+    "verified": true,
+    "difficulty": "hard"
+  }
+]

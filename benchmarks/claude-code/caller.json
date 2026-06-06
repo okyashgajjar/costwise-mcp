@@ -1,0 +1,408 @@
+[
+  {
+    "id": "caller-87",
+    "query": "Who calls extract_content_from_input?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/security_reminder_hook.py"
+    ],
+    "expected_symbols": [
+      "extract_content_from_input"
+    ],
+    "expected_keywords": [
+      "extract_content_from_input"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/security_reminder_hook.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-224",
+    "query": "Who calls isdir?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/llm.py"
+    ],
+    "expected_symbols": [
+      "isdir"
+    ],
+    "expected_keywords": [
+      "isdir"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/llm.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-7",
+    "query": "Who calls parse_diff_into_files?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/security_reminder_hook.py"
+    ],
+    "expected_symbols": [
+      "parse_diff_into_files"
+    ],
+    "expected_keywords": [
+      "parse_diff_into_files"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/security_reminder_hook.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-160",
+    "query": "Who calls get_baseline_file_content?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/security_reminder_hook.py"
+    ],
+    "expected_symbols": [
+      "get_baseline_file_content"
+    ],
+    "expected_keywords": [
+      "get_baseline_file_content"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/security_reminder_hook.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-75",
+    "query": "Who calls set?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/diffstate.py",
+      "plugins/security-guidance/hooks/llm.py",
+      "plugins/security-guidance/hooks/security_reminder_hook.py",
+      "plugins/security-guidance/hooks/gitutil.py"
+    ],
+    "expected_symbols": [
+      "set"
+    ],
+    "expected_keywords": [
+      "set"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/diffstate.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-56",
+    "query": "Who calls _prioritize_diff_files?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/security_reminder_hook.py"
+    ],
+    "expected_symbols": [
+      "_prioritize_diff_files"
+    ],
+    "expected_keywords": [
+      "_prioritize_diff_files"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/security_reminder_hook.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-209",
+    "query": "Who calls items?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/llm.py",
+      "plugins/security-guidance/hooks/_base.py",
+      "plugins/security-guidance/hooks/security_reminder_hook.py",
+      "plugins/security-guidance/hooks/review_api.py"
+    ],
+    "expected_symbols": [
+      "items"
+    ],
+    "expected_keywords": [
+      "items"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/llm.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-63",
+    "query": "Who calls makedirs?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/security_reminder_hook.py",
+      "plugins/security-guidance/hooks/llm.py",
+      "plugins/security-guidance/hooks/_base.py",
+      "plugins/security-guidance/hooks/session_state.py"
+    ],
+    "expected_symbols": [
+      "makedirs"
+    ],
+    "expected_keywords": [
+      "makedirs"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/security_reminder_hook.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-143",
+    "query": "Who calls _resolve_amend_pre_sha?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/security_reminder_hook.py"
+    ],
+    "expected_symbols": [
+      "_resolve_amend_pre_sha"
+    ],
+    "expected_keywords": [
+      "_resolve_amend_pre_sha"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/security_reminder_hook.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-67",
+    "query": "Who calls list?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/llm.py",
+      "plugins/security-guidance/hooks/security_reminder_hook.py",
+      "plugins/security-guidance/hooks/diffstate.py"
+    ],
+    "expected_symbols": [
+      "list"
+    ],
+    "expected_keywords": [
+      "list"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/llm.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-27",
+    "query": "Who calls _build_auth_headers?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/llm.py"
+    ],
+    "expected_symbols": [
+      "_build_auth_headers"
+    ],
+    "expected_keywords": [
+      "_build_auth_headers"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/llm.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-228",
+    "query": "Who calls count?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/gitutil.py"
+    ],
+    "expected_symbols": [
+      "count"
+    ],
+    "expected_keywords": [
+      "count"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/gitutil.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-11",
+    "query": "Who calls splitext?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/extensibility.py",
+      "plugins/security-guidance/hooks/gitutil.py",
+      "plugins/security-guidance/hooks/llm.py"
+    ],
+    "expected_symbols": [
+      "splitext"
+    ],
+    "expected_keywords": [
+      "splitext"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/extensibility.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-181",
+    "query": "Who calls flock?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/diffstate.py",
+      "plugins/security-guidance/hooks/session_state.py"
+    ],
+    "expected_symbols": [
+      "flock"
+    ],
+    "expected_keywords": [
+      "flock"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/diffstate.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-106",
+    "query": "Who calls debug_log?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/llm.py",
+      "plugins/security-guidance/hooks/gitutil.py",
+      "plugins/security-guidance/hooks/diffstate.py",
+      "plugins/security-guidance/hooks/extensibility.py",
+      "plugins/security-guidance/hooks/security_reminder_hook.py",
+      "plugins/security-guidance/hooks/session_state.py"
+    ],
+    "expected_symbols": [
+      "debug_log"
+    ],
+    "expected_keywords": [
+      "debug_log"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/llm.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-188",
+    "query": "Who calls sub?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/security_reminder_hook.py",
+      "plugins/security-guidance/hooks/llm.py",
+      "plugins/security-guidance/hooks/session_state.py"
+    ],
+    "expected_symbols": [
+      "sub"
+    ],
+    "expected_keywords": [
+      "sub"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/security_reminder_hook.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-139",
+    "query": "Who calls _git_rev_list_range?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/security_reminder_hook.py"
+    ],
+    "expected_symbols": [
+      "_git_rev_list_range"
+    ],
+    "expected_keywords": [
+      "_git_rev_list_range"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/security_reminder_hook.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-164",
+    "query": "Who calls unlink?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/security_reminder_hook.py",
+      "plugins/security-guidance/hooks/gitutil.py",
+      "plugins/security-guidance/hooks/ensure_agent_sdk.py"
+    ],
+    "expected_symbols": [
+      "unlink"
+    ],
+    "expected_keywords": [
+      "unlink"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/security_reminder_hook.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-47",
+    "query": "Who calls RuleEngine?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/hookify/hooks/posttooluse.py",
+      "plugins/hookify/hooks/pretooluse.py",
+      "plugins/hookify/hooks/stop.py",
+      "plugins/hookify/hooks/userpromptsubmit.py"
+    ],
+    "expected_symbols": [
+      "RuleEngine"
+    ],
+    "expected_keywords": [
+      "RuleEngine"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/hookify/hooks/posttooluse.py",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-38",
+    "query": "Who calls record_touched_path?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "plugins/security-guidance/hooks/security_reminder_hook.py"
+    ],
+    "expected_symbols": [
+      "record_touched_path"
+    ],
+    "expected_keywords": [
+      "record_touched_path"
+    ],
+    "source": "callgraph",
+    "source_file": "plugins/security-guidance/hooks/security_reminder_hook.py",
+    "verified": true,
+    "difficulty": "hard"
+  }
+]

@@ -1,18 +1,31 @@
-AGENTS.md
-architecture-validation.md
-benchmark-excellence-report.md
-benchmark-report.json
-benchmark-report.md
-BENCHMARK_TRUST_REPORT.md
-costaffective-benchmark-report.md
-phase6-final-report.md
-production-installation-review.md
-retriever-failure-investigation.md
-router-audit-report.md
-reports/
-tests/
-benchmarks/
+# Local binaries
+costaffective
+costaffective.exe
+*.test
+
+# Go coverage and build scratch
+*.out
+.coverprofile
+coverage.out
+
+# Local databases and index caches
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
 .mycli/
 .mycli-fts/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Keep Git internals out of the working tree
 .git/
-references/

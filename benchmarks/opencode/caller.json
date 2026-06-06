@@ -1,0 +1,392 @@
+[
+  {
+    "id": "caller-1455",
+    "query": "Who calls bounce?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/packages/ui/src/components/shell-submessage-motion.stories.tsx"
+    ],
+    "expected_symbols": [
+      "bounce"
+    ],
+    "expected_keywords": [
+      "bounce"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/packages/ui/src/components/shell-submessage-motion.stories.tsx",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-1656",
+    "query": "Who calls mergeAttributes?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/.opencode/node_modules/effect/dist/Metric.js",
+      "opencode/.opencode/node_modules/effect/src/Metric.ts"
+    ],
+    "expected_symbols": [
+      "mergeAttributes"
+    ],
+    "expected_keywords": [
+      "mergeAttributes"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/.opencode/node_modules/effect/dist/Metric.js",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-239",
+    "query": "Who calls safeObjectKeys$4?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/.opencode/node_modules/fast-check/lib/cjs/fast-check.js",
+      "opencode/.opencode/node_modules/fast-check/lib/fast-check.js"
+    ],
+    "expected_symbols": [
+      "safeObjectKeys$4"
+    ],
+    "expected_keywords": [
+      "safeObjectKeys$4"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/.opencode/node_modules/fast-check/lib/cjs/fast-check.js",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-2401",
+    "query": "Who calls cacheIdentity?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/packages/core/src/repository.ts"
+    ],
+    "expected_symbols": [
+      "cacheIdentity"
+    ],
+    "expected_keywords": [
+      "cacheIdentity"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/packages/core/src/repository.ts",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-1389",
+    "query": "Who calls targetPath?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/packages/opencode/src/plugin/shared.ts"
+    ],
+    "expected_symbols": [
+      "targetPath"
+    ],
+    "expected_keywords": [
+      "targetPath"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/packages/opencode/src/plugin/shared.ts",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-3288",
+    "query": "Who calls takeNHelper?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/.opencode/node_modules/fast-check/lib/cjs/fast-check.js",
+      "opencode/.opencode/node_modules/fast-check/lib/fast-check.js"
+    ],
+    "expected_symbols": [
+      "takeNHelper"
+    ],
+    "expected_keywords": [
+      "takeNHelper"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/.opencode/node_modules/fast-check/lib/cjs/fast-check.js",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-793",
+    "query": "Who calls R?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/.opencode/node_modules/msgpackr/dist/index-no-eval.min.js",
+      "opencode/.opencode/node_modules/msgpackr/dist/index.min.js"
+    ],
+    "expected_symbols": [
+      "R"
+    ],
+    "expected_keywords": [
+      "R"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/.opencode/node_modules/msgpackr/dist/index-no-eval.min.js",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-2383",
+    "query": "Who calls useEnvProxy?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/packages/desktop/src/main/sidecar.ts"
+    ],
+    "expected_symbols": [
+      "useEnvProxy"
+    ],
+    "expected_keywords": [
+      "useEnvProxy"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/packages/desktop/src/main/sidecar.ts",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-3475",
+    "query": "Who calls _gte?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/.opencode/node_modules/zod/src/v4/core/api.ts",
+      "opencode/.opencode/node_modules/zod/v4/core/api.js"
+    ],
+    "expected_symbols": [
+      "_gte"
+    ],
+    "expected_keywords": [
+      "_gte"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/.opencode/node_modules/zod/src/v4/core/api.ts",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-597",
+    "query": "Who calls gateway?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/packages/core/src/plugin/provider/cloudflare-ai-gateway.ts"
+    ],
+    "expected_symbols": [
+      "gateway"
+    ],
+    "expected_keywords": [
+      "gateway"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/packages/core/src/plugin/provider/cloudflare-ai-gateway.ts",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-884",
+    "query": "Who calls w?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/.opencode/node_modules/msgpackr/dist/index-no-eval.min.js",
+      "opencode/.opencode/node_modules/msgpackr/dist/index.min.js"
+    ],
+    "expected_symbols": [
+      "w"
+    ],
+    "expected_keywords": [
+      "w"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/.opencode/node_modules/msgpackr/dist/index-no-eval.min.js",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-898",
+    "query": "Who calls poll?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/packages/opencode/src/cli/cmd/run/stream.transport.ts"
+    ],
+    "expected_symbols": [
+      "poll"
+    ],
+    "expected_keywords": [
+      "poll"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/packages/opencode/src/cli/cmd/run/stream.transport.ts",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-3368",
+    "query": "Who calls uint16Array?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/.opencode/node_modules/fast-check/lib/cjs/fast-check.js",
+      "opencode/.opencode/node_modules/fast-check/lib/fast-check.js"
+    ],
+    "expected_symbols": [
+      "uint16Array"
+    ],
+    "expected_keywords": [
+      "uint16Array"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/.opencode/node_modules/fast-check/lib/cjs/fast-check.js",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-430",
+    "query": "Who calls clonePrompt?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/packages/app/src/context/prompt.tsx",
+      "opencode/packages/storybook/.storybook/mocks/app/context/prompt.ts"
+    ],
+    "expected_symbols": [
+      "clonePrompt"
+    ],
+    "expected_keywords": [
+      "clonePrompt"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/packages/app/src/context/prompt.tsx",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-1639",
+    "query": "Who calls enrichPermission?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/packages/opencode/src/cli/cmd/run/session-data.ts"
+    ],
+    "expected_symbols": [
+      "enrichPermission"
+    ],
+    "expected_keywords": [
+      "enrichPermission"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/packages/opencode/src/cli/cmd/run/session-data.ts",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-2430",
+    "query": "Who calls anyType?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/.opencode/node_modules/msgpackr/dist/test.js",
+      "opencode/.opencode/node_modules/msgpackr/struct.js"
+    ],
+    "expected_symbols": [
+      "anyType"
+    ],
+    "expected_keywords": [
+      "anyType"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/.opencode/node_modules/msgpackr/dist/test.js",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-151",
+    "query": "Who calls loadChangelog?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/packages/console/app/src/routes/changelog.json.ts"
+    ],
+    "expected_symbols": [
+      "loadChangelog"
+    ],
+    "expected_keywords": [
+      "loadChangelog"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/packages/console/app/src/routes/changelog.json.ts",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-1382",
+    "query": "Who calls toGeneratorValue?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/.opencode/node_modules/fast-check/lib/cjs/fast-check.js",
+      "opencode/.opencode/node_modules/fast-check/lib/fast-check.js"
+    ],
+    "expected_symbols": [
+      "toGeneratorValue"
+    ],
+    "expected_keywords": [
+      "toGeneratorValue"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/.opencode/node_modules/fast-check/lib/cjs/fast-check.js",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-2929",
+    "query": "Who calls isAbsolutePath?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/packages/opencode/src/plugin/shared.ts"
+    ],
+    "expected_symbols": [
+      "isAbsolutePath"
+    ],
+    "expected_keywords": [
+      "isAbsolutePath"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/packages/opencode/src/plugin/shared.ts",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "caller-1964",
+    "query": "Who calls anchorExists?",
+    "category": "caller",
+    "expected_retriever": "callgraph",
+    "expected_files": [
+      "opencode/.opencode/node_modules/yaml/dist/test-events.js"
+    ],
+    "expected_symbols": [
+      "anchorExists"
+    ],
+    "expected_keywords": [
+      "anchorExists"
+    ],
+    "source": "callgraph",
+    "source_file": "opencode/.opencode/node_modules/yaml/dist/test-events.js",
+    "verified": true,
+    "difficulty": "hard"
+  }
+]

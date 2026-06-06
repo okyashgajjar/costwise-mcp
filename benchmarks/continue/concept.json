@@ -1,0 +1,362 @@
+[
+  {
+    "id": "concept-1087",
+    "query": "What is the purpose of DebertaForTokenClassification?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "DebertaForTokenClassification"
+    ],
+    "expected_keywords": [
+      "DebertaForTokenClassification"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-1197",
+    "query": "What is the purpose of GPTNeoXForCausalLM?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "GPTNeoXForCausalLM"
+    ],
+    "expected_keywords": [
+      "GPTNeoXForCausalLM"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-1832",
+    "query": "What is the purpose of GotoInput?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "GotoInput"
+    ],
+    "expected_keywords": [
+      "GotoInput"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-2080",
+    "query": "What is the purpose of IndexingProgressErrorTextProps?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "IndexingProgressErrorTextProps"
+    ],
+    "expected_keywords": [
+      "IndexingProgressErrorTextProps"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-1012",
+    "query": "What is the purpose of MarianTokenizer?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "MarianTokenizer"
+    ],
+    "expected_keywords": [
+      "MarianTokenizer"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-2232",
+    "query": "What is the purpose of DocumentEditor?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "DocumentEditor"
+    ],
+    "expected_keywords": [
+      "DocumentEditor"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-1286",
+    "query": "What is the purpose of M2M100Model?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "M2M100Model"
+    ],
+    "expected_keywords": [
+      "M2M100Model"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-1438",
+    "query": "What is the purpose of LlamaTokenizer?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "LlamaTokenizer"
+    ],
+    "expected_keywords": [
+      "LlamaTokenizer"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-721",
+    "query": "What is the purpose of CodeGenPreTrainedModel?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "CodeGenPreTrainedModel"
+    ],
+    "expected_keywords": [
+      "CodeGenPreTrainedModel"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-688",
+    "query": "What is the purpose of ASTForAudioClassification?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "ASTForAudioClassification"
+    ],
+    "expected_keywords": [
+      "ASTForAudioClassification"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-344",
+    "query": "What is the purpose of AsyncEncoder?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "AsyncEncoder"
+    ],
+    "expected_keywords": [
+      "AsyncEncoder"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-1257",
+    "query": "What is the purpose of Swin2SRForImageSuperResolution?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Swin2SRForImageSuperResolution"
+    ],
+    "expected_keywords": [
+      "Swin2SRForImageSuperResolution"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-1089",
+    "query": "What is the purpose of DebertaV2PreTrainedModel?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "DebertaV2PreTrainedModel"
+    ],
+    "expected_keywords": [
+      "DebertaV2PreTrainedModel"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-275",
+    "query": "What is the purpose of SSEOptions?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "SSEOptions"
+    ],
+    "expected_keywords": [
+      "SSEOptions"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-775",
+    "query": "What is the purpose of DPTPreTrainedModel?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "DPTPreTrainedModel"
+    ],
+    "expected_keywords": [
+      "DPTPreTrainedModel"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-601",
+    "query": "What is the purpose of DebertaModel?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "DebertaModel"
+    ],
+    "expected_keywords": [
+      "DebertaModel"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-1018",
+    "query": "What is the purpose of VitsTokenizer?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "VitsTokenizer"
+    ],
+    "expected_keywords": [
+      "VitsTokenizer"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-1345",
+    "query": "What is the purpose of AutoModelForImageToImage?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "AutoModelForImageToImage"
+    ],
+    "expected_keywords": [
+      "AutoModelForImageToImage"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-1222",
+    "query": "What is the purpose of ViTPreTrainedModel?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "ViTPreTrainedModel"
+    ],
+    "expected_keywords": [
+      "ViTPreTrainedModel"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-948",
+    "query": "What is the purpose of NormalizerSequence?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "NormalizerSequence"
+    ],
+    "expected_keywords": [
+      "NormalizerSequence"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  }
+]

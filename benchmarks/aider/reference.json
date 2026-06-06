@@ -1,0 +1,362 @@
+[
+  {
+    "id": "ref-99",
+    "query": "Which files reference TestFindOrBlocks?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "TestFindOrBlocks"
+    ],
+    "expected_keywords": [
+      "TestFindOrBlocks"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-50",
+    "query": "Which files reference Commands?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Commands"
+    ],
+    "expected_keywords": [
+      "Commands"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-107",
+    "query": "Which files reference TestModels?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "TestModels"
+    ],
+    "expected_keywords": [
+      "TestModels"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-106",
+    "query": "Which files reference TestModelInfoManager?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "TestModelInfoManager"
+    ],
+    "expected_keywords": [
+      "TestModelInfoManager"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-109",
+    "query": "Which files reference DummyIO?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "DummyIO"
+    ],
+    "expected_keywords": [
+      "DummyIO"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-45",
+    "query": "Which files reference WholeFileCoder?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "WholeFileCoder"
+    ],
+    "expected_keywords": [
+      "WholeFileCoder"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-51",
+    "query": "Which files reference ClipboardWatcher?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "ClipboardWatcher"
+    ],
+    "expected_keywords": [
+      "ClipboardWatcher"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-55",
+    "query": "Which files reference State?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "State"
+    ],
+    "expected_keywords": [
+      "State"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-93",
+    "query": "Which files reference TestAWSCredentials?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "TestAWSCredentials"
+    ],
+    "expected_keywords": [
+      "TestAWSCredentials"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-87",
+    "query": "Which files reference FileWatcher?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "FileWatcher"
+    ],
+    "expected_keywords": [
+      "FileWatcher"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-36",
+    "query": "Which files reference PatchPrompts?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "PatchPrompts"
+    ],
+    "expected_keywords": [
+      "PatchPrompts"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-75",
+    "query": "Which files reference DummyAnalytics?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "DummyAnalytics"
+    ],
+    "expected_keywords": [
+      "DummyAnalytics"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-38",
+    "query": "Which files reference SearchTextNotUnique?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "SearchTextNotUnique"
+    ],
+    "expected_keywords": [
+      "SearchTextNotUnique"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-37",
+    "query": "Which files reference RelativeIndenter?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "RelativeIndenter"
+    ],
+    "expected_keywords": [
+      "RelativeIndenter"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-131",
+    "query": "Which files reference UserProps?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "UserProps"
+    ],
+    "expected_keywords": [
+      "UserProps"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-39",
+    "query": "Which files reference SingleWholeFileFunctionCoder?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "SingleWholeFileFunctionCoder"
+    ],
+    "expected_keywords": [
+      "SingleWholeFileFunctionCoder"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-54",
+    "query": "Which files reference CaptureIO?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "CaptureIO"
+    ],
+    "expected_keywords": [
+      "CaptureIO"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-129",
+    "query": "Which files reference FormalGreeter?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "FormalGreeter"
+    ],
+    "expected_keywords": [
+      "FormalGreeter"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-97",
+    "query": "Which files reference TestUtils?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "TestUtils"
+    ],
+    "expected_keywords": [
+      "TestUtils"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-78",
+    "query": "Which files reference RepoMap?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "RepoMap"
+    ],
+    "expected_keywords": [
+      "RepoMap"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  }
+]

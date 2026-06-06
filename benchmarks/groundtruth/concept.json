@@ -1,0 +1,182 @@
+[
+  {
+    "id": "concept-001",
+    "query": "How does this project interact with LLMs?",
+    "category": "concept",
+    "expected_files": ["aider/sendchat.py", "aider/models.py"],
+    "expected_symbols": ["send_completion", "LazyLiteLLM"],
+    "expected_keywords": ["LLM", "completion", "chat", "API", "model"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-002",
+    "query": "Explain authentication flow.",
+    "category": "concept",
+    "expected_files": ["aider/models.py", "aider/sendchat.py"],
+    "expected_symbols": ["Model", "ModelSettings"],
+    "expected_keywords": ["api_key", "authentication", "token", "key"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-003",
+    "query": "Describe model configuration process.",
+    "category": "concept",
+    "expected_files": ["aider/models.py"],
+    "expected_symbols": ["Model", "ModelSettings"],
+    "expected_keywords": ["configure", "model", "settings", "options"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-004",
+    "query": "How are API keys managed?",
+    "category": "concept",
+    "expected_files": ["aider/models.py"],
+    "expected_symbols": ["Model"],
+    "expected_keywords": ["api_key", "key", "environment", "env"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-005",
+    "query": "How does repository mapping work?",
+    "category": "concept",
+    "expected_files": ["aider/repomap.py"],
+    "expected_symbols": ["RepoMap"],
+    "expected_keywords": ["repo", "map", "file", "structure", "scan"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-006",
+    "query": "Explain the coder architecture.",
+    "category": "concept",
+    "expected_files": ["aider/coders/base_coder.py"],
+    "expected_symbols": ["Coder"],
+    "expected_keywords": ["coder", "base", "edit", "file"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-007",
+    "query": "How does file editing work?",
+    "category": "concept",
+    "expected_files": ["aider/coders/editblock_coder.py"],
+    "expected_symbols": ["EditBlockCoder"],
+    "expected_keywords": ["edit", "file", "block", "diff", "patch"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-008",
+    "query": "Describe the chat system.",
+    "category": "concept",
+    "expected_files": ["aider/coders/base_coder.py", "aider/sendchat.py"],
+    "expected_symbols": ["send_completion"],
+    "expected_keywords": ["chat", "message", "send", "receive", "conversation"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-009",
+    "query": "How are prompts organized?",
+    "category": "concept",
+    "expected_files": ["aider/prompts.py", "aider/coders/base_prompts.py"],
+    "expected_symbols": [],
+    "expected_keywords": ["prompt", "message", "system", "user"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-010",
+    "query": "Explain the command system.",
+    "category": "concept",
+    "expected_files": ["aider/commands.py"],
+    "expected_symbols": ["Commands"],
+    "expected_keywords": ["command", "handle", "execute", "action"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-011",
+    "query": "How does analytics tracking work?",
+    "category": "concept",
+    "expected_files": ["aider/analytics.py"],
+    "expected_symbols": ["Analytics"],
+    "expected_keywords": ["analytics", "track", "usage", "stats"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-012",
+    "query": "Describe the linting process.",
+    "category": "concept",
+    "expected_files": ["aider/linter.py"],
+    "expected_symbols": ["Linter"],
+    "expected_keywords": ["lint", "check", "pyflakes", "syntax"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-013",
+    "query": "How does version checking work?",
+    "category": "concept",
+    "expected_files": ["aider/versioncheck.py"],
+    "expected_symbols": [],
+    "expected_keywords": ["version", "check", "update", "latest"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-014",
+    "query": "Explain the onboarding flow.",
+    "category": "concept",
+    "expected_files": ["aider/onboarding.py"],
+    "expected_symbols": [],
+    "expected_keywords": ["onboarding", "welcome", "intro", "first"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-015",
+    "query": "How does voice input work?",
+    "category": "concept",
+    "expected_files": ["aider/voice.py"],
+    "expected_symbols": ["Voice"],
+    "expected_keywords": ["voice", "speech", "audio", "recognition"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-016",
+    "query": "Describe the diff system.",
+    "category": "concept",
+    "expected_files": ["aider/diffs.py"],
+    "expected_symbols": ["create_progress_bar", "diff"],
+    "expected_keywords": ["diff", "patch", "hunk", "partial"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-017",
+    "query": "How are model settings configured?",
+    "category": "concept",
+    "expected_files": ["aider/models.py", "aider/args.py"],
+    "expected_symbols": ["ModelSettings"],
+    "expected_keywords": ["model", "settings", "configure", "options"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-018",
+    "query": "Explain the error handling system.",
+    "category": "concept",
+    "expected_files": ["aider/exceptions.py"],
+    "expected_symbols": ["ExInfo", "AiderException"],
+    "expected_keywords": ["error", "exception", "ExInfo", "handle"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-019",
+    "query": "How does clipboard watching work?",
+    "category": "concept",
+    "expected_files": ["aider/copypaste.py"],
+    "expected_symbols": ["ClipboardWatcher"],
+    "expected_keywords": ["clipboard", "watch", "monitor", "paste"],
+    "expected_retriever": "fts"
+  },
+  {
+    "id": "concept-020",
+    "query": "Describe the help system.",
+    "category": "concept",
+    "expected_files": ["aider/help.py", "aider/coders/help_coder.py"],
+    "expected_symbols": ["HelpCoder"],
+    "expected_keywords": ["help", "system", "documentation", "guide"],
+    "expected_retriever": "fts"
+  }
+]

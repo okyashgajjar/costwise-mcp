@@ -1,0 +1,390 @@
+[
+  {
+    "id": "def-23",
+    "query": "Where is cleanDocstring defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/architecture/extractor.go"
+    ],
+    "expected_symbols": [
+      "cleanDocstring"
+    ],
+    "expected_keywords": [
+      "cleanDocstring"
+    ],
+    "source": "architecture",
+    "source_file": "internal/architecture/extractor.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-433",
+    "query": "Where is GetFileHash defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/treesitter/db.go"
+    ],
+    "expected_symbols": [
+      "GetFileHash"
+    ],
+    "expected_keywords": [
+      "GetFileHash"
+    ],
+    "source": "architecture",
+    "source_file": "internal/treesitter/db.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-232",
+    "query": "Where is DeleteSession defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/session/session.go"
+    ],
+    "expected_symbols": [
+      "DeleteSession"
+    ],
+    "expected_keywords": [
+      "DeleteSession"
+    ],
+    "source": "architecture",
+    "source_file": "internal/session/session.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-402",
+    "query": "Where is tokenEstimate defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/retrieval/architecture.go"
+    ],
+    "expected_symbols": [
+      "tokenEstimate"
+    ],
+    "expected_keywords": [
+      "tokenEstimate"
+    ],
+    "source": "architecture",
+    "source_file": "internal/retrieval/architecture.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-246",
+    "query": "Where is createTables defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/storage/storage.go"
+    ],
+    "expected_symbols": [
+      "createTables"
+    ],
+    "expected_keywords": [
+      "createTables"
+    ],
+    "source": "architecture",
+    "source_file": "internal/storage/storage.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-250",
+    "query": "Where is ToolRegistry implemented?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/tools/tools.go"
+    ],
+    "expected_symbols": [
+      "ToolRegistry"
+    ],
+    "expected_keywords": [
+      "ToolRegistry",
+      "class"
+    ],
+    "source": "architecture",
+    "source_file": "internal/tools/tools.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-78",
+    "query": "Where is openRouterChoice implemented?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/provider/openrouter.go"
+    ],
+    "expected_symbols": [
+      "openRouterChoice"
+    ],
+    "expected_keywords": [
+      "openRouterChoice",
+      "class"
+    ],
+    "source": "architecture",
+    "source_file": "internal/provider/openrouter.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-148",
+    "query": "Where is TreeSitterRetriever implemented?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/retrieval/future.go"
+    ],
+    "expected_symbols": [
+      "TreeSitterRetriever"
+    ],
+    "expected_keywords": [
+      "TreeSitterRetriever",
+      "class"
+    ],
+    "source": "architecture",
+    "source_file": "internal/retrieval/future.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-243",
+    "query": "Where is Store implemented?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/storage/storage.go"
+    ],
+    "expected_symbols": [
+      "Store"
+    ],
+    "expected_keywords": [
+      "Store",
+      "class"
+    ],
+    "source": "architecture",
+    "source_file": "internal/storage/storage.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-225",
+    "query": "Where is Store implemented?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/session/session.go"
+    ],
+    "expected_symbols": [
+      "Store"
+    ],
+    "expected_keywords": [
+      "Store",
+      "class"
+    ],
+    "source": "architecture",
+    "source_file": "internal/session/session.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-379",
+    "query": "Where is ValidationResult implemented?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/evaluation/types.go"
+    ],
+    "expected_symbols": [
+      "ValidationResult"
+    ],
+    "expected_keywords": [
+      "ValidationResult",
+      "class"
+    ],
+    "source": "architecture",
+    "source_file": "internal/evaluation/types.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-327",
+    "query": "Where is rankByTokenEfficiency defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/benchmark/leaderboard.go"
+    ],
+    "expected_symbols": [
+      "rankByTokenEfficiency"
+    ],
+    "expected_keywords": [
+      "rankByTokenEfficiency"
+    ],
+    "source": "architecture",
+    "source_file": "internal/benchmark/leaderboard.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-207",
+    "query": "Where is extractKeywordsFromContent defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/retrieval/summarize.go"
+    ],
+    "expected_symbols": [
+      "extractKeywordsFromContent"
+    ],
+    "expected_keywords": [
+      "extractKeywordsFromContent"
+    ],
+    "source": "architecture",
+    "source_file": "internal/retrieval/summarize.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-292",
+    "query": "Where is extractTypeScriptSymbols defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/treesitter/python.go"
+    ],
+    "expected_symbols": [
+      "extractTypeScriptSymbols"
+    ],
+    "expected_keywords": [
+      "extractTypeScriptSymbols"
+    ],
+    "source": "architecture",
+    "source_file": "internal/treesitter/python.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-359",
+    "query": "Where is scoreFlow defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/classifier/classifier.go"
+    ],
+    "expected_symbols": [
+      "scoreFlow"
+    ],
+    "expected_keywords": [
+      "scoreFlow"
+    ],
+    "source": "architecture",
+    "source_file": "internal/classifier/classifier.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-7",
+    "query": "Where is calculateCost defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "cmd/chat.go"
+    ],
+    "expected_symbols": [
+      "calculateCost"
+    ],
+    "expected_keywords": [
+      "calculateCost"
+    ],
+    "source": "architecture",
+    "source_file": "cmd/chat.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-153",
+    "query": "Where is DependencyGraphRetriever implemented?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/retrieval/future.go"
+    ],
+    "expected_symbols": [
+      "DependencyGraphRetriever"
+    ],
+    "expected_keywords": [
+      "DependencyGraphRetriever",
+      "class"
+    ],
+    "source": "architecture",
+    "source_file": "internal/retrieval/future.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-209",
+    "query": "Where is SymbolRetriever implemented?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/retrieval/treesitter.go"
+    ],
+    "expected_symbols": [
+      "SymbolRetriever"
+    ],
+    "expected_keywords": [
+      "SymbolRetriever",
+      "class"
+    ],
+    "source": "architecture",
+    "source_file": "internal/retrieval/treesitter.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-439",
+    "query": "Where is ClearFileCallEdges defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/treesitter/db.go"
+    ],
+    "expected_symbols": [
+      "ClearFileCallEdges"
+    ],
+    "expected_keywords": [
+      "ClearFileCallEdges"
+    ],
+    "source": "architecture",
+    "source_file": "internal/treesitter/db.go",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-180",
+    "query": "Where is NewReferenceRetriever defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "internal/retrieval/reference.go"
+    ],
+    "expected_symbols": [
+      "NewReferenceRetriever"
+    ],
+    "expected_keywords": [
+      "NewReferenceRetriever"
+    ],
+    "source": "architecture",
+    "source_file": "internal/retrieval/reference.go",
+    "verified": true,
+    "difficulty": "easy"
+  }
+]

@@ -1,0 +1,382 @@
+[
+  {
+    "id": "def-51",
+    "query": "Where is _has_redos_structure defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/extensibility.py"
+    ],
+    "expected_symbols": [
+      "_has_redos_structure"
+    ],
+    "expected_keywords": [
+      "_has_redos_structure"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/extensibility.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-41",
+    "query": "Where is load_for_session defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/extensibility.py"
+    ],
+    "expected_symbols": [
+      "load_for_session"
+    ],
+    "expected_keywords": [
+      "load_for_session"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/extensibility.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-86",
+    "query": "Where is _format_vulns_guidance defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/llm.py"
+    ],
+    "expected_symbols": [
+      "_format_vulns_guidance"
+    ],
+    "expected_keywords": [
+      "_format_vulns_guidance"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/llm.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-147",
+    "query": "Where is save_state defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/session_state.py"
+    ],
+    "expected_symbols": [
+      "save_state"
+    ],
+    "expected_keywords": [
+      "save_state"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/session_state.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-212",
+    "query": "Where is githubRequest defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "scripts/sweep.ts"
+    ],
+    "expected_symbols": [
+      "githubRequest"
+    ],
+    "expected_keywords": [
+      "githubRequest"
+    ],
+    "source": "architecture",
+    "source_file": "scripts/sweep.ts",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-105",
+    "query": "Where is build_refute_prompt defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/review_api.py"
+    ],
+    "expected_symbols": [
+      "build_refute_prompt"
+    ],
+    "expected_keywords": [
+      "build_refute_prompt"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/review_api.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-76",
+    "query": "Where is _cap_files_for_prompt defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/llm.py"
+    ],
+    "expected_symbols": [
+      "_cap_files_for_prompt"
+    ],
+    "expected_keywords": [
+      "_cap_files_for_prompt"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/llm.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-96",
+    "query": "Where is _tolerant defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/llm.py"
+    ],
+    "expected_symbols": [
+      "_tolerant"
+    ],
+    "expected_keywords": [
+      "_tolerant"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/llm.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-219",
+    "query": "Where is issues defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "scripts/sweep.ts"
+    ],
+    "expected_symbols": [
+      "issues"
+    ],
+    "expected_keywords": [
+      "issues"
+    ],
+    "source": "architecture",
+    "source_file": "scripts/sweep.ts",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-36",
+    "query": "Where is _list_untracked defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/diffstate.py"
+    ],
+    "expected_symbols": [
+      "_list_untracked"
+    ],
+    "expected_keywords": [
+      "_list_untracked"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/diffstate.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-52",
+    "query": "Where is _git_rev_parse_head defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/gitutil.py"
+    ],
+    "expected_symbols": [
+      "_git_rev_parse_head"
+    ],
+    "expected_keywords": [
+      "_git_rev_parse_head"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/gitutil.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-184",
+    "query": "Where is backfillDuplicateComments defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "scripts/backfill-duplicate-comments.ts"
+    ],
+    "expected_symbols": [
+      "backfillDuplicateComments"
+    ],
+    "expected_keywords": [
+      "backfillDuplicateComments"
+    ],
+    "source": "architecture",
+    "source_file": "scripts/backfill-duplicate-comments.ts",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-189",
+    "query": "Where is minIssueNumber defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "scripts/backfill-duplicate-comments.ts"
+    ],
+    "expected_symbols": [
+      "minIssueNumber"
+    ],
+    "expected_keywords": [
+      "minIssueNumber"
+    ],
+    "source": "architecture",
+    "source_file": "scripts/backfill-duplicate-comments.ts",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-113",
+    "query": "Where is _check defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/security_reminder_hook.py"
+    ],
+    "expected_symbols": [
+      "_check"
+    ],
+    "expected_keywords": [
+      "_check"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/security_reminder_hook.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-24",
+    "query": "Where is _load defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/diffstate.py"
+    ],
+    "expected_symbols": [
+      "_load"
+    ],
+    "expected_keywords": [
+      "_load"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/diffstate.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-77",
+    "query": "Where is _build_auth_headers defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/llm.py"
+    ],
+    "expected_symbols": [
+      "_build_auth_headers"
+    ],
+    "expected_keywords": [
+      "_build_auth_headers"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/llm.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-53",
+    "query": "Where is _find_git_index defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/gitutil.py"
+    ],
+    "expected_symbols": [
+      "_find_git_index"
+    ],
+    "expected_keywords": [
+      "_find_git_index"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/gitutil.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-102",
+    "query": "Where is rule_names_to_mask defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/patterns.py"
+    ],
+    "expected_symbols": [
+      "rule_names_to_mask"
+    ],
+    "expected_keywords": [
+      "rule_names_to_mask"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/patterns.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-61",
+    "query": "Where is _git_reflog_recent_commits defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/security-guidance/hooks/gitutil.py"
+    ],
+    "expected_symbols": [
+      "_git_reflog_recent_commits"
+    ],
+    "expected_keywords": [
+      "_git_reflog_recent_commits"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/security-guidance/hooks/gitutil.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-6",
+    "query": "Where is load_rules defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "plugins/hookify/core/config_loader.py"
+    ],
+    "expected_symbols": [
+      "load_rules"
+    ],
+    "expected_keywords": [
+      "load_rules"
+    ],
+    "source": "architecture",
+    "source_file": "plugins/hookify/core/config_loader.py",
+    "verified": true,
+    "difficulty": "easy"
+  }
+]

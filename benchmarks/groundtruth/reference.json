@@ -1,0 +1,182 @@
+[
+  {
+    "id": "ref-001",
+    "query": "Who uses RepoMap?",
+    "category": "reference",
+    "expected_files": ["aider/coders/base_coder.py", "aider/repomap.py"],
+    "expected_symbols": ["RepoMap"],
+    "expected_keywords": ["RepoMap", "import", "repomap"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-002",
+    "query": "Find references to ModelSettings.",
+    "category": "reference",
+    "expected_files": ["aider/models.py", "aider/sendchat.py"],
+    "expected_symbols": ["ModelSettings"],
+    "expected_keywords": ["ModelSettings", "model_settings", "settings"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-003",
+    "query": "Show imports of Coder.",
+    "category": "reference",
+    "expected_files": ["aider/coders/base_coder.py", "aider/coders/editblock_coder.py"],
+    "expected_symbols": ["Coder"],
+    "expected_keywords": ["from", "import", "Coder"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-004",
+    "query": "Which files reference Analytics?",
+    "category": "reference",
+    "expected_files": ["aider/analytics.py", "aider/sendchat.py"],
+    "expected_symbols": ["Analytics"],
+    "expected_keywords": ["Analytics", "analytics", "import"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-005",
+    "query": "Who uses LazyLiteLLM?",
+    "category": "reference",
+    "expected_files": ["aider/llm.py", "aider/sendchat.py"],
+    "expected_symbols": ["LazyLiteLLM"],
+    "expected_keywords": ["LazyLiteLLM", "import", "llm"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-006",
+    "query": "Find references to InputOutput.",
+    "category": "reference",
+    "expected_files": ["aider/io.py", "aider/coders/base_coder.py"],
+    "expected_symbols": ["InputOutput"],
+    "expected_keywords": ["InputOutput", "import", "io"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-007",
+    "query": "Show imports of Commands.",
+    "category": "reference",
+    "expected_files": ["aider/commands.py", "aider/coders/base_coder.py"],
+    "expected_symbols": ["Commands"],
+    "expected_keywords": ["from", "import", "Commands"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-008",
+    "query": "Who uses ExInfo?",
+    "category": "reference",
+    "expected_files": ["aider/exceptions.py", "aider/sendchat.py"],
+    "expected_symbols": ["ExInfo"],
+    "expected_keywords": ["ExInfo", "import", "exception"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-009",
+    "query": "Find references to Model.",
+    "category": "reference",
+    "expected_files": ["aider/models.py", "aider/sendchat.py"],
+    "expected_symbols": ["Model"],
+    "expected_keywords": ["Model", "class Model", "model"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-010",
+    "query": "Which files reference HelpCoder?",
+    "category": "reference",
+    "expected_files": ["aider/coders/help_coder.py", "aider/commands.py"],
+    "expected_symbols": ["HelpCoder"],
+    "expected_keywords": ["HelpCoder", "class HelpCoder", "help"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-011",
+    "query": "Show imports of EditBlockCoder.",
+    "category": "reference",
+    "expected_files": ["aider/coders/editblock_coder.py", "aider/commands.py"],
+    "expected_symbols": ["EditBlockCoder"],
+    "expected_keywords": ["from", "import", "EditBlockCoder"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-012",
+    "query": "Who uses WholeFileCoder?",
+    "category": "reference",
+    "expected_files": ["aider/coders/wholefile_coder.py", "aider/commands.py"],
+    "expected_symbols": ["WholeFileCoder"],
+    "expected_keywords": ["WholeFileCoder", "class WholeFileCoder", "wholefile"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-013",
+    "query": "Find references to ClipboardWatcher.",
+    "category": "reference",
+    "expected_files": ["aider/copypaste.py", "aider/coders/base_coder.py"],
+    "expected_symbols": ["ClipboardWatcher"],
+    "expected_keywords": ["ClipboardWatcher", "clipboard", "watcher"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-014",
+    "query": "Which files reference sanity_check_messages?",
+    "category": "reference",
+    "expected_files": ["aider/sendchat.py", "aider/coders/base_coder.py"],
+    "expected_symbols": ["sanity_check_messages"],
+    "expected_keywords": ["sanity_check_messages", "def", "check"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-015",
+    "query": "Show imports of Linter.",
+    "category": "reference",
+    "expected_files": ["aider/linter.py", "aider/coders/base_coder.py"],
+    "expected_symbols": ["Linter"],
+    "expected_keywords": ["from", "import", "Linter"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-016",
+    "query": "Who uses ModelInfoManager?",
+    "category": "reference",
+    "expected_files": ["aider/models.py", "aider/sendchat.py"],
+    "expected_symbols": ["ModelInfoManager"],
+    "expected_keywords": ["ModelInfoManager", "model", "info"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-017",
+    "query": "Find references to SwitchCoder.",
+    "category": "reference",
+    "expected_files": ["aider/commands.py", "aider/coders/base_coder.py"],
+    "expected_symbols": ["SwitchCoder"],
+    "expected_keywords": ["SwitchCoder", "switch", "coder"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-018",
+    "query": "Which files reference Repo?",
+    "category": "reference",
+    "expected_files": ["aider/repo.py", "aider/coders/base_coder.py"],
+    "expected_symbols": ["Repo"],
+    "expected_keywords": ["Repo", "repo", "class"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-019",
+    "query": "Show imports of Voice.",
+    "category": "reference",
+    "expected_files": ["aider/voice.py", "aider/commands.py"],
+    "expected_symbols": ["Voice"],
+    "expected_keywords": ["Voice", "voice", "import"],
+    "expected_retriever": "reference"
+  },
+  {
+    "id": "ref-020",
+    "query": "Who uses History?",
+    "category": "reference",
+    "expected_files": ["aider/history.py", "aider/coders/base_coder.py"],
+    "expected_symbols": ["History"],
+    "expected_keywords": ["History", "history", "import"],
+    "expected_retriever": "reference"
+  }
+]

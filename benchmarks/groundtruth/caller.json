@@ -1,0 +1,182 @@
+[
+  {
+    "id": "caller-001",
+    "query": "Who calls RepoMap?",
+    "category": "caller",
+    "expected_files": ["aider/coders/base_coder.py"],
+    "expected_symbols": ["RepoMap"],
+    "expected_keywords": ["RepoMap", "repomap", "call"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-002",
+    "query": "Who calls sanity_check_messages?",
+    "category": "caller",
+    "expected_files": ["aider/sendchat.py"],
+    "expected_symbols": ["sanity_check_messages"],
+    "expected_keywords": ["sanity_check_messages", "check", "call"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-003",
+    "query": "Who calls ensure_alternating_roles?",
+    "category": "caller",
+    "expected_files": ["aider/sendchat.py"],
+    "expected_symbols": ["ensure_alternating_roles"],
+    "expected_keywords": ["ensure_alternating_roles", "roles", "call"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-004",
+    "query": "Who calls get_or_create_uuid?",
+    "category": "caller",
+    "expected_files": ["aider/analytics.py"],
+    "expected_symbols": ["get_or_create_uuid"],
+    "expected_keywords": ["get_or_create_uuid", "uuid", "call"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-005",
+    "query": "Who calls compute_hex_threshold?",
+    "category": "caller",
+    "expected_files": ["aider/analytics.py"],
+    "expected_symbols": ["compute_hex_threshold"],
+    "expected_keywords": ["compute_hex_threshold", "hex", "threshold"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-006",
+    "query": "Who calls fuzzy_match_models?",
+    "category": "caller",
+    "expected_files": ["aider/models.py"],
+    "expected_symbols": ["fuzzy_match_models"],
+    "expected_keywords": ["fuzzy_match_models", "fuzzy", "models"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-007",
+    "query": "Who calls validate_variables?",
+    "category": "caller",
+    "expected_files": ["aider/models.py"],
+    "expected_symbols": ["validate_variables"],
+    "expected_keywords": ["validate_variables", "validate", "variables"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-008",
+    "query": "Who calls send_completion?",
+    "category": "caller",
+    "expected_files": ["aider/sendchat.py"],
+    "expected_symbols": ["send_completion"],
+    "expected_keywords": ["send_completion", "send", "completion"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-009",
+    "query": "Who calls pipe_editor?",
+    "category": "caller",
+    "expected_files": ["aider/editor.py"],
+    "expected_symbols": ["pipe_editor"],
+    "expected_keywords": ["pipe_editor", "editor", "pipe"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-010",
+    "query": "Who calls discover_editor?",
+    "category": "caller",
+    "expected_files": ["aider/editor.py"],
+    "expected_symbols": ["discover_editor"],
+    "expected_keywords": ["discover_editor", "discover", "editor"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-011",
+    "query": "Who calls format_settings?",
+    "category": "caller",
+    "expected_files": ["aider/format_settings.py"],
+    "expected_symbols": ["format_settings"],
+    "expected_keywords": ["format_settings", "format", "call"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-012",
+    "query": "Who calls scrub_sensitive_info?",
+    "category": "caller",
+    "expected_files": ["aider/format_settings.py"],
+    "expected_symbols": ["scrub_sensitive_info"],
+    "expected_keywords": ["scrub_sensitive_info", "scrub", "sensitive"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-013",
+    "query": "Who calls create_progress_bar?",
+    "category": "caller",
+    "expected_files": ["aider/diffs.py"],
+    "expected_symbols": ["create_progress_bar"],
+    "expected_keywords": ["create_progress_bar", "progress", "bar"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-014",
+    "query": "Who calls assert_newlines?",
+    "category": "caller",
+    "expected_files": ["aider/diffs.py"],
+    "expected_symbols": ["assert_newlines"],
+    "expected_keywords": ["assert_newlines", "assert", "newlines"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-015",
+    "query": "Who calls diff_partial_update?",
+    "category": "caller",
+    "expected_files": ["aider/diffs.py"],
+    "expected_symbols": ["diff_partial_update"],
+    "expected_keywords": ["diff_partial_update", "diff", "update"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-016",
+    "query": "Who calls find_last_non_deleted?",
+    "category": "caller",
+    "expected_files": ["aider/diffs.py"],
+    "expected_symbols": ["find_last_non_deleted"],
+    "expected_keywords": ["find_last_non_deleted", "find", "deleted"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-017",
+    "query": "Who calls check_for_dependencies?",
+    "category": "caller",
+    "expected_files": ["aider/models.py"],
+    "expected_symbols": ["check_for_dependencies"],
+    "expected_keywords": ["check_for_dependencies", "check", "dependencies"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-018",
+    "query": "Who calls resolve_aiderignore_path?",
+    "category": "caller",
+    "expected_files": ["aider/args.py"],
+    "expected_symbols": ["resolve_aiderignore_path"],
+    "expected_keywords": ["resolve_aiderignore_path", "ignore", "path"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-019",
+    "query": "Who calls default_env_file?",
+    "category": "caller",
+    "expected_files": ["aider/args.py"],
+    "expected_symbols": ["default_env_file"],
+    "expected_keywords": ["default_env_file", "env", "default"],
+    "expected_retriever": "callgraph"
+  },
+  {
+    "id": "caller-020",
+    "query": "Who calls print_status_message?",
+    "category": "caller",
+    "expected_files": ["aider/editor.py"],
+    "expected_symbols": ["print_status_message"],
+    "expected_keywords": ["print_status_message", "print", "status"],
+    "expected_retriever": "callgraph"
+  }
+]

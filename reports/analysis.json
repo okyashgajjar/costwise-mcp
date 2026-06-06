@@ -1,0 +1,247 @@
+{
+  "global_leaderboard": [
+    {
+      "rank": 1,
+      "name": "treesitter",
+      "accuracy": 0.22285714285714286,
+      "token_efficiency": 3.4165906817452525,
+      "latency_efficiency": 33.240664737138296,
+      "cost_efficiency": 68.33181363490505,
+      "validation_rate": 1,
+      "research_score": 35.85024175292002,
+      "std_dev": 0.03207134902949093
+    },
+    {
+      "rank": 2,
+      "name": "auto",
+      "accuracy": 0.1771428571428571,
+      "token_efficiency": 1.652744489641692,
+      "latency_efficiency": 1.2862118042169075,
+      "cost_efficiency": 33.05488979283385,
+      "validation_rate": 1,
+      "research_score": 32.294884364064316,
+      "std_dev": 0.048529393575608655
+    },
+    {
+      "rank": 3,
+      "name": "architecture",
+      "accuracy": 0.11714285714285715,
+      "token_efficiency": 1.1896932893544463,
+      "latency_efficiency": 34.326005620608726,
+      "cost_efficiency": 23.793865787088922,
+      "validation_rate": 1,
+      "research_score": 26.17839636278891,
+      "std_dev": 0.07780142173822915
+    },
+    {
+      "rank": 4,
+      "name": "grep",
+      "accuracy": 0.07,
+      "token_efficiency": 0.3739219982430534,
+      "latency_efficiency": 0.2418816620491973,
+      "cost_efficiency": 7.4784399648610655,
+      "validation_rate": 1,
+      "research_score": 18.291829708710672,
+      "std_dev": 0.0917405391885847
+    },
+    {
+      "rank": 5,
+      "name": "flowgraph",
+      "accuracy": 0,
+      "token_efficiency": 0,
+      "latency_efficiency": 0,
+      "cost_efficiency": 0,
+      "validation_rate": 1,
+      "research_score": 15.732142857142856,
+      "std_dev": 0
+    },
+    {
+      "rank": 6,
+      "name": "fts",
+      "accuracy": 0.054285714285714284,
+      "token_efficiency": 0.777180325701248,
+      "latency_efficiency": 0.45506010540790875,
+      "cost_efficiency": 15.543606514024962,
+      "validation_rate": 1,
+      "research_score": 13.443799218538183,
+      "std_dev": 0.05394630739571202
+    },
+    {
+      "rank": 7,
+      "name": "reference",
+      "accuracy": 0,
+      "token_efficiency": 0,
+      "latency_efficiency": 0,
+      "cost_efficiency": 0,
+      "validation_rate": 1,
+      "research_score": 11.714285714285714,
+      "std_dev": 0
+    },
+    {
+      "rank": 8,
+      "name": "naive",
+      "accuracy": 0.08571428571428572,
+      "token_efficiency": 0.3703821176154398,
+      "latency_efficiency": 0,
+      "cost_efficiency": 7.4076423523087955,
+      "validation_rate": 1,
+      "research_score": 11.627647852094517,
+      "std_dev": 0.06998542122237651
+    },
+    {
+      "rank": 9,
+      "name": "callgraph",
+      "accuracy": 0,
+      "token_efficiency": 0,
+      "latency_efficiency": 0,
+      "cost_efficiency": 0,
+      "validation_rate": 1,
+      "research_score": 9.732142857142856,
+      "std_dev": 0
+    }
+  ],
+  "repo_breakdown": [
+    {
+      "repo": "Aider",
+      "best_retriever": "treesitter",
+      "best_score": 39.418114317362544,
+      "worst_retriever": "callgraph",
+      "worst_score": 11.875,
+      "best_accuracy": 0.2357142857142857,
+      "best_tokens": 42.05714285714286,
+      "best_latency": 4.8
+    },
+    {
+      "repo": "Claude Code",
+      "best_retriever": "treesitter",
+      "best_score": 44.52197413907365,
+      "worst_retriever": "flowgraph",
+      "worst_score": 5.892857142857142,
+      "best_accuracy": 0.2785714285714286,
+      "best_tokens": 2.4285714285714284,
+      "best_latency": 0.5571428571428572
+    },
+    {
+      "repo": "Continue",
+      "best_retriever": "auto",
+      "best_score": 31.455991060958706,
+      "worst_retriever": "callgraph",
+      "worst_score": 8.928571428571429,
+      "best_accuracy": 0.20714285714285716,
+      "best_tokens": 56.9,
+      "best_latency": 38.73571428571429
+    },
+    {
+      "repo": "MyCLI",
+      "best_retriever": "architecture",
+      "best_score": 38.71749765887407,
+      "worst_retriever": "naive",
+      "worst_score": 7.857142857142858,
+      "best_accuracy": 0.22142857142857142,
+      "best_tokens": 75.16428571428571,
+      "best_latency": 1.9714285714285715
+    },
+    {
+      "repo": "OpenCode",
+      "best_retriever": "treesitter",
+      "best_score": 27.914247753443036,
+      "worst_retriever": "naive",
+      "worst_score": 5,
+      "best_accuracy": 0.18571428571428572,
+      "best_tokens": 110.27857142857142,
+      "best_latency": 84.67857142857143
+    }
+  ],
+  "category_breakdown": [
+    {
+      "category": "definition",
+      "best_retriever": "treesitter",
+      "best_accuracy": 0.9099999999999999,
+      "worst_retriever": "naive",
+      "worst_accuracy": 0
+    },
+    {
+      "category": "reference",
+      "best_retriever": "naive",
+      "best_accuracy": 0,
+      "worst_retriever": "naive",
+      "worst_accuracy": 0
+    },
+    {
+      "category": "caller",
+      "best_retriever": "treesitter",
+      "best_accuracy": 0.65,
+      "worst_retriever": "naive",
+      "worst_accuracy": 0
+    },
+    {
+      "category": "repository",
+      "best_retriever": "naive",
+      "best_accuracy": 0.6,
+      "worst_retriever": "treesitter",
+      "worst_accuracy": 0
+    },
+    {
+      "category": "architecture",
+      "best_retriever": "naive",
+      "best_accuracy": 0,
+      "worst_retriever": "naive",
+      "worst_accuracy": 0
+    },
+    {
+      "category": "flow",
+      "best_retriever": "naive",
+      "best_accuracy": 0,
+      "worst_retriever": "naive",
+      "worst_accuracy": 0
+    },
+    {
+      "category": "concept",
+      "best_retriever": "naive",
+      "best_accuracy": 0,
+      "worst_retriever": "naive",
+      "worst_accuracy": 0
+    }
+  ],
+  "router_audit": {
+    "auto_accuracy": 0.1771428571428571,
+    "best_static_name": "treesitter",
+    "best_static_accuracy": 0.22285714285714286,
+    "accuracy_gap": -0.04571428571428576,
+    "perfect_router_gain": 0.0485714285714286
+  },
+  "oracle_analysis": {
+    "oracle_accuracy": 0.3114285714285714,
+    "auto_accuracy": 0.17714285714285713,
+    "improvement_percent": 0.13428571428571426
+  },
+  "failure_analysis": [
+    {
+      "reason": "Wrong file returned",
+      "count": 544,
+      "pct": 100
+    },
+    {
+      "reason": "Wrong routing (auto)",
+      "count": 32,
+      "pct": 5.88235294117647
+    },
+    {
+      "reason": "Low keyword coverage",
+      "count": 0,
+      "pct": 0
+    },
+    {
+      "reason": "No results returned",
+      "count": 0,
+      "pct": 0
+    }
+  ],
+  "recommendations": {
+    "production_default": "treesitter",
+    "largest_bottleneck": "4 of 7 categories have 0% accuracy across all retrievers (including: reference)",
+    "highest_gain_action": "Improve auto-router to close the 13.4% gap to oracle accuracy (17.7% → 31.1%)",
+    "next_phase_focus": "retrieval quality",
+    "next_phase_rationale": "4 categories have zero accuracy. No amount of routing or ranking improvement can fix missing retrieval coverage."
+  }
+}

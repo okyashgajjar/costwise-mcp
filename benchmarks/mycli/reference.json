@@ -1,0 +1,362 @@
+[
+  {
+    "id": "ref-93",
+    "query": "Which files reference BenchmarkDef?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "BenchmarkDef"
+    ],
+    "expected_keywords": [
+      "BenchmarkDef"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-80",
+    "query": "Which files reference perRetrieverStats?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "perRetrieverStats"
+    ],
+    "expected_keywords": [
+      "perRetrieverStats"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-3",
+    "query": "Which files reference Indexer?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Indexer"
+    ],
+    "expected_keywords": [
+      "Indexer"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-45",
+    "query": "Which files reference SCIPRetriever?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "SCIPRetriever"
+    ],
+    "expected_keywords": [
+      "SCIPRetriever"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-84",
+    "query": "Which files reference categoryWeights?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "categoryWeights"
+    ],
+    "expected_keywords": [
+      "categoryWeights"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-6",
+    "query": "Which files reference Level?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Level"
+    ],
+    "expected_keywords": [
+      "Level"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-41",
+    "query": "Which files reference TreeSitterRetriever?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "TreeSitterRetriever"
+    ],
+    "expected_keywords": [
+      "TreeSitterRetriever"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-46",
+    "query": "Which files reference DependencyGraphRetriever?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "DependencyGraphRetriever"
+    ],
+    "expected_keywords": [
+      "DependencyGraphRetriever"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-8",
+    "query": "Which files reference Builder?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Builder"
+    ],
+    "expected_keywords": [
+      "Builder"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-83",
+    "query": "Which files reference RetrievalEvidenceEvaluator?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "RetrievalEvidenceEvaluator"
+    ],
+    "expected_keywords": [
+      "RetrievalEvidenceEvaluator"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-16",
+    "query": "Which files reference openRouterChatRequest?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "openRouterChatRequest"
+    ],
+    "expected_keywords": [
+      "openRouterChatRequest"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-44",
+    "query": "Which files reference LSIFRetriever?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "LSIFRetriever"
+    ],
+    "expected_keywords": [
+      "LSIFRetriever"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-38",
+    "query": "Which files reference callerFileKey?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "callerFileKey"
+    ],
+    "expected_keywords": [
+      "callerFileKey"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-57",
+    "query": "Which files reference Retriever?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Retriever"
+    ],
+    "expected_keywords": [
+      "Retriever"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-18",
+    "query": "Which files reference openRouterDelta?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "openRouterDelta"
+    ],
+    "expected_keywords": [
+      "openRouterDelta"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-30",
+    "query": "Which files reference Factory?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Factory"
+    ],
+    "expected_keywords": [
+      "Factory"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-78",
+    "query": "Which files reference DB?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "DB"
+    ],
+    "expected_keywords": [
+      "DB"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-101",
+    "query": "Which files reference BenchmarkGenerator?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "BenchmarkGenerator"
+    ],
+    "expected_keywords": [
+      "BenchmarkGenerator"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-4",
+    "query": "Which files reference Config?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Config"
+    ],
+    "expected_keywords": [
+      "Config"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "ref-61",
+    "query": "Which files reference Session?",
+    "category": "reference",
+    "expected_retriever": "reference",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Session"
+    ],
+    "expected_keywords": [
+      "Session"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  }
+]

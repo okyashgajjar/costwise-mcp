@@ -1,0 +1,46 @@
+Retriever,Repo,Accuracy,AvgTokens,AvgLatencyMs,AvgKeywordCoverage,ValidationPassRate,ResearchScore
+naive,Aider,0.143,2640.0,0.0,0.182,1.000,15.38
+grep,Aider,0.086,1519.2,839.5,0.418,1.000,19.00
+fts,Aider,0.100,610.5,130.9,0.289,1.000,16.64
+treesitter,Aider,0.236,509.2,13.5,0.893,1.000,39.42
+reference,Aider,0.000,103.0,4.8,0.379,1.000,14.46
+callgraph,Aider,0.000,187.2,10.1,0.275,1.000,11.88
+architecture,Aider,0.100,1395.0,11.0,0.479,1.000,22.02
+flowgraph,Aider,0.000,42.1,6.6,0.361,1.000,14.02
+auto,Aider,0.236,1255.4,336.9,0.914,1.000,37.73
+naive,OpenCode,0.000,0.0,0.0,0.000,1.000,5.00
+grep,OpenCode,0.007,902.9,2102.1,0.189,1.000,10.03
+fts,OpenCode,0.000,651.1,84.7,0.211,1.000,10.27
+treesitter,OpenCode,0.186,839.0,432.1,0.600,1.000,27.91
+reference,OpenCode,0.000,276.6,146.9,0.229,1.000,10.71
+callgraph,OpenCode,0.000,551.3,129.6,0.186,1.000,9.64
+architecture,OpenCode,0.029,1154.8,144.7,0.279,1.000,13.18
+flowgraph,OpenCode,0.000,110.3,85.2,0.732,1.000,23.30
+auto,OpenCode,0.114,659.1,810.5,0.636,1.000,25.83
+naive,Continue,0.143,2996.0,0.0,0.164,1.000,14.92
+grep,Continue,0.000,1656.1,1403.5,0.229,1.000,10.71
+fts,Continue,0.007,714.3,108.3,0.179,1.000,9.78
+treesitter,Continue,0.207,779.5,146.5,0.671,1.000,30.74
+reference,Continue,0.000,405.0,56.8,0.286,1.000,12.14
+callgraph,Continue,0.000,300.5,38.7,0.157,1.000,8.93
+architecture,Continue,0.043,1643.1,123.7,0.307,1.000,14.48
+flowgraph,Continue,0.000,56.9,77.8,0.525,1.000,18.12
+auto,Continue,0.171,1240.7,466.0,0.771,1.000,31.46
+naive,Claude Code,0.143,1713.0,0.0,0.164,1.000,14.99
+grep,Claude Code,0.243,2078.8,231.4,0.471,1.000,26.84
+fts,Claude Code,0.136,829.2,108.2,0.357,1.000,19.81
+treesitter,Claude Code,0.279,608.2,2.9,0.714,1.000,44.52
+reference,Claude Code,0.000,129.9,1.1,0.171,1.000,9.29
+callgraph,Claude Code,0.000,150.8,2.5,0.143,1.000,8.57
+architecture,Claude Code,0.193,1189.4,1.8,0.779,1.000,42.50
+flowgraph,Claude Code,0.000,2.4,0.6,0.036,1.000,5.89
+auto,Claude Code,0.229,1113.3,64.9,0.786,1.000,34.55
+naive,MyCLI,0.000,1373.0,0.0,0.114,1.000,7.86
+grep,MyCLI,0.014,2463.0,263.1,0.771,1.000,24.87
+fts,MyCLI,0.029,559.0,149.7,0.179,1.000,10.73
+treesitter,MyCLI,0.207,689.8,4.1,0.707,1.000,36.65
+reference,MyCLI,0.000,124.7,2.0,0.279,1.000,11.96
+callgraph,MyCLI,0.000,156.6,3.1,0.186,1.000,9.64
+architecture,MyCLI,0.221,713.9,4.1,0.754,1.000,38.72
+flowgraph,MyCLI,0.000,75.2,2.9,0.493,1.000,17.32
+auto,MyCLI,0.136,1114.8,79.8,0.843,1.000,31.91

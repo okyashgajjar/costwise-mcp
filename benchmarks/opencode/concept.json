@@ -1,0 +1,362 @@
+[
+  {
+    "id": "concept-474",
+    "query": "How does QuotaExceededReason work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "QuotaExceededReason"
+    ],
+    "expected_keywords": [
+      "QuotaExceededReason"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-467",
+    "query": "How does HttpResponseDetails work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "HttpResponseDetails"
+    ],
+    "expected_keywords": [
+      "HttpResponseDetails"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-418",
+    "query": "How does ReasoningStreamItem work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "ReasoningStreamItem"
+    ],
+    "expected_keywords": [
+      "ReasoningStreamItem"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-124",
+    "query": "How does CommonUsage work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "CommonUsage"
+    ],
+    "expected_keywords": [
+      "CommonUsage"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-893",
+    "query": "How does File work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "File"
+    ],
+    "expected_keywords": [
+      "File"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-487",
+    "query": "How does ToolChoice work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "ToolChoice"
+    ],
+    "expected_keywords": [
+      "ToolChoice"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-653",
+    "query": "How does McpOAuthCallbacks work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "McpOAuthCallbacks"
+    ],
+    "expected_keywords": [
+      "McpOAuthCallbacks"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-880",
+    "query": "How does Global work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Global"
+    ],
+    "expected_keywords": [
+      "Global"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-156",
+    "query": "How does Writable work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Writable"
+    ],
+    "expected_keywords": [
+      "Writable"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-174",
+    "query": "How does Remote work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Remote"
+    ],
+    "expected_keywords": [
+      "Remote"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-792",
+    "query": "How does Service work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Service"
+    ],
+    "expected_keywords": [
+      "Service"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-948",
+    "query": "How does Project work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Project"
+    ],
+    "expected_keywords": [
+      "Project"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-168",
+    "query": "How does Policy work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Policy"
+    ],
+    "expected_keywords": [
+      "Policy"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-789",
+    "query": "How does Service work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "Service"
+    ],
+    "expected_keywords": [
+      "Service"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-310",
+    "query": "How does UnsupportedLocalRepositoryError work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "UnsupportedLocalRepositoryError"
+    ],
+    "expected_keywords": [
+      "UnsupportedLocalRepositoryError"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-112",
+    "query": "How does MonthlyLimitError work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "MonthlyLimitError"
+    ],
+    "expected_keywords": [
+      "MonthlyLimitError"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-389",
+    "query": "How does SqliteClientConfig work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "SqliteClientConfig"
+    ],
+    "expected_keywords": [
+      "SqliteClientConfig"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-1025",
+    "query": "How does ContextMenuCheckboxItemProps work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "ContextMenuCheckboxItemProps"
+    ],
+    "expected_keywords": [
+      "ContextMenuCheckboxItemProps"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-1092",
+    "query": "How does AccordionV2TriggerProps work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "AccordionV2TriggerProps"
+    ],
+    "expected_keywords": [
+      "AccordionV2TriggerProps"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  },
+  {
+    "id": "concept-301",
+    "query": "How does CloneFailedError work?",
+    "category": "concept",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "CloneFailedError"
+    ],
+    "expected_keywords": [
+      "CloneFailedError"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "medium"
+  }
+]

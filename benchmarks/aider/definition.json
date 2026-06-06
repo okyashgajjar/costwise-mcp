@@ -1,0 +1,386 @@
+[
+  {
+    "id": "def-51",
+    "query": "Where is _stop_waiting_spinner defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/coders/base_coder.py"
+    ],
+    "expected_symbols": [
+      "_stop_waiting_spinner"
+    ],
+    "expected_keywords": [
+      "_stop_waiting_spinner"
+    ],
+    "source": "architecture",
+    "source_file": "aider/coders/base_coder.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-127",
+    "query": "Where is ChatChunks implemented?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/coders/chat_chunks.py"
+    ],
+    "expected_symbols": [
+      "ChatChunks"
+    ],
+    "expected_keywords": [
+      "ChatChunks",
+      "class"
+    ],
+    "source": "architecture",
+    "source_file": "aider/coders/chat_chunks.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-602",
+    "query": "Where is to_tree defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/repomap.py"
+    ],
+    "expected_symbols": [
+      "to_tree"
+    ],
+    "expected_keywords": [
+      "to_tree"
+    ],
+    "source": "architecture",
+    "source_file": "aider/repomap.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-874",
+    "query": "Where is eA implemented?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/website/assets/asciinema/asciinema-player.min.js"
+    ],
+    "expected_symbols": [
+      "eA"
+    ],
+    "expected_keywords": [
+      "eA",
+      "class"
+    ],
+    "source": "architecture",
+    "source_file": "aider/website/assets/asciinema/asciinema-player.min.js",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-932",
+    "query": "Where is lineHeight defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/website/assets/asciinema/asciinema-player.min.js"
+    ],
+    "expected_symbols": [
+      "lineHeight"
+    ],
+    "expected_keywords": [
+      "lineHeight"
+    ],
+    "source": "architecture",
+    "source_file": "aider/website/assets/asciinema/asciinema-player.min.js",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-19",
+    "query": "Where is get_md_help defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/args.py"
+    ],
+    "expected_symbols": [
+      "get_md_help"
+    ],
+    "expected_keywords": [
+      "get_md_help"
+    ],
+    "source": "architecture",
+    "source_file": "aider/args.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-694",
+    "query": "Where is items defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/website/_includes/code-in-json-benchmark.js"
+    ],
+    "expected_symbols": [
+      "items"
+    ],
+    "expected_keywords": [
+      "items"
+    ],
+    "source": "architecture",
+    "source_file": "aider/website/_includes/code-in-json-benchmark.js",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-662",
+    "query": "Where is check_version defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/versioncheck.py"
+    ],
+    "expected_symbols": [
+      "check_version"
+    ],
+    "expected_keywords": [
+      "check_version"
+    ],
+    "source": "architecture",
+    "source_file": "aider/versioncheck.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-414",
+    "query": "Where is _validate_color_settings defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/io.py"
+    ],
+    "expected_symbols": [
+      "_validate_color_settings"
+    ],
+    "expected_keywords": [
+      "_validate_color_settings"
+    ],
+    "source": "architecture",
+    "source_file": "aider/io.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-220",
+    "query": "Where is apply_edits defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/coders/single_wholefile_func_coder.py"
+    ],
+    "expected_symbols": [
+      "apply_edits"
+    ],
+    "expected_keywords": [
+      "apply_edits"
+    ],
+    "source": "architecture",
+    "source_file": "aider/coders/single_wholefile_func_coder.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-397",
+    "query": "Where is __init__ defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/history.py"
+    ],
+    "expected_symbols": [
+      "__init__"
+    ],
+    "expected_keywords": [
+      "__init__"
+    ],
+    "source": "architecture",
+    "source_file": "aider/history.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-950",
+    "query": "Where is run_test defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "benchmark/benchmark.py"
+    ],
+    "expected_symbols": [
+      "run_test"
+    ],
+    "expected_keywords": [
+      "run_test"
+    ],
+    "source": "architecture",
+    "source_file": "benchmark/benchmark.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-499",
+    "query": "Where is set_verify_ssl defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/models.py"
+    ],
+    "expected_symbols": [
+      "set_verify_ssl"
+    ],
+    "expected_keywords": [
+      "set_verify_ssl"
+    ],
+    "source": "architecture",
+    "source_file": "aider/models.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-710",
+    "query": "Where is yamlData defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/website/_includes/code-in-json-syntax.js"
+    ],
+    "expected_symbols": [
+      "yamlData"
+    ],
+    "expected_keywords": [
+      "yamlData"
+    ],
+    "source": "architecture",
+    "source_file": "aider/website/_includes/code-in-json-syntax.js",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-812",
+    "query": "Where is updateChart defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/website/_includes/qwq-chart.js"
+    ],
+    "expected_symbols": [
+      "updateChart"
+    ],
+    "expected_keywords": [
+      "updateChart"
+    ],
+    "source": "architecture",
+    "source_file": "aider/website/_includes/qwq-chart.js",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-442",
+    "query": "Where is get_default_notification_command defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/io.py"
+    ],
+    "expected_symbols": [
+      "get_default_notification_command"
+    ],
+    "expected_keywords": [
+      "get_default_notification_command"
+    ],
+    "source": "architecture",
+    "source_file": "aider/io.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-346",
+    "query": "Where is ExInfo implemented?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/exceptions.py"
+    ],
+    "expected_symbols": [
+      "ExInfo"
+    ],
+    "expected_keywords": [
+      "ExInfo",
+      "class"
+    ],
+    "source": "architecture",
+    "source_file": "aider/exceptions.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-89",
+    "query": "Where is lint_edited defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/coders/base_coder.py"
+    ],
+    "expected_symbols": [
+      "lint_edited"
+    ],
+    "expected_keywords": [
+      "lint_edited"
+    ],
+    "source": "architecture",
+    "source_file": "aider/coders/base_coder.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-252",
+    "query": "Where is WholeFilePrompts implemented?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/coders/wholefile_prompts.py"
+    ],
+    "expected_symbols": [
+      "WholeFilePrompts"
+    ],
+    "expected_keywords": [
+      "WholeFilePrompts",
+      "class"
+    ],
+    "source": "architecture",
+    "source_file": "aider/coders/wholefile_prompts.py",
+    "verified": true,
+    "difficulty": "easy"
+  },
+  {
+    "id": "def-757",
+    "query": "Where is defaultTitle defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_files": [
+      "aider/website/_includes/leaderboard_table.js"
+    ],
+    "expected_symbols": [
+      "defaultTitle"
+    ],
+    "expected_keywords": [
+      "defaultTitle"
+    ],
+    "source": "architecture",
+    "source_file": "aider/website/_includes/leaderboard_table.js",
+    "verified": true,
+    "difficulty": "easy"
+  }
+]

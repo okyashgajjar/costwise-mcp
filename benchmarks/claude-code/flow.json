@@ -1,0 +1,362 @@
+[
+  {
+    "id": "flow-30",
+    "query": "Trace the execution flow of _reviewed_shas_path",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "_reviewed_shas_path"
+    ],
+    "expected_keywords": [
+      "_reviewed_shas_path"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-40",
+    "query": "Trace the execution flow of user_patterns",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "user_patterns"
+    ],
+    "expected_keywords": [
+      "user_patterns"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-154",
+    "query": "Trace the execution flow of threeDaysAgo",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "threeDaysAgo"
+    ],
+    "expected_keywords": [
+      "threeDaysAgo"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-130",
+    "query": "Trace the execution flow of handle_commit_review_posttooluse",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "handle_commit_review_posttooluse"
+    ],
+    "expected_keywords": [
+      "handle_commit_review_posttooluse"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-78",
+    "query": "Trace the execution flow of _arun",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "_arun"
+    ],
+    "expected_keywords": [
+      "_arun"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-31",
+    "query": "Trace the execution flow of _load_reviewed_shas",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "_load_reviewed_shas"
+    ],
+    "expected_keywords": [
+      "_load_reviewed_shas"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-162",
+    "query": "Trace the execution flow of comments",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "comments"
+    ],
+    "expected_keywords": [
+      "comments"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-213",
+    "query": "Trace the execution flow of thumbsUp",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "thumbsUp"
+    ],
+    "expected_keywords": [
+      "thumbsUp"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-93",
+    "query": "Trace the execution flow of _tolerant",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "_tolerant"
+    ],
+    "expected_keywords": [
+      "_tolerant"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-26",
+    "query": "Trace the execution flow of restore_unreviewed_stop_state",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "restore_unreviewed_stop_state"
+    ],
+    "expected_keywords": [
+      "restore_unreviewed_stop_state"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-16",
+    "query": "Trace the execution flow of _record_usage",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "_record_usage"
+    ],
+    "expected_keywords": [
+      "_record_usage"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-175",
+    "query": "Trace the execution flow of backfillDuplicateComments",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "backfillDuplicateComments"
+    ],
+    "expected_keywords": [
+      "backfillDuplicateComments"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-199",
+    "query": "Trace the execution flow of response",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "response"
+    ],
+    "expected_keywords": [
+      "response"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-63",
+    "query": "Trace the execution flow of _prioritize_diff_files",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "_prioritize_diff_files"
+    ],
+    "expected_keywords": [
+      "_prioritize_diff_files"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-123",
+    "query": "Trace the execution flow of _compute_push_sweep_base",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "_compute_push_sweep_base"
+    ],
+    "expected_keywords": [
+      "_compute_push_sweep_base"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-77",
+    "query": "Trace the execution flow of _call_claude_via_sdk",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "_call_claude_via_sdk"
+    ],
+    "expected_keywords": [
+      "_call_claude_via_sdk"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-61",
+    "query": "Trace the execution flow of _is_ancestor",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "_is_ancestor"
+    ],
+    "expected_keywords": [
+      "_is_ancestor"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-193",
+    "query": "Trace the execution flow of STALE_UPVOTE_THRESHOLD",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "STALE_UPVOTE_THRESHOLD"
+    ],
+    "expected_keywords": [
+      "STALE_UPVOTE_THRESHOLD"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-152",
+    "query": "Trace the execution flow of token",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "token"
+    ],
+    "expected_keywords": [
+      "token"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  },
+  {
+    "id": "flow-161",
+    "query": "Trace the execution flow of candidateCount",
+    "category": "flow",
+    "expected_retriever": "flowgraph",
+    "expected_files": [
+      ""
+    ],
+    "expected_symbols": [
+      "candidateCount"
+    ],
+    "expected_keywords": [
+      "candidateCount"
+    ],
+    "source": "architecture",
+    "verified": true,
+    "difficulty": "hard"
+  }
+]
