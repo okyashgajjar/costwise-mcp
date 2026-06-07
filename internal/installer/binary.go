@@ -23,28 +23,27 @@ type BinaryCheckResult struct {
 func CheckBinary() BinaryCheckResult {
 	r := BinaryCheckResult{}
 
-	// Check default path first
-	defaultPath := DefaultBinaryPath()
-	r.Path = defaultPath
-	r.Exists = Exists(defaultPath)
-	if r.Exists {
-		fi, err := os.Stat(defaultPath)
-		if err == nil {
-			r.Executable = (fi.Mode()&0111 != 0)
-		}
-		r.Version = getBinaryVersion(defaultPath)
+	candidates := make([]string, 0, 4)
+	if installedBinaryPath != "" {
+		candidates = append(candidates, installedBinaryPath)
 	}
+	candidates = append(candidates, DefaultBinaryPath())
 
 	// Also check fallback
-	fallbackPath := filepath.Join(FallbackBinaryDir, binaryFilename())
-	if !r.Exists && Exists(fallbackPath) {
-		r.Path = fallbackPath
+	candidates = append(candidates, filepath.Join(FallbackBinaryDir, binaryFilename()))
+
+	for _, path := range candidates {
+		if !Exists(path) {
+			continue
+		}
+		r.Path = path
 		r.Exists = true
-		fi, err := os.Stat(fallbackPath)
+		fi, err := os.Stat(path)
 		if err == nil {
 			r.Executable = (fi.Mode()&0111 != 0)
 		}
-		r.Version = getBinaryVersion(fallbackPath)
+		r.Version = getBinaryVersion(path)
+		break
 	}
 
 	// Try to find in PATH as last resort
@@ -88,7 +87,7 @@ func InstallBinary() (string, error) {
 		}
 	}
 
-	cmd := exec.Command("go", "build", "-o", outputPath, "./cmd/mycli/")
+	cmd := exec.Command("go", "build", "-o", outputPath, "./cmd/costaffective/")
 	cmd.Dir = root
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr

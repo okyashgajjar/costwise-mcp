@@ -14,11 +14,11 @@ var uninstallCmd = &cobra.Command{
 AI coding clients. Sweeps both unified and legacy config paths.
 
 Examples:
-  mycli uninstall            # Interactive: detect → confirm → remove
-  mycli uninstall --all      # Remove from all supported clients
-  mycli uninstall --target claude  # Remove only from Claude Code
-  mycli uninstall --dry-run  # Show what would be removed without making changes
-  mycli uninstall --yes      # Non-interactive: remove all detected configs
+  costaffective uninstall            # Interactive: detect → confirm → remove
+  costaffective uninstall --all      # Remove from all supported clients
+  costaffective uninstall --target claude  # Remove only from Claude Code
+  costaffective uninstall --dry-run  # Show what would be removed without making changes
+  costaffective uninstall --yes      # Non-interactive: remove all detected configs
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		all, _ := cmd.Flags().GetBool("all")

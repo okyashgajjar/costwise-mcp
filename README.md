@@ -36,45 +36,113 @@ No API key is required.
 
 ## Installation
 
-### macOS / Linux / Windows with Go installed
+### Build and install with Go
+
+Use the same binary name on every platform: `costaffective`.
 
 ```bash
-go install github.com/okyashgajjar/costaffective-mcp@latest
+go build -o costaffective ./cmd/costaffective/
 ```
 
-This works on all three platforms. After installation, open a new terminal if `costaffective` is not yet on your `PATH`.
+On Windows, build the `.exe` version:
 
-### Build from source
+```powershell
+go build -o costaffective.exe ./cmd/costaffective/
+```
+
+Run it directly from the project directory:
 
 ```bash
-# macOS / Linux
-go build -o costaffective ./cmd/mycli/
-
-# Windows
-go build -o costaffective.exe ./cmd/mycli/
+./costaffective --help
 ```
 
-If you build on Windows, run the binary as `.\costaffective.exe`.
+On Windows:
 
-### Connect your clients
+```powershell
+.\costaffective.exe --help
+```
+
+### Install the binary
 
 ```bash
-costaffective install --all
+./costaffective install --all
 ```
 
-On Windows, use:
+On Windows:
 
 ```powershell
 .\costaffective.exe install --all
 ```
 
-The installer detects supported clients and writes the correct MCP config for each one.
+After you place `costaffective` on your `PATH`, you can run `costaffective install --all` from anywhere. The installer builds the `costaffective` binary, places it in a native executable location when possible, and writes the correct MCP config for each detected client.
 
-### macOS / Linux shell installer
+### Shell installer
 
 ```bash
 bash install-mcp.sh
 ```
+
+## Uninstall
+
+If you want to remove CostAffective, do it in two steps:
+
+1. Remove the MCP client configs:
+
+```bash
+costaffective uninstall --all
+```
+
+On Windows:
+
+```powershell
+.\costaffective.exe uninstall --all
+```
+
+2. Delete the binary from your system.
+
+### Linux
+
+If you installed it with the default layout:
+
+```bash
+rm -f ~/.local/bin/costaffective
+```
+
+If `costaffective` is on your `PATH`, you can also remove whatever path the shell reports:
+
+```bash
+rm -f "$(command -v costaffective)"
+```
+
+### macOS
+
+If you installed it with the default layout:
+
+```bash
+rm -f ~/.local/bin/costaffective
+```
+
+If `costaffective` is on your `PATH`, remove the resolved binary path:
+
+```bash
+rm -f "$(command -v costaffective)"
+```
+
+### Windows
+
+If you installed it with the default layout:
+
+```powershell
+Remove-Item "$env:USERPROFILE\.local\bin\costaffective.exe" -Force
+```
+
+If `costaffective.exe` is on your `PATH`, remove the resolved binary path:
+
+```powershell
+Remove-Item (Get-Command costaffective).Source -Force
+```
+
+After that, close and reopen your terminal so the removed command is no longer cached.
 
 ## Supported Platforms
 
@@ -120,14 +188,17 @@ bash install-mcp.sh
 ## Quick Start
 
 ```bash
-# Install the binary
-go install github.com/okyashgajjar/costaffective-mcp@latest
+# Build the binary
+go build -o costaffective ./cmd/costaffective/
+
+# Verify it starts
+./costaffective --version
 
 # Connect the supported clients
-costaffective install --all
+./costaffective install --all
 
 # Check the install
-costaffective doctor
+./costaffective doctor
 ```
 
 ## Doctor

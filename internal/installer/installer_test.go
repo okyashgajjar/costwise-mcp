@@ -13,14 +13,21 @@ import (
 func tempBinary(t *testing.T) string {
 	t.Helper()
 	dir := t.TempDir()
-	out := filepath.Join(dir, "costaffective")
+	out := filepath.Join(dir, binaryNameForTest())
 
-	cmd := exec.Command("go", "build", "-o", out, "../../cmd/mycli/")
+	cmd := exec.Command("go", "build", "-o", out, "../../cmd/costaffective/")
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
 		t.Fatalf("build temp binary: %v", err)
 	}
 	return out
+}
+
+func binaryNameForTest() string {
+	if runtime.GOOS == "windows" {
+		return "costaffective_test.exe"
+	}
+	return "costaffective_test"
 }
 
 func TestInstallBinary(t *testing.T) {

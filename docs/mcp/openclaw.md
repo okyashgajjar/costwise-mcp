@@ -4,10 +4,10 @@
 
 ### Auto-install (recommended)
 
-OpenClaw is configured manually. Use `mycli install` for other supported clients:
+OpenClaw is configured manually. Use `costaffective install` for other supported clients:
 
 ```bash
-mycli install --all
+costaffective install --all
 ```
 
 ### Prerequisites
@@ -20,7 +20,7 @@ mycli install --all
 
 ```bash
 cd /path/to/CostAffective-CLI/CLI
-go build -o /usr/local/bin/costaffective ./cmd/mycli/
+go build -o /usr/local/bin/costaffective ./cmd/costaffective/
 ```
 
 ## Configuration

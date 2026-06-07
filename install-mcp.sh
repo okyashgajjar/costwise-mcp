@@ -70,11 +70,11 @@ build_binary() {
     info "Source directory: $BUILD_DIR"
 
     if $DRY_RUN; then
-        info "[DRY RUN] Would run: go build -o $BINARY_SOURCE ./cmd/mycli/"
+        info "[DRY RUN] Would run: go build -o $BINARY_SOURCE ./cmd/costaffective/"
         return
     fi
 
-    (cd "$BUILD_DIR" && go build -o "$BINARY_SOURCE" ./cmd/mycli/)
+    (cd "$BUILD_DIR" && go build -o "$BINARY_SOURCE" ./cmd/costaffective/)
 
     if [[ ! -f "$BINARY_SOURCE" ]]; then
         err "Build failed! Binary not found at $BINARY_SOURCE"

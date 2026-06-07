@@ -32,13 +32,13 @@ No API key is required — this is a pure retrieval server with no LLM dependenc
 
 ## Quick Install
 
-### Via mycli (recommended)
+### Via CostAffective (recommended)
 
-The `mycli install` command auto-detects installed AI coding clients and writes the correct MCP config for each:
+The `costaffective install` command auto-detects installed AI coding clients and writes the correct MCP config for each:
 
 ```bash
 cd /path/to/CostAffective-CLI/CLI
-go run ./cmd/mycli/ install
+go run ./cmd/costaffective/ install
 ```
 
 Options:
@@ -61,7 +61,7 @@ bash install-mcp.sh
 
 ```bash
 cd /path/to/CostAffective-CLI/CLI
-go build -o /usr/local/bin/costaffective ./cmd/mycli/
+go build -o /usr/local/bin/costaffective ./cmd/costaffective/
 ```
 
 ## Verification

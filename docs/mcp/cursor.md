@@ -5,13 +5,13 @@
 ### Auto-install (recommended)
 
 ```bash
-mycli install --target cursor
+costaffective install --target cursor
 ```
 
 Or let the auto-detector find it:
 
 ```bash
-mycli install --all
+costaffective install --all
 ```
 
 ### Prerequisites
@@ -24,13 +24,13 @@ mycli install --all
 
 ```bash
 cd /path/to/CostAffective-CLI/CLI
-go build -o /usr/local/bin/costaffective ./cmd/mycli/
+go build -o /usr/local/bin/costaffective ./cmd/costaffective/
 ```
 
 Or keep it local:
 
 ```bash
-go build -o costaffective ./cmd/mycli/
+go build -o costaffective ./cmd/costaffective/
 ```
 
 ## Configuration
