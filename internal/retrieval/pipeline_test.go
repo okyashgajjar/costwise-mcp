@@ -3,8 +3,8 @@ package retrieval
 import (
 	"testing"
 
-	"costaffective/internal/answertype"
-	"costaffective/internal/classifier"
+	"github.com/okyashgajjar/costaffective-mcp/internal/answertype"
+	"github.com/okyashgajjar/costaffective-mcp/internal/classifier"
 )
 
 func TestGuessMaxResults(t *testing.T) {

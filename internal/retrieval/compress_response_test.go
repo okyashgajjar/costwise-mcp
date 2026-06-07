@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"costaffective/internal/answertype"
+	"github.com/okyashgajjar/costaffective-mcp/internal/answertype"
 )
 
 func TestNeedsCompression(t *testing.T) {

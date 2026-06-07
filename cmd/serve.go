@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/mark3labs/mcp-go/server"
-	"costaffective/internal/mcpserver"
+	"github.com/okyashgajjar/costaffective-mcp/internal/mcpserver"
 )
 
 var serveCmd = &cobra.Command{

@@ -13,7 +13,7 @@ import (
 
 	_ "github.com/mattn/go-sqlite3"
 
-	"costaffective/internal/repository"
+	"github.com/okyashgajjar/costaffective-mcp/internal/repository"
 )
 
 type FTSRetriever struct {

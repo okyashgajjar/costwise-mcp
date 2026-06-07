@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"costaffective/internal/answertype"
+	"github.com/okyashgajjar/costaffective-mcp/internal/answertype"
 )
 
 type CompressedContext struct {

@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	"costaffective/internal/repository"
-	"costaffective/internal/treesitter"
+	"github.com/okyashgajjar/costaffective-mcp/internal/repository"
+	"github.com/okyashgajjar/costaffective-mcp/internal/treesitter"
 )
 
 type CallGraphRetriever struct {

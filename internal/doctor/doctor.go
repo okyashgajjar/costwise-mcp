@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"costaffective/internal/installer"
+	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
 )
 
 type Status string

@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"costaffective/internal/installer"
-	_ "costaffective/internal/installer/targets"
+	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
+	_ "github.com/okyashgajjar/costaffective-mcp/internal/installer/targets"
 
 	"github.com/spf13/cobra"
 )

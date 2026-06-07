@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"costaffective/internal/architecture"
-	"costaffective/internal/repository"
+	"github.com/okyashgajjar/costaffective-mcp/internal/architecture"
+	"github.com/okyashgajjar/costaffective-mcp/internal/repository"
 )
 
 type ArchitectureRetriever struct {

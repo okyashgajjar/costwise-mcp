@@ -6,8 +6,8 @@ import (
 	"log"
 	"sync"
 
-	"costaffective/internal/session"
-	"costaffective/internal/watcher"
+	"github.com/okyashgajjar/costaffective-mcp/internal/session"
+	"github.com/okyashgajjar/costaffective-mcp/internal/watcher"
 )
 
 type sessionEntry struct {

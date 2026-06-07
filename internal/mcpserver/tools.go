@@ -7,9 +7,9 @@ import (
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 
-	"costaffective/internal/answertype"
-	"costaffective/internal/repository"
-	"costaffective/internal/retrieval"
+	"github.com/okyashgajjar/costaffective-mcp/internal/answertype"
+	"github.com/okyashgajjar/costaffective-mcp/internal/repository"
+	"github.com/okyashgajjar/costaffective-mcp/internal/retrieval"
 )
 
 func RegisterTools(s *server.MCPServer) {

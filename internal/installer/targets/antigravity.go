@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"costaffective/internal/installer"
+	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
 )
 
 // Antigravity (Google Gemini IDE) uses ~/.gemini/config/mcp_config.json.

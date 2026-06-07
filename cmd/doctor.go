@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"costaffective/internal/doctor"
+	"github.com/okyashgajjar/costaffective-mcp/internal/doctor"
 
 	"github.com/spf13/cobra"
 )

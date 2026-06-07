@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"costaffective/internal/architecture"
-	"costaffective/internal/repository"
-	"costaffective/internal/treesitter"
+	"github.com/okyashgajjar/costaffective-mcp/internal/architecture"
+	"github.com/okyashgajjar/costaffective-mcp/internal/repository"
+	"github.com/okyashgajjar/costaffective-mcp/internal/treesitter"
 )
 
 type FlowGraphRetriever struct {

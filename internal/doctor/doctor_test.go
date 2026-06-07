@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"costaffective/internal/installer"
-	_ "costaffective/internal/installer/targets"
+	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
+	_ "github.com/okyashgajjar/costaffective-mcp/internal/installer/targets"
 )
 
 func TestDoctorBinaryCheck_PASS(t *testing.T) {

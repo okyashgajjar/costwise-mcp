@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"costaffective/internal/treesitter"
+	"github.com/okyashgajjar/costaffective-mcp/internal/treesitter"
 )
 
 // FileSummary provides a summary of a single file's code structure.

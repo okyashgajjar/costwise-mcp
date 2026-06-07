@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"costaffective/internal/repository"
+	"github.com/okyashgajjar/costaffective-mcp/internal/repository"
 )
 
 type GrepRetriever struct {

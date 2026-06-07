@@ -3,7 +3,7 @@ package retrieval
 import (
 	"context"
 
-	"costaffective/internal/repository"
+	"github.com/okyashgajjar/costaffective-mcp/internal/repository"
 )
 
 type MatchedFile struct {

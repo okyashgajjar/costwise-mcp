@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"costaffective/internal/installer"
+	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
 )
 
 // opencodeConfigPath returns the config path for opencode, preferring .jsonc over .json.

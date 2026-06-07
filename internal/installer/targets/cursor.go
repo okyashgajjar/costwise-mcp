@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"costaffective/internal/installer"
+	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
 )
 
 type CursorTarget struct{}

@@ -1,6 +1,6 @@
 package main
 
-import "costaffective/cmd"
+import "github.com/okyashgajjar/costaffective-mcp/cmd"
 
 func main() {
 	cmd.Execute()

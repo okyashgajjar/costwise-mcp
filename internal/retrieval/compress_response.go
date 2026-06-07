@@ -1,7 +1,7 @@
 package retrieval
 
 import (
-	"costaffective/internal/answertype"
+	"github.com/okyashgajjar/costaffective-mcp/internal/answertype"
 )
 
 const responseCompressionPrompt = `Rewrite the following answer in the shortest possible form.

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"costaffective/internal/session"
+	"github.com/okyashgajjar/costaffective-mcp/internal/session"
 )
 
 func TestWatchdog(t *testing.T) {

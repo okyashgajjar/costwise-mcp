@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"costaffective/internal/installer"
+	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
 )
 
 // Codex uses TOML for config, not JSON.

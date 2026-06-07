@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"costaffective/internal/treesitter"
+	"github.com/okyashgajjar/costaffective-mcp/internal/treesitter"
 )
 
 type Indexer struct {

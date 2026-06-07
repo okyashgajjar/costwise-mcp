@@ -7,7 +7,7 @@ import (
 	"sort"
 	"strings"
 
-	"costaffective/internal/retrieval"
+	"github.com/okyashgajjar/costaffective-mcp/internal/retrieval"
 )
 
 type Level int

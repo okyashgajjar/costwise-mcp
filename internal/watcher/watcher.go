@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/fsnotify/fsnotify"
-	"costaffective/internal/cache"
-	"costaffective/internal/session"
+	"github.com/okyashgajjar/costaffective-mcp/internal/cache"
+	"github.com/okyashgajjar/costaffective-mcp/internal/session"
 )
 
 type Watchdog struct {

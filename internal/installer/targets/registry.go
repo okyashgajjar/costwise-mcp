@@ -1,6 +1,6 @@
 package targets
 
-import "costaffective/internal/installer"
+import "github.com/okyashgajjar/costaffective-mcp/internal/installer"
 
 func init() {
 	installer.RegisterTarget(&ClaudeTarget{})
