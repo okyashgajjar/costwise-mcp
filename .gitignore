@@ -29,3 +29,5 @@ temp/
 
 # Keep Git internals out of the working tree
 .git/
+
+.serena/
