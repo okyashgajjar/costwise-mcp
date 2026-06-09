@@ -1,17 +1,10 @@
 <div align="center">
 
-# CostAffective
-
-### Local Repository Intelligence for AI Coding Assistants
-
-**45.9% fewer tokens · 54.3% fewer exploration loops · 42.1% fewer tool interactions · 100% Local**
-
 <p align="center">
   <img src="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/assets/costaffective-banner.png" alt="CostAffective Banner" width="600">
 </p>
 
-**Save tokens. Buy Coffee.**
-
+**45.9% fewer tokens · 54.3% fewer exploration loops · 42.1% fewer tool interactions · 100% Local**
 Works with Claude Code, Cursor, OpenCode, Codex CLI, Antigravity, and any MCP-compatible client.
 
 [![Go 1.25+](https://img.shields.io/badge/Go-1.25%2B-00ADD8.svg)](#installation)
@@ -74,27 +67,6 @@ CostAffective reduces this overhead by providing repository-aware retrieval.
 | Codex CLI              | ✅        |
 | Antigravity            | ✅        |
 | MCP-Compatible Clients | ✅        |
-
----
-
-## Example Questions
-
-CostAffective helps answer questions such as:
-
-```text
-Where is authentication implemented?
-
-Find all references to UserService.
-
-Which functions call processPayment()?
-
-How does caching work in this repository?
-
-Summarize the architecture of the billing module.
-
-Show me every place validateUser() is used.
-```
-
 ---
 
 ## Repository Intelligence
