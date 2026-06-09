@@ -9,7 +9,6 @@
 </p>
 
 **45.9% fewer tokens · 54.3% fewer exploration loops · 42.1% fewer tool interactions · 100% Local** <br>
-**Works with Claude Code, Cursor, OpenCode, Codex CLI, Antigravity, and any MCP-compatible client.**
 
 [![Go 1.25+](https://img.shields.io/badge/Go-1.25%2B-00ADD8.svg)](#installation)
 [![Windows](https://img.shields.io/badge/Windows-supported-blue.svg)](#supported-platforms)
