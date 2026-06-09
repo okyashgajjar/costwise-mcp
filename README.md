@@ -1,7 +1,7 @@
 <div align="center">
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/assets/costaffective-banner.png" alt="CostAffective Banner" width="600">
+  <img src="[https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/assets/costaffective-banner.png](https://github.com/okyashgajjar/costaffective-mcp/blob/main/logo(1).png)" alt="CostAffective Banner" width="600">
 </p>
 
 **45.9% fewer tokens · 54.3% fewer exploration loops · 42.1% fewer tool interactions · 100% Local**
