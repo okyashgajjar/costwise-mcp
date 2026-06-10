@@ -15,7 +15,7 @@
 
 [![Go 1.25+](https://img.shields.io/badge/Go-1.25%2B-00ADD8.svg)](#installation)
 [![Windows](https://img.shields.io/badge/Windows-supported-blue.svg)](#supported-platforms)
-[![macOS](https://img.shields.io/badge/macOS-temporarily_unavailable-lightgrey.svg)](#supported-platforms)
+[![macOS](https://img.shields.io/badge/macOS-supported-blue.svg)](#supported-platforms)
 [![Linux](https://img.shields.io/badge/Linux-supported-blue.svg)](#supported-platforms)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-supported-blueviolet.svg)](#supported-clients)
 [![Cursor](https://img.shields.io/badge/Cursor-supported-blueviolet.svg)](#supported-clients)
@@ -25,15 +25,15 @@
 
 ---
 
-**INSTALLATION**
+**INSTALLATION** [ Linux & macOS & Windows ]
 ```
 curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
 ```
+Detects OS, installs Go if missing, builds from source, installs globally, and configures your AI coding clients.
+No manual steps needed.
 
-[![Linux (amd64)](https://github.com/okyashgajjar/costaffective-mcp/releases)]
-[![Windows (amd64)](https://github.com/okyashgajjar/costaffective-mcp/releases)]
-
-**Scroll Down for MacOS installation**
+[![Linux (amd64)](https://github.com/okyashgajjar/costaffective-mcp/releases)](https://github.com/okyashgajjar/costaffective-mcp/releases)
+[![Windows (amd64)](https://github.com/okyashgajjar/costaffective-mcp/releases)](https://github.com/okyashgajjar/costaffective-mcp/releases)
 
 ⭐ **Star this repo** — it helps others find CostAffective and keeps us motivated!
 
@@ -213,72 +213,42 @@ AI Client (MCP Host)
 <details>
 <summary><strong>💻 Installation</strong> — click to expand</summary>
 
-### Windows Installation
+### Quick Install (Linux / macOS / Windows)
 
-Current recommended installation:
-
-1. Download `costaffective_windows_amd64.zip` from GitHub Releases.
-2. Extract `costaffective.exe`.
-3. Add this directory to `PATH`:
-
-```powershell
-C:\Users\<user>\AppData\Local\Programs\CostAffective\
-```
-
-Verify:
-
-```powershell
-costaffective --version
-```
-
-### macOS
+The recommended way — one command:
 
 ```bash
-brew install go sqlite
+curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
+```
+
+The script does everything:
+1. Checks for Go (installs it if missing)
+2. Checks for C compiler (CGO dependency — installs if missing)
+3. Clones the repo and builds from source
+4. Installs to `/usr/local/bin/costaffective`
+5. Detects AI coding clients and asks which to connect
+6. Configures MCP for selected clients
+
+### Manual Build
+
+Requires Go 1.25+ and a C compiler.
+
+```bash
 git clone https://github.com/okyashgajjar/costaffective-mcp.git
 cd costaffective-mcp
-go install ./cmd/costaffective
-costaffective --version
-```
-
-### Linux
-
-Download `costaffective_linux_amd64.zip` from GitHub Releases.
-
-#### Ubuntu/Debian
-
-```bash
-unzip costaffective_linux_amd64.zip
-chmod +x costaffective
+CGO_ENABLED=1 go build -o costaffective ./cmd/costaffective/
 sudo mv costaffective /usr/local/bin/
 costaffective --version
 ```
 
-#### Arch
+### Windows (Manual)
 
-```bash
-unzip costaffective_linux_amd64.zip
-chmod +x costaffective
-sudo install -m755 costaffective /usr/local/bin/
-costaffective doctor
-```
-
-#### Fedora
-
-```bash
-unzip costaffective_linux_amd64.zip
-chmod +x costaffective
-sudo mv costaffective /usr/local/bin/
-costaffective --version
-```
-
-#### openSUSE
-
-```bash
-unzip costaffective_linux_amd64.zip
-chmod +x costaffective
-sudo mv costaffective /usr/local/bin/
-costaffective --version
+```powershell
+git clone https://github.com/okyashgajjar/costaffective-mcp.git
+cd costaffective-mcp
+$env:CGO_ENABLED=1
+go build -o costaffective.exe ./cmd/costaffective/
+# Move costaffective.exe to a directory in your PATH
 ```
 
 </details>
@@ -385,10 +355,13 @@ Agent mode can auto-index when needed; interactive modes prompt first.
 
 ## Supported Platforms
 
-- Linux amd64
+All platforms with Go 1.25+ and a C compiler are supported via the install script (`install.sh`) which handles toolchain setup automatically:
+
+- Linux amd64 / arm64
+- macOS amd64 / arm64 (Intel & Apple Silicon)
 - Windows amd64
 
-Linux arm64 and macOS release binaries are temporarily unavailable for v1.0.1 and will return in a future release. Users on those platforms can still build from source with a local Go and C toolchain.
+Pre-built release binaries are available for Linux amd64 and Windows amd64. All other platforms are built from source by the install script.
 
 ---
 
