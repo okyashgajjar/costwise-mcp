@@ -27,12 +27,10 @@
 curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
 ```
 
-** 📦Download ** 
 [![Linux (amd64)](https://github.com/okyashgajjar/costaffective-mcp/releases)]
 [![Windows (amd64)](https://github.com/okyashgajjar/costaffective-mcp/releases)]
 
-Latest binaries are available on the Releases page.
-** Scroll Down for MacOS installation**
+**Scroll Down for MacOS installation**
 
 ⭐ **Star this repo** — it helps others find CostAffective and keeps us motivated!
 
