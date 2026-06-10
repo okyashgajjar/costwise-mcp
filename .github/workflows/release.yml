@@ -32,13 +32,6 @@ jobs:
             gcc-aarch64-linux-gnu \
             gcc-mingw-w64-x86-64
 
-      - name: Install Zig (for macOS cross-compilation)
-        run: |
-          curl -fsSL https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz -o /tmp/zig.tar.xz
-          sudo tar xJf /tmp/zig.tar.xz -C /opt
-          sudo ln -sf /opt/zig-linux-x86_64-0.13.0/zig /usr/local/bin/zig
-          zig version
-
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:

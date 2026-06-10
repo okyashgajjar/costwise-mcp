@@ -15,7 +15,6 @@ builds:
       - CC=gcc
     goos:
       - linux
-      - darwin
       - windows
     goarch:
       - amd64
@@ -37,16 +36,6 @@ builds:
         env:
           - CGO_ENABLED=1
           - CC=aarch64-linux-gnu-gcc
-      - goos: darwin
-        goarch: amd64
-        env:
-          - CGO_ENABLED=1
-          - CC={{ .Env.PWD }}/scripts/zcc-darwin-amd64.sh
-      - goos: darwin
-        goarch: arm64
-        env:
-          - CGO_ENABLED=1
-          - CC={{ .Env.PWD }}/scripts/zcc-darwin-arm64.sh
       - goos: windows
         goarch: amd64
         env:
@@ -54,9 +43,11 @@ builds:
           - CC=x86_64-w64-mingw32-gcc
 
 archives:
-  - format_overrides:
-      - goos: windows
-        formats: ["zip"]
+  - formats: ["zip"]
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- .Os }}_
+      {{- .Arch }}
 
 checksum:
   name_template: "checksums.txt"

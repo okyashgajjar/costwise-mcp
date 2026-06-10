@@ -12,7 +12,7 @@
 
 [![Go 1.25+](https://img.shields.io/badge/Go-1.25%2B-00ADD8.svg)](#installation)
 [![Windows](https://img.shields.io/badge/Windows-supported-blue.svg)](#supported-platforms)
-[![macOS](https://img.shields.io/badge/macOS-supported-blue.svg)](#supported-platforms)
+[![macOS](https://img.shields.io/badge/macOS-temporarily_unavailable-lightgrey.svg)](#supported-platforms)
 [![Linux](https://img.shields.io/badge/Linux-supported-blue.svg)](#supported-platforms)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-supported-blueviolet.svg)](#supported-clients)
 [![Cursor](https://img.shields.io/badge/Cursor-supported-blueviolet.svg)](#supported-clients)
@@ -349,8 +349,9 @@ Agent mode can auto-index when needed; interactive modes prompt first.
 ## Supported Platforms
 
 - Windows
-- macOS
 - Linux
+
+macOS release binaries are temporarily unavailable for v1.0.1 and will return in a future release. macOS users can still build from source with a local Go and C toolchain.
 
 ---
 
