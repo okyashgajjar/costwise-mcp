@@ -11,6 +11,9 @@ import (
 
 const FallbackBinaryDir = "/usr/local/bin"
 
+var osExecutable = os.Executable
+var execLookPath = exec.LookPath
+
 type BinaryCheckResult struct {
 	Exists      bool
 	Executable  bool
@@ -48,7 +51,7 @@ func EnsureBinary() (string, error) {
 	}
 
 	// Use the currently running executable
-	exe, err := os.Executable()
+	exe, err := osExecutable()
 	if err == nil {
 		exe, err = filepath.Abs(exe)
 		if err == nil && Exists(exe) {
@@ -62,7 +65,7 @@ func EnsureBinary() (string, error) {
 	}
 
 	// Look up in PATH as fallback
-	if path, err := exec.LookPath(binaryFilename()); err == nil {
+	if path, err := execLookPath(binaryFilename()); err == nil {
 		absPath, err := filepath.Abs(path)
 		if err == nil {
 			if absPath != DefaultBinaryPath() {
@@ -87,7 +90,7 @@ func CheckBinary() BinaryCheckResult {
 	if installedBinaryPath != "" {
 		candidates = append(candidates, installedBinaryPath)
 	}
-	if exe, err := os.Executable(); err == nil {
+	if exe, err := osExecutable(); err == nil {
 		if absExe, err := filepath.Abs(exe); err == nil {
 			candidates = append(candidates, absExe)
 		}
@@ -113,7 +116,7 @@ func CheckBinary() BinaryCheckResult {
 
 	// Try to find in PATH as last resort
 	if !r.Exists {
-		if path, err := exec.LookPath(binaryFilename()); err == nil {
+		if path, err := execLookPath(binaryFilename()); err == nil {
 			r.Path = path
 			r.Exists = true
 			r.Executable = true
@@ -224,7 +227,7 @@ func getBinaryVersion(binaryPath string) string {
 }
 
 func isInPATH() bool {
-	path, err := exec.LookPath(binaryFilename())
+	path, err := execLookPath(binaryFilename())
 	if err != nil {
 		return false
 	}
@@ -236,7 +239,7 @@ func isInPATH() bool {
 }
 
 func canBuild() bool {
-	if _, err := exec.LookPath("go"); err != nil {
+	if _, err := execLookPath("go"); err != nil {
 		return false
 	}
 	cwd, err := os.Getwd()

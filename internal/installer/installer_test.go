@@ -10,8 +10,45 @@ import (
 	"testing"
 )
 
+var testBinaryPath string
+
+func TestMain(m *testing.M) {
+	// Build a real costaffective binary to use for osExecutable mock in tests
+	dir, err := os.MkdirTemp("", "costaffective-test")
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "failed to create temp dir: %v\n", err)
+		os.Exit(1)
+	}
+	// Note: on exit, we clean up the temp directory
+	defer func() { _ = os.RemoveAll(dir) }()
+
+	binName := "costaffective"
+	if runtime.GOOS == "windows" {
+		binName += ".exe"
+	}
+	testBinaryPath = filepath.Join(dir, binName)
+
+	cmd := exec.Command("go", "build", "-o", testBinaryPath, "../../cmd/costaffective/")
+	if err := cmd.Run(); err != nil {
+		fmt.Fprintf(os.Stderr, "failed to build test binary: %v\n", err)
+		os.Exit(1)
+	}
+
+	// Mock osExecutable globally for all tests in this package
+	origExec := osExecutable
+	osExecutable = func() (string, error) {
+		return testBinaryPath, nil
+	}
+	defer func() { osExecutable = origExec }()
+
+	os.Exit(m.Run())
+}
+
 func tempBinary(t *testing.T) string {
 	t.Helper()
+	if testBinaryPath != "" {
+		return testBinaryPath
+	}
 	dir := t.TempDir()
 	out := filepath.Join(dir, binaryNameForTest())
 
