@@ -213,7 +213,7 @@ AI Client (MCP Host)
 <details>
 <summary><strong>💻 Installation</strong> — click to expand</summary>
 
-### Quick Install (Linux / macOS / Windows)
+### Quick Install (Linux / macOS / Windows via WSL)
 
 The recommended way — one command:
 
@@ -222,14 +222,36 @@ curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main
 ```
 
 The script does everything:
-1. Checks for Go (installs it if missing)
-2. Checks for C compiler (CGO dependency — installs if missing)
-3. Clones the repo and builds from source
-4. Installs to `/usr/local/bin/costaffective`
-5. Detects AI coding clients and asks which to connect
-6. Configures MCP for selected clients
+1. **Windows:** detects Git Bash / MSYS, routes through WSL automatically
+2. Checks for Go (installs it if missing)
+3. Checks for C compiler (CGO dependency — installs if missing)
+4. Clones the repo and builds from source
+5. Installs to `/usr/local/bin/costaffective`
+6. Detects AI coding clients and asks which to connect
+7. Configures MCP for selected clients
 
-### Manual Build
+### Windows (Native PowerShell)
+
+Not recommended unless you already have Go + gcc. Build manually:
+
+```powershell
+git clone https://github.com/okyashgajjar/costaffective-mcp.git
+cd costaffective-mcp
+$env:CGO_ENABLED=1
+go build -o costaffective.exe ./cmd/costaffective/
+```
+
+Or use the recommended path — <strong>install WSL</strong> (Windows 10 2004+ / Windows 11):
+
+```powershell
+# In PowerShell as Administrator:
+wsl --install
+
+# Then in WSL:
+curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
+```
+
+### macOS / Linux (Manual Build)
 
 Requires Go 1.25+ and a C compiler.
 
@@ -239,16 +261,6 @@ cd costaffective-mcp
 CGO_ENABLED=1 go build -o costaffective ./cmd/costaffective/
 sudo mv costaffective /usr/local/bin/
 costaffective --version
-```
-
-### Windows (Manual)
-
-```powershell
-git clone https://github.com/okyashgajjar/costaffective-mcp.git
-cd costaffective-mcp
-$env:CGO_ENABLED=1
-go build -o costaffective.exe ./cmd/costaffective/
-# Move costaffective.exe to a directory in your PATH
 ```
 
 </details>
