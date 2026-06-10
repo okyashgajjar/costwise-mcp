@@ -317,7 +317,7 @@ func CheckMCPStartup() []CheckResult {
 	// MCP uses Content-Length framing: "Content-Length: N\r\n\r\n{...}"
 	body := `{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"doctor","version":"1.0.0"}}}`
 	frame := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(body), body)
-	fmt.Fprint(stdin, frame)
+	_, _ = fmt.Fprint(stdin, frame)
 
 	responded := make(chan bool, 1)
 	go func() {
@@ -334,8 +334,8 @@ func CheckMCPStartup() []CheckResult {
 	select {
 	case <-responded:
 		stdin.Close()
-		cmd.Process.Kill()
-		cmd.Wait()
+		_ = cmd.Process.Kill()
+		_ = cmd.Wait()
 		return []CheckResult{{
 			Name:   "MCP Startup",
 			Status: PASS,
@@ -343,8 +343,8 @@ func CheckMCPStartup() []CheckResult {
 		}}
 	case <-time.After(3 * time.Second):
 		stdin.Close()
-		cmd.Process.Kill()
-		cmd.Wait()
+		_ = cmd.Process.Kill()
+		_ = cmd.Wait()
 		stderr := strings.TrimSpace(stderrBuf.String())
 		if stderr != "" {
 			return []CheckResult{{

@@ -119,11 +119,21 @@ func (d *DB) LoadByFile(filePath string) (*ModuleSummary, bool) {
 	if err := row.Scan(&s.FilePath, &s.Language, &classes, &functions, &imports, &exports, &topics, &s.Description); err != nil {
 		return nil, false
 	}
-	json.Unmarshal([]byte(classes), &s.Classes)
-	json.Unmarshal([]byte(functions), &s.Functions)
-	json.Unmarshal([]byte(imports), &s.Imports)
-	json.Unmarshal([]byte(exports), &s.Exports)
-	json.Unmarshal([]byte(topics), &s.Topics)
+	if err := json.Unmarshal([]byte(classes), &s.Classes); err != nil {
+		return nil, false
+	}
+	if err := json.Unmarshal([]byte(functions), &s.Functions); err != nil {
+		return nil, false
+	}
+	if err := json.Unmarshal([]byte(imports), &s.Imports); err != nil {
+		return nil, false
+	}
+	if err := json.Unmarshal([]byte(exports), &s.Exports); err != nil {
+		return nil, false
+	}
+	if err := json.Unmarshal([]byte(topics), &s.Topics); err != nil {
+		return nil, false
+	}
 	return s, true
 }
 
@@ -141,11 +151,21 @@ func (d *DB) LoadAll() ([]*ModuleSummary, error) {
 		if err := rows.Scan(&s.FilePath, &s.Language, &classes, &functions, &imports, &exports, &topics, &s.Description); err != nil {
 			return nil, err
 		}
-		json.Unmarshal([]byte(classes), &s.Classes)
-		json.Unmarshal([]byte(functions), &s.Functions)
-		json.Unmarshal([]byte(imports), &s.Imports)
-		json.Unmarshal([]byte(exports), &s.Exports)
-		json.Unmarshal([]byte(topics), &s.Topics)
+		if err := json.Unmarshal([]byte(classes), &s.Classes); err != nil {
+			return nil, err
+		}
+		if err := json.Unmarshal([]byte(functions), &s.Functions); err != nil {
+			return nil, err
+		}
+		if err := json.Unmarshal([]byte(imports), &s.Imports); err != nil {
+			return nil, err
+		}
+		if err := json.Unmarshal([]byte(exports), &s.Exports); err != nil {
+			return nil, err
+		}
+		if err := json.Unmarshal([]byte(topics), &s.Topics); err != nil {
+			return nil, err
+		}
 		out = append(out, s)
 	}
 	return out, rows.Err()

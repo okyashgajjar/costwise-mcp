@@ -142,27 +142,3 @@ func extractOwnershipFromRel(rel string) string {
 	}
 	return ""
 }
-
-func symbolFromResults(results []RetrievalResult) string {
-	symbolMap := make(map[string]int)
-	for _, r := range results {
-		if r.Snippet != "" {
-			firstLine := strings.SplitN(r.Snippet, "\n", 2)[0]
-			for _, tok := range strings.Fields(firstLine) {
-				tok = strings.Trim(tok, "[]:()")
-				if len(tok) >= 2 && tok[0] >= 'A' && tok[0] <= 'Z' {
-					symbolMap[tok]++
-				}
-			}
-		}
-	}
-	best := ""
-	bestCount := 0
-	for sym, count := range symbolMap {
-		if count > bestCount {
-			bestCount = count
-			best = sym
-		}
-	}
-	return best
-}

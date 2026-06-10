@@ -18,7 +18,7 @@ func TestMCPServerStarts(t *testing.T) {
 	if err := cmd.Run(); err != nil {
 		t.Fatalf("Failed to build binary: %v", err)
 	}
-	defer os.Remove(binName)
+	defer func() { _ = os.Remove(binName) }()
 
 	runCmd := exec.Command("./"+binName, "serve")
 

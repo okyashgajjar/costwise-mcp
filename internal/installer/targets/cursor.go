@@ -78,7 +78,9 @@ func (t *CursorTarget) writeMcpEntry(loc installer.Location) installer.WriteResu
 		cfg["mcpServers"] = make(map[string]interface{})
 	}
 	cfg["mcpServers"].(map[string]interface{})["costaffective"] = after
-	installer.WriteJSONFile(file, cfg)
+	if err := installer.WriteJSONFile(file, cfg); err != nil {
+		return installer.WriteResult{Path: file, Action: "error"}
+	}
 	return installer.WriteResult{Path: file, Action: action}
 }
 
@@ -92,7 +94,9 @@ func (t *CursorTarget) Uninstall(loc installer.Location) []installer.WriteResult
 				delete(cfg, "mcpServers")
 			}
 			cfg["mcpServers"] = mcpServers
-			installer.WriteJSONFile(file, cfg)
+			if err := installer.WriteJSONFile(file, cfg); err != nil {
+				return []installer.WriteResult{{Path: file, Action: "error"}}
+			}
 			return []installer.WriteResult{{Path: file, Action: "removed"}}
 		}
 	}

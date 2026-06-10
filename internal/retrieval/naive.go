@@ -54,7 +54,7 @@ func (r *NaiveRetriever) buildIndex() error {
 	}
 
 	if r.repo.DocsDir != "" {
-		filepath.Walk(r.repo.DocsDir, func(path string, fi os.FileInfo, err error) error {
+		_ = filepath.Walk(r.repo.DocsDir, func(path string, fi os.FileInfo, err error) error {
 			if err != nil || fi.IsDir() || fi.Size() >= 1<<20 {
 				return nil
 			}

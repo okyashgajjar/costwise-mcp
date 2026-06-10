@@ -1,0 +1,79 @@
+version: 2
+
+project_name: costaffective
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: costaffective
+    main: ./cmd/costaffective
+    binary: costaffective
+    env:
+      - CGO_ENABLED=1
+      - CC=gcc
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+    ldflags:
+      - -s -w
+      - -X github.com/okyashgajjar/costaffective-mcp/cmd.version={{ .Version }}
+      - -X github.com/okyashgajjar/costaffective-mcp/cmd.commit={{ .Commit }}
+      - -X github.com/okyashgajjar/costaffective-mcp/cmd.date={{ .Date }}
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    overrides:
+      - goos: linux
+        goarch: arm64
+        env:
+          - CGO_ENABLED=1
+          - CC=aarch64-linux-gnu-gcc
+      - goos: darwin
+        goarch: amd64
+        env:
+          - CGO_ENABLED=1
+          - CC={{ .Env.PWD }}/scripts/zcc-darwin-amd64.sh
+      - goos: darwin
+        goarch: arm64
+        env:
+          - CGO_ENABLED=1
+          - CC={{ .Env.PWD }}/scripts/zcc-darwin-arm64.sh
+      - goos: windows
+        goarch: amd64
+        env:
+          - CGO_ENABLED=1
+          - CC=x86_64-w64-mingw32-gcc
+
+archives:
+  - format_overrides:
+      - goos: windows
+        formats: ["zip"]
+
+checksum:
+  name_template: "checksums.txt"
+  algorithm: sha256
+
+snapshot:
+  version_template: "{{ .Version }}-SNAPSHOT-{{ .ShortCommit }}"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore"
+      - Merge pull request
+      - Merge branch
+
+release:
+  prerelease: auto

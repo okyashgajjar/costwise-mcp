@@ -33,7 +33,7 @@ func copyBinary(src, dst string) error {
 		return fmt.Errorf("cannot write %s: %w", dst, err)
 	}
 	if err := VerifyBinary(dst); err != nil {
-		os.Remove(dst)
+		_ = os.Remove(dst)
 		return err
 	}
 	return nil
@@ -266,7 +266,7 @@ func IsDirWritable(dir string) bool {
 		return false
 	}
 	f.Close()
-	os.Remove(tmpfile)
+	_ = os.Remove(tmpfile)
 	return true
 }
 

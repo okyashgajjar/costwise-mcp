@@ -76,7 +76,7 @@ func DetectRepositoryState(repoRoot string) (*StateInfo, error) {
 	}
 
 	currentFiles := make(map[string]string)
-	filepath.Walk(repoRoot, func(path string, fi os.FileInfo, err error) error {
+	_ = filepath.Walk(repoRoot, func(path string, fi os.FileInfo, err error) error {
 		if err != nil || fi.IsDir() {
 			return nil
 		}

@@ -114,9 +114,13 @@ func (idx *SharedIndexer) Index(ctx context.Context) (*IndexResult, error) {
 				for i := range symbols {
 					symbols[i].File = relPath
 				}
-				idx.db.ClearFile(relPath)
+				if err := idx.db.ClearFile(relPath); err != nil {
+					return err
+				}
 				if len(symbols) > 0 {
-					idx.db.StoreSymbols(symbols)
+					if err := idx.db.StoreSymbols(symbols); err != nil {
+						return err
+					}
 				}
 			}
 		}
@@ -127,8 +131,12 @@ func (idx *SharedIndexer) Index(ctx context.Context) (*IndexResult, error) {
 				for i := range refs {
 					refs[i].File = relPath
 				}
-				idx.db.ClearFileReferences(relPath)
-				idx.db.StoreReferences(refs)
+				if err := idx.db.ClearFileReferences(relPath); err != nil {
+					return err
+				}
+				if err := idx.db.StoreReferences(refs); err != nil {
+					return err
+				}
 			}
 		}
 
@@ -139,12 +147,18 @@ func (idx *SharedIndexer) Index(ctx context.Context) (*IndexResult, error) {
 					calls[i].File = relPath
 					calls[i].CallerFile = relPath
 				}
-				idx.db.ClearFileCallEdges(relPath)
-				idx.db.StoreCallEdges(calls)
+				if err := idx.db.ClearFileCallEdges(relPath); err != nil {
+					return err
+				}
+				if err := idx.db.StoreCallEdges(calls); err != nil {
+					return err
+				}
 			}
 		}
 
-		idx.db.MarkFileIndexed(relPath, newHash)
+		if err := idx.db.MarkFileIndexed(relPath, newHash); err != nil {
+			return err
+		}
 		result.Changed++
 		return nil
 	})
@@ -156,11 +170,19 @@ func (idx *SharedIndexer) Index(ctx context.Context) (*IndexResult, error) {
 	// Clean up files that were previously indexed but no longer exist on disk
 	for oldFile := range existingHashes {
 		if !seenFiles[oldFile] {
-			idx.db.ClearFile(oldFile)
-			idx.db.ClearFileReferences(oldFile)
-			idx.db.ClearFileCallEdges(oldFile)
+			if err := idx.db.ClearFile(oldFile); err != nil {
+				return result, err
+			}
+			if err := idx.db.ClearFileReferences(oldFile); err != nil {
+				return result, err
+			}
+			if err := idx.db.ClearFileCallEdges(oldFile); err != nil {
+				return result, err
+			}
 			// Remove from symbol_files tracking
-			idx.db.MarkFileIndexed(oldFile, "")
+			if err := idx.db.MarkFileIndexed(oldFile, ""); err != nil {
+				return result, err
+			}
 			result.Deleted++
 		}
 	}

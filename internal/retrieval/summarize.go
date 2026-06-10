@@ -9,7 +9,6 @@ var (
 	rePyDocstring = regexp.MustCompile(`"""([^"]*)"""`)
 	rePyClass     = regexp.MustCompile(`(?m)^\s*class\s+(\w+)`)
 	rePyFunction  = regexp.MustCompile(`(?m)^\s*def\s+(\w+)`)
-	reGoComment   = regexp.MustCompile(`(?m)^//\s*(.+)$`)
 	reGoType      = regexp.MustCompile(`(?m)^\s*type\s+(\w+)`)
 	reGoFunc      = regexp.MustCompile(`(?m)^\s*func\s+(\w+)`)
 	reJSClass     = regexp.MustCompile(`(?m)^\s*(?:export\s+)?(?:default\s+)?class\s+(\w+)`)
@@ -180,9 +179,7 @@ func extractImportTargets(content string) []string {
 	var targets []string
 	for _, m := range matches {
 		line := m[1]
-		if strings.HasPrefix(line, "import ") {
-			line = strings.TrimPrefix(line, "import ")
-		}
+		line = strings.TrimPrefix(line, "import ")
 		parts := strings.Fields(line)
 		for _, p := range parts {
 			p = strings.Trim(p, ",")
@@ -287,17 +284,4 @@ func extractKeywordsFromContent(content string) []string {
 		}
 	}
 	return keywords
-}
-
-func containsSummaryTerm(tags []string, query string) bool {
-	qWords := strings.Fields(strings.ToLower(query))
-	for _, qw := range qWords {
-		qw = strings.Trim(qw, ".,!?;:'\"()[]{}/\\?")
-		for _, tag := range tags {
-			if strings.Contains(tag, qw) || strings.Contains(qw, tag) {
-				return true
-			}
-		}
-	}
-	return false
 }

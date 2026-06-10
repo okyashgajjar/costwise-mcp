@@ -98,15 +98,6 @@ var archIndicators = []string{
 	"system", "design",
 }
 
-var archActionWords = []string{
-	"explain", "describe", "how does", "how is",
-}
-
-var flowActionWords = []string{
-	"trace", "flow of", "startup sequence", "request lifecycle",
-	"pipeline", "execution path", "call sequence",
-}
-
 var repoIndicators = []string{
 	"about", "overview", "purpose",
 	"summary", "description", "introduction",
@@ -643,14 +634,11 @@ func hasSymbolPattern(w string) bool {
 			break
 		}
 	}
-	if allUpper {
-		return true
-	}
-	return false
+	return allUpper
 }
 
 func clean(w string) string {
-	return strings.Trim(w, ".,!?;:'\"()[]{}/\\?")
+	return strings.Trim(w, ".,!?;:'\"()[]{}/\\")
 }
 
 func containsPhrase(lower, phrase string) bool {

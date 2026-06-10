@@ -136,7 +136,7 @@ func (c *Cache) Get(key CacheKey) (*CacheEntry, bool) {
 		item := elem.Value.(*cacheItem)
 
 		// Update last_accessed in DB
-		c.db.Exec("UPDATE cache_entries SET last_accessed = ? WHERE key_hash = ?", time.Now(), keyHash)
+		_, _ = c.db.Exec("UPDATE cache_entries SET last_accessed = ? WHERE key_hash = ?", time.Now(), keyHash)
 
 		return item.entry, true
 	}
@@ -168,7 +168,7 @@ func (c *Cache) Put(key CacheKey, entry *CacheEntry) {
 		}
 		evicted := c.lru.Remove(back).(*cacheItem)
 		delete(c.entries, evicted.keyHash)
-		c.db.Exec("DELETE FROM cache_entries WHERE key_hash = ?", evicted.keyHash)
+		_, _ = c.db.Exec("DELETE FROM cache_entries WHERE key_hash = ?", evicted.keyHash)
 	}
 
 	// Add new entry
@@ -183,12 +183,7 @@ func (c *Cache) Invalidate(repoHash string) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	// Find and remove matching entries from memory
-	var toRemove []string
-	for keyHash, elem := range c.entries {
-		_ = elem
-		toRemove = append(toRemove, keyHash)
-	}
+	// Invalidate matching entries in memory using keys loaded from DB below
 
 	// Query DB for entries belonging to this repo
 	rows, err := c.db.Query("SELECT key_hash FROM cache_entries WHERE repo_hash = ?", repoHash)
@@ -212,7 +207,7 @@ func (c *Cache) Invalidate(repoHash string) {
 	}
 
 	// Remove from DB
-	c.db.Exec("DELETE FROM cache_entries WHERE repo_hash = ?", repoHash)
+	_, _ = c.db.Exec("DELETE FROM cache_entries WHERE repo_hash = ?", repoHash)
 }
 
 // Stats returns cache performance metrics.
@@ -245,7 +240,7 @@ func (c *Cache) Close() error {
 
 func (c *Cache) persistEntry(keyHash string, key CacheKey, entry *CacheEntry) {
 	now := time.Now()
-	c.db.Exec(`
+	_, _ = c.db.Exec(`
 		INSERT OR REPLACE INTO cache_entries
 			(key_hash, repo_hash, query, retriever, context_level, token_budget,
 			 results_json, context_text, tokens, created_at, last_accessed)

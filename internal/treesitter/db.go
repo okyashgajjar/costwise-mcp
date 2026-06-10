@@ -107,14 +107,26 @@ func createSymbolTables(db *sql.DB) error {
 	}
 
 	var ver int
-	db.QueryRow("SELECT version FROM schema_version").Scan(&ver)
+	_ = db.QueryRow("SELECT version FROM schema_version").Scan(&ver)
 	if ver != schemaVersion {
-		db.Exec("DELETE FROM schema_version")
-		db.Exec("INSERT INTO schema_version (version) VALUES (?)", schemaVersion)
-		db.Exec("DELETE FROM symbols")
-		db.Exec("DELETE FROM symbol_files")
-		db.Exec("DELETE FROM references_t")
-		db.Exec("DELETE FROM call_edges")
+		if _, err := db.Exec("DELETE FROM schema_version"); err != nil {
+			return err
+		}
+		if _, err := db.Exec("INSERT INTO schema_version (version) VALUES (?)", schemaVersion); err != nil {
+			return err
+		}
+		if _, err := db.Exec("DELETE FROM symbols"); err != nil {
+			return err
+		}
+		if _, err := db.Exec("DELETE FROM symbol_files"); err != nil {
+			return err
+		}
+		if _, err := db.Exec("DELETE FROM references_t"); err != nil {
+			return err
+		}
+		if _, err := db.Exec("DELETE FROM call_edges"); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -169,7 +181,7 @@ func (s *SymbolDB) MarkFileIndexed(filePath, hash string) error {
 
 func (s *SymbolDB) GetFileHash(filePath string) string {
 	var h string
-	s.db.QueryRow("SELECT file_hash FROM symbol_files WHERE file_path = ?", filePath).Scan(&h)
+	_ = s.db.QueryRow("SELECT file_hash FROM symbol_files WHERE file_path = ?", filePath).Scan(&h)
 	return h
 }
 
@@ -375,13 +387,13 @@ func (s *SymbolDB) SearchCallEdgesLike(partial string) ([]CallEdge, error) {
 
 func (s *SymbolDB) GetCallEdgeCount() int {
 	var count int
-	s.db.QueryRow("SELECT COUNT(*) FROM call_edges").Scan(&count)
+	_ = s.db.QueryRow("SELECT COUNT(*) FROM call_edges").Scan(&count)
 	return count
 }
 
 func (s *SymbolDB) GetReferenceCount() int {
 	var count int
-	s.db.QueryRow("SELECT COUNT(*) FROM references_t").Scan(&count)
+	_ = s.db.QueryRow("SELECT COUNT(*) FROM references_t").Scan(&count)
 	return count
 }
 
@@ -464,7 +476,7 @@ func (s *SymbolDB) SearchByKind(kind SymbolKind, limit int) ([]SymbolMatch, erro
 
 func (s *SymbolDB) GetSymbolCount() int {
 	var count int
-	s.db.QueryRow("SELECT COUNT(*) FROM symbols").Scan(&count)
+	_ = s.db.QueryRow("SELECT COUNT(*) FROM symbols").Scan(&count)
 	return count
 }
 

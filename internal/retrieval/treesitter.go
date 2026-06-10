@@ -193,7 +193,7 @@ func extractSymbolCandidates(query string) []string {
 	}
 
 	for _, w := range words {
-		w = strings.Trim(w, ".,!?;:'\"()[]{}/\\?")
+		w = strings.Trim(w, ".,!?;:'\"()[]{}/\\")
 		if len(w) < 2 || stopWords[strings.ToLower(w)] {
 			continue
 		}
@@ -215,7 +215,7 @@ func extractSymbolCandidates(query string) []string {
 func filterUpperWords(words []string) []string {
 	var upper []string
 	for _, w := range words {
-		w = strings.Trim(w, ".,!?;:'\"()[]{}/\\?")
+		w = strings.Trim(w, ".,!?;:'\"()[]{}/\\")
 		if len(w) >= 2 && w[0] >= 'A' && w[0] <= 'Z' {
 			upper = append(upper, w)
 		}

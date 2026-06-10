@@ -230,7 +230,7 @@ func (r *GrepRetriever) Retrieve(ctx context.Context, query string) ([]Retrieval
 	}
 
 	if r.repo.DocsDir != "" {
-		filepath.Walk(r.repo.DocsDir, func(path string, fi os.FileInfo, err error) error {
+		_ = filepath.Walk(r.repo.DocsDir, func(path string, fi os.FileInfo, err error) error {
 			if err != nil || fi.IsDir() || fi.Size() >= 1<<20 {
 				return nil
 			}
@@ -404,7 +404,7 @@ func extractKeywords(query string) []string {
 	}
 
 	for _, w := range words {
-		w = strings.Trim(w, ".,!?;:'\"()[]{}/\\?")
+		w = strings.Trim(w, ".,!?;:'\"()[]{}/\\")
 		if len(w) < 2 || stopWords[w] {
 			continue
 		}

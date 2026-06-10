@@ -100,7 +100,7 @@ func (m *Manager) Status() (*RepositoryStatus, error) {
 
 	status := &RepositoryStatus{Info: *m.info}
 
-	filepath.Walk(m.info.Root, func(path string, fi os.FileInfo, err error) error {
+	_ = filepath.Walk(m.info.Root, func(path string, fi os.FileInfo, err error) error {
 		if err != nil {
 			return nil
 		}
@@ -146,7 +146,7 @@ func (m *Manager) Summary() (*RepositoryMetadata, error) {
 	sort.Strings(meta.TopFiles)
 	sort.Strings(meta.TopDirs)
 
-	filepath.Walk(m.info.Root, func(path string, fi os.FileInfo, err error) error {
+	_ = filepath.Walk(m.info.Root, func(path string, fi os.FileInfo, err error) error {
 		if err != nil {
 			return nil
 		}
@@ -159,7 +159,7 @@ func (m *Manager) Summary() (*RepositoryMetadata, error) {
 		return nil
 	})
 
-	filepath.Walk(m.info.Root, func(path string, fi os.FileInfo, err error) error {
+	_ = filepath.Walk(m.info.Root, func(path string, fi os.FileInfo, err error) error {
 		if err != nil || fi.IsDir() {
 			return nil
 		}
@@ -188,7 +188,7 @@ func (m *Manager) Files() ([]string, error) {
 	}
 
 	var files []string
-	filepath.Walk(m.info.Root, func(path string, fi os.FileInfo, err error) error {
+	_ = filepath.Walk(m.info.Root, func(path string, fi os.FileInfo, err error) error {
 		if err != nil {
 			return nil
 		}
@@ -271,7 +271,7 @@ var extToLang = map[string]string{
 
 func detectLanguages(root string) []string {
 	extensions := make(map[string]int)
-	filepath.Walk(root, func(path string, fi os.FileInfo, err error) error {
+	_ = filepath.Walk(root, func(path string, fi os.FileInfo, err error) error {
 		if err != nil {
 			return nil
 		}

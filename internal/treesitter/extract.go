@@ -1,7 +1,6 @@
 package treesitter
 
 import (
-	"path/filepath"
 	"strings"
 
 	sitter "github.com/smacker/go-tree-sitter"
@@ -281,10 +280,7 @@ var commonRefNames = map[string]bool{
 }
 
 func isCommonRef(name string) bool {
-	if commonRefNames[name] {
-		return true
-	}
-	return false
+	return commonRefNames[name]
 }
 
 func isKnownGoSymbol(name string, imports []string) bool {
@@ -442,15 +438,4 @@ func extractLine(data []byte, lineNum int) string {
 		return line
 	}
 	return ""
-}
-
-func extractRelativePath(filePath, repoRoot string) string {
-	if repoRoot == "" {
-		return filePath
-	}
-	rel, err := filepath.Rel(repoRoot, filePath)
-	if err != nil {
-		return filePath
-	}
-	return rel
 }

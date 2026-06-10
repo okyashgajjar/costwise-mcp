@@ -172,7 +172,7 @@ func (r *FlowGraphRetriever) traceFlow(seeds []flowNode) flowGraph {
 	visited := make(map[string]bool)
 	var nodes []flowNode
 
-	var addUnique func(node flowNode) bool = func(node flowNode) bool {
+	addUnique := func(node flowNode) bool {
 		key := fmt.Sprintf("%s:%s:%s", node.Kind, node.Name, node.File)
 		if visited[key] {
 			return false

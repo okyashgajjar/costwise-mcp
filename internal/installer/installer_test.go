@@ -36,7 +36,9 @@ func TestInstallBinary(t *testing.T) {
 	// Simulate what InstallBinary does: copy to a target path
 	targetDir := filepath.Join(t.TempDir(), "bin")
 	targetPath := filepath.Join(targetDir, "costaffective")
-	os.MkdirAll(targetDir, 0755)
+	if err := os.MkdirAll(targetDir, 0755); err != nil {
+		t.Fatal(err)
+	}
 
 	data, err := os.ReadFile(binPath)
 	if err != nil {
@@ -259,7 +261,9 @@ func TestReadJSONFile(t *testing.T) {
 	// Invalid JSON returns empty
 	dir := t.TempDir()
 	badFile := filepath.Join(dir, "bad.json")
-	os.WriteFile(badFile, []byte("not json"), 0644)
+	if err := os.WriteFile(badFile, []byte("not json"), 0644); err != nil {
+		t.Fatal(err)
+	}
 	bad := ReadJSONFile(badFile)
 	if len(bad) != 0 {
 		t.Fatal("ReadJSONFile should return empty for invalid JSON")
@@ -311,7 +315,9 @@ func TestCopyBinary_NonExistentSrc(t *testing.T) {
 func TestCopyBinary_InvalidSrc(t *testing.T) {
 	dir := t.TempDir()
 	src := filepath.Join(dir, "not-a-binary")
-	os.WriteFile(src, []byte("not an executable"), 0644)
+	if err := os.WriteFile(src, []byte("not an executable"), 0644); err != nil {
+		t.Fatal(err)
+	}
 	dst := filepath.Join(dir, "costaffective")
 
 	err := copyBinary(src, dst)
@@ -356,7 +362,9 @@ func TestEnsureBinary_AlreadyAtDefaultPath(t *testing.T) {
 
 	// Place a valid binary at DefaultBinaryPath()
 	defaultPath := DefaultBinaryPath()
-	os.MkdirAll(filepath.Dir(defaultPath), 0755)
+	if err := os.MkdirAll(filepath.Dir(defaultPath), 0755); err != nil {
+		t.Fatal(err)
+	}
 	data, err := os.ReadFile(srcBin)
 	if err != nil {
 		t.Fatal(err)

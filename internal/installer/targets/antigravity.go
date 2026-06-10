@@ -3,7 +3,6 @@ package targets
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 	"path/filepath"
 
 	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
@@ -67,8 +66,6 @@ func (t *AntigravityTarget) buildEntry() map[string]interface{} {
 
 func (t *AntigravityTarget) writeMcpEntry() installer.WriteResult {
 	file := antigravityConfigPath()
-	dir := filepath.Dir(file)
-	os.MkdirAll(dir, 0755)
 
 	cfg := installer.ReadJSONFile(file)
 	mcpServers, _ := cfg["mcpServers"].(map[string]interface{})
@@ -87,7 +84,9 @@ func (t *AntigravityTarget) writeMcpEntry() installer.WriteResult {
 		cfg["mcpServers"] = make(map[string]interface{})
 	}
 	cfg["mcpServers"].(map[string]interface{})["costaffective"] = after
-	installer.WriteJSONFile(file, cfg)
+	if err := installer.WriteJSONFile(file, cfg); err != nil {
+		return installer.WriteResult{Path: file, Action: "error"}
+	}
 	return installer.WriteResult{Path: file, Action: action}
 }
 
@@ -131,7 +130,9 @@ func (t *AntigravityTarget) removeFromFile(file string) installer.WriteResult {
 				delete(cfg, "mcpServers")
 			}
 			cfg["mcpServers"] = mcpServers
-			installer.WriteJSONFile(file, cfg)
+			if err := installer.WriteJSONFile(file, cfg); err != nil {
+				return installer.WriteResult{Path: file, Action: "error"}
+			}
 			return installer.WriteResult{Path: file, Action: "removed"}
 		}
 	}

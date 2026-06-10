@@ -40,7 +40,8 @@ Injected version example: `v1.0.0` with commit hash and build date
 
 1. Tag the release: `git tag -a v1.0.0 -m "v1.0.0"`
 2. Push the tag: `git push origin v1.0.0`
-3. CI runs tests + lint, then GoReleaser builds + publishes artifacts
+3. CI runs test.yml (test+lint), then release.yml builds + publishes artifacts via GoReleaser
+4. GoReleaser creates GitHub Release with artifacts for all 5 targets
 
 ### Release artifact verification
 ```bash
@@ -48,6 +49,30 @@ Injected version example: `v1.0.0` with commit hash and build date
 # Expected: costaffective v1.0.0
 #           commit: abc1234
 #           built:  2026-06-10T00:00:00Z
+```
+
+### CGO Cross-Compilation Strategy (`.goreleaser.yaml`)
+Targets: `linux/amd64`, `linux/arm64`, `darwin/amd64`, `darwin/arm64`, `windows/amd64`
+
+| Target            | CC                          | Package                          |
+|-------------------|-----------------------------|----------------------------------|
+| linux/amd64       | `gcc`                       | (native on ubuntu-latest)        |
+| linux/arm64       | `aarch64-linux-gnu-gcc`     | `gcc-aarch64-linux-gnu`          |
+| darwin/amd64      | `zig cc -target x86_64-macos` | zig                          |
+| darwin/arm64      | `zig cc -target aarch64-macos` | zig                          |
+| windows/amd64     | `x86_64-w64-mingw32-gcc`    | `gcc-mingw-w64-x86-64`           |
+
+`CGO_ENABLED=1` set globally. Per-target `CC` via `overrides` block.
+
+### Local snapshot build
+```bash
+goreleaser release --snapshot --clean
+# Artifacts in ./dist/
+```
+
+### Local config validation
+```bash
+goreleaser check
 ```
 
 ## Project Structure

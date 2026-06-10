@@ -18,7 +18,9 @@ func TestGetOrCreateRepoSession(t *testing.T) {
 	tempDir := t.TempDir()
 
 	// mock a .git folder to make it a valid repo
-	os.MkdirAll(filepath.Join(tempDir, ".git"), 0755)
+	if err := os.MkdirAll(filepath.Join(tempDir, ".git"), 0755); err != nil {
+		t.Fatalf("mkdir all: %v", err)
+	}
 
 	ctx := context.Background()
 	rs1, err := GetOrCreateRepoSession(ctx, tempDir)

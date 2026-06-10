@@ -90,7 +90,7 @@ func (r *FTSRetriever) indexRepo() error {
 
 	scanned := 0
 
-	filepath.Walk(r.repo.Root, func(path string, fi os.FileInfo, err error) error {
+	err = filepath.Walk(r.repo.Root, func(path string, fi os.FileInfo, err error) error {
 		if err != nil {
 			return nil
 		}
@@ -126,10 +126,14 @@ func (r *FTSRetriever) indexRepo() error {
 
 		scanned++
 		if _, err := stmt.Exec(relPath, indexedContent); err != nil {
-			return nil
+			return err
 		}
 		return nil
 	})
+	if err != nil {
+		tx.Rollback()
+		return fmt.Errorf("walk or indexing failed: %w", err)
+	}
 
 	if err := tx.Commit(); err != nil {
 		return err
@@ -264,7 +268,7 @@ func buildFTSQuery(query string) string {
 	}
 
 	for _, w := range words {
-		w = strings.Trim(w, ".,!?;:'\"()[]{}/\\?")
+		w = strings.Trim(w, ".,!?;:'\"()[]{}/\\")
 		w = strings.ToLower(w)
 		if len(w) < 2 || stopWords[w] {
 			continue
@@ -359,7 +363,7 @@ func computeFileBoost(relPath, repoRoot, query string) (float64, string) {
 
 	filenameMatch := false
 	for _, qw := range queryWords {
-		qw = strings.Trim(qw, ".,!?;:'\"()[]{}/\\?")
+		qw = strings.Trim(qw, ".,!?;:'\"()[]{}/\\")
 		if qw != "" && strings.Contains(base, qw) {
 			filenameMatch = true
 			break

@@ -118,7 +118,7 @@ func TestParseRepoFiles(t *testing.T) {
 
 	goFiles := 0
 	parsed := 0
-	filepath.Walk(repoRoot, func(path string, fi os.FileInfo, err error) error {
+	_ = filepath.Walk(repoRoot, func(path string, fi os.FileInfo, err error) error {
 		if err != nil || fi.IsDir() {
 			return nil
 		}

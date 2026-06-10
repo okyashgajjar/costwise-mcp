@@ -72,7 +72,9 @@ func (t *ClaudeTarget) writeMcpEntry(loc installer.Location) installer.WriteResu
 		cfg["mcpServers"] = make(map[string]interface{})
 	}
 	cfg["mcpServers"].(map[string]interface{})["costaffective"] = after
-	installer.WriteJSONFile(file, cfg)
+	if err := installer.WriteJSONFile(file, cfg); err != nil {
+		return installer.WriteResult{Path: file, Action: "error"}
+	}
 	return installer.WriteResult{Path: file, Action: action}
 }
 
@@ -83,7 +85,6 @@ func (t *ClaudeTarget) writePermissions(loc installer.Location) installer.WriteR
 		claudeDir = filepath.Join(cwd, ".claude")
 	}
 	file := filepath.Join(claudeDir, "settings.json")
-	os.MkdirAll(claudeDir, 0755)
 
 	cfg := installer.ReadJSONFile(file)
 	perms, _ := cfg["permissions"].(map[string]interface{})
@@ -134,7 +135,9 @@ func (t *ClaudeTarget) writePermissions(loc installer.Location) installer.WriteR
 	cfg["permissions"] = perms
 
 	created := !installer.Exists(file)
-	installer.WriteJSONFile(file, cfg)
+	if err := installer.WriteJSONFile(file, cfg); err != nil {
+		return installer.WriteResult{Path: file, Action: "error"}
+	}
 	action := "updated"
 	if created {
 		action = "created"
@@ -155,8 +158,11 @@ func (t *ClaudeTarget) Uninstall(loc installer.Location) []installer.WriteResult
 				delete(cfg, "mcpServers")
 			}
 			cfg["mcpServers"] = mcpServers
-			installer.WriteJSONFile(file, cfg)
-			results = append(results, installer.WriteResult{Path: file, Action: "removed"})
+			if err := installer.WriteJSONFile(file, cfg); err != nil {
+				results = append(results, installer.WriteResult{Path: file, Action: "error"})
+			} else {
+				results = append(results, installer.WriteResult{Path: file, Action: "removed"})
+			}
 		} else {
 			results = append(results, installer.WriteResult{Path: file, Action: "not-found"})
 		}

@@ -113,7 +113,9 @@ func (t *OpencodeTarget) writeMcpEntry(loc installer.Location) installer.WriteRe
 		cfg["$schema"] = "https://opencode.ai/config.json"
 	}
 
-	installer.WriteJSONFile(file, cfg)
+	if err := installer.WriteJSONFile(file, cfg); err != nil {
+		return installer.WriteResult{Path: file, Action: "error"}
+	}
 	return installer.WriteResult{Path: file, Action: action}
 }
 
@@ -131,7 +133,9 @@ func (t *OpencodeTarget) Uninstall(loc installer.Location) []installer.WriteResu
 				delete(cfg, "mcp")
 			}
 			cfg["mcp"] = mcp
-			installer.WriteJSONFile(file, cfg)
+			if err := installer.WriteJSONFile(file, cfg); err != nil {
+				return []installer.WriteResult{{Path: file, Action: "error"}}
+			}
 			return []installer.WriteResult{{Path: file, Action: "removed"}}
 		}
 	}

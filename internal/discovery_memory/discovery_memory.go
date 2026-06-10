@@ -104,7 +104,9 @@ func (dm *DiscoveryMemory) Lookup(query, tool string) (*ToolResult, bool, error)
 	}
 	if time.Since(createdAt) > time.Duration(ttlSecs)*time.Second {
 		// Expired — clean up in the background
-		go dm.db.Exec(`DELETE FROM tool_discoveries WHERE query=? AND tool=?`, query, tool)
+		go func() {
+			_, _ = dm.db.Exec(`DELETE FROM tool_discoveries WHERE query=? AND tool=?`, query, tool)
+		}()
 		return nil, false, nil
 	}
 	var payload map[string][]string

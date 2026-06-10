@@ -3,6 +3,9 @@
 /costaffective.exe
 *.test
 
+# GoReleaser build output
+dist/
+
 # Go coverage and build scratch
 *.out
 .coverprofile

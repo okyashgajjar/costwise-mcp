@@ -60,7 +60,9 @@ args = ["serve"]
 func (t *CodexTarget) writeMcpEntry() installer.WriteResult {
 	file := codexConfigPath()
 	dir := filepath.Dir(file)
-	os.MkdirAll(dir, 0755)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return installer.WriteResult{Path: file, Action: "error"}
+	}
 
 	block := t.buildTomlBlock()
 	existing := ""
@@ -88,7 +90,9 @@ func (t *CodexTarget) writeMcpEntry() installer.WriteResult {
 		sep = "\n\n"
 	}
 	content := trimmed + sep + block
-	os.WriteFile(file, []byte(content), 0644)
+	if err := os.WriteFile(file, []byte(content), 0644); err != nil {
+		return installer.WriteResult{Path: file, Action: "error"}
+	}
 
 	action := "updated"
 	if created {
@@ -134,7 +138,9 @@ func (t *CodexTarget) Uninstall(loc installer.Location) []installer.WriteResult 
 	}
 
 	result := strings.TrimLeft(strings.Join(newLines, "\n"), "\n")
-	os.WriteFile(file, []byte(result), 0644)
+	if err := os.WriteFile(file, []byte(result), 0644); err != nil {
+		return []installer.WriteResult{{Path: file, Action: "error"}}
+	}
 	return []installer.WriteResult{{Path: file, Action: "removed"}}
 }
 

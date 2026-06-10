@@ -392,18 +392,6 @@ func expandSnippet(snippet string) string {
 	return snippet
 }
 
-func extractFirstLine(s string) string {
-	if s == "" {
-		return ""
-	}
-	lines := strings.SplitN(s, "\n", 2)
-	cleaned := strings.TrimSpace(lines[0])
-	if len(cleaned) > 80 {
-		return cleaned[:80] + "..."
-	}
-	return cleaned
-}
-
 func loadFullFile(path string) string {
 	data, err := os.ReadFile(path)
 	if err != nil {

@@ -89,12 +89,21 @@ func TestDoctorMCPConfigs(t *testing.T) {
 
 	// Install binary to the default path so config validation passes
 	defaultBin := installer.DefaultBinaryPath()
-	os.MkdirAll(filepath.Dir(defaultBin), 0755)
-	data, _ := os.ReadFile(binPath)
-	os.WriteFile(defaultBin, data, 0755)
+	if err := os.MkdirAll(filepath.Dir(defaultBin), 0755); err != nil {
+		t.Fatalf("mkdir all: %v", err)
+	}
+	data, err := os.ReadFile(binPath)
+	if err != nil {
+		t.Fatalf("read file: %v", err)
+	}
+	if err := os.WriteFile(defaultBin, data, 0755); err != nil {
+		t.Fatalf("write file: %v", err)
+	}
 
 	cursorDir := filepath.Join(dir, ".cursor")
-	os.MkdirAll(cursorDir, 0755)
+	if err := os.MkdirAll(cursorDir, 0755); err != nil {
+		t.Fatalf("mkdir all cursor: %v", err)
+	}
 	cursorConfig := map[string]interface{}{
 		"mcpServers": map[string]interface{}{
 			"costaffective": map[string]interface{}{
@@ -105,7 +114,9 @@ func TestDoctorMCPConfigs(t *testing.T) {
 		},
 	}
 	cursorFile := filepath.Join(cursorDir, "mcp.json")
-	installer.WriteJSONFile(cursorFile, cursorConfig)
+	if err := installer.WriteJSONFile(cursorFile, cursorConfig); err != nil {
+		t.Fatalf("write json file: %v", err)
+	}
 
 	results := CheckMCPConfigs()
 	foundCursor := false
