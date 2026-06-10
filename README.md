@@ -200,48 +200,72 @@ AI Client (MCP Host)
 <details>
 <summary><strong>💻 Installation</strong> — click to expand</summary>
 
-### Build
+### Windows Installation
 
-```bash
-go build -o costaffective ./cmd/costaffective/
-```
+Current recommended installation:
 
-On Windows:
+1. Download `costaffective_windows_amd64.zip` from GitHub Releases.
+2. Extract `costaffective.exe`.
+3. Add this directory to `PATH`:
 
 ```powershell
-go build -o costaffective.exe ./cmd/costaffective/
+C:\Users\<user>\AppData\Local\Programs\CostAffective\
 ```
 
 Verify:
 
-```bash
-./costaffective --version
+```powershell
+costaffective --version
 ```
 
-Install for supported clients:
+### macOS
 
 ```bash
-./costaffective install --all
+brew install go sqlite
+git clone https://github.com/okyashgajjar/costaffective-mcp.git
+cd costaffective-mcp
+go install ./cmd/costaffective
+costaffective --version
 ```
 
-Validate installation:
+### Linux
+
+Download `costaffective_linux_amd64.zip` from GitHub Releases.
+
+#### Ubuntu/Debian
 
 ```bash
-./costaffective doctor
+unzip costaffective_linux_amd64.zip
+chmod +x costaffective
+sudo mv costaffective /usr/local/bin/
+costaffective --version
 ```
 
-### From any directory
-
-After `costaffective` is on your `PATH`:
+#### Arch
 
 ```bash
-costaffective install --all
+unzip costaffective_linux_amd64.zip
+chmod +x costaffective
+sudo install -m755 costaffective /usr/local/bin/
+costaffective doctor
 ```
 
-### Shell installer
+#### Fedora
 
 ```bash
-bash install-mcp.sh
+unzip costaffective_linux_amd64.zip
+chmod +x costaffective
+sudo mv costaffective /usr/local/bin/
+costaffective --version
+```
+
+#### openSUSE
+
+```bash
+unzip costaffective_linux_amd64.zip
+chmod +x costaffective
+sudo mv costaffective /usr/local/bin/
+costaffective --version
 ```
 
 </details>
