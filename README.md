@@ -13,6 +13,9 @@
 
 **45.9% fewer tokens · 54.3% fewer exploration loops · 42.1% fewer tool interactions · 100% Local** <br>
 
+[![Website](https://img.shields.io/badge/🌐_Website-costaffective--mcp.vercel.app-0066CC)](https://costaffective-mcp.vercel.app)
+[![GitHub Stars](https://img.shields.io/github/stars/okyashgajjar/costaffective-mcp?style=social)](https://github.com/okyashgajjar/costaffective-mcp)
+[![GitHub Forks](https://img.shields.io/github/forks/okyashgajjar/costaffective-mcp?style=social)](https://github.com/okyashgajjar/costaffective-mcp)
 [![Go 1.25+](https://img.shields.io/badge/Go-1.25%2B-00ADD8.svg)](#installation)
 [![Windows](https://img.shields.io/badge/Windows-supported-blue.svg)](#supported-platforms)
 [![macOS](https://img.shields.io/badge/macOS-supported-blue.svg)](#supported-platforms)
@@ -36,6 +39,8 @@ No manual steps needed.
 [![Windows (amd64)](https://github.com/okyashgajjar/costaffective-mcp/releases)](https://github.com/okyashgajjar/costaffective-mcp/releases)
 
 ⭐ **Star this repo** — it helps others find CostAffective and keeps us motivated!
+
+🌐 **Learn more at [costaffective-mcp.vercel.app](https://costaffective-mcp.vercel.app)** — interactive benchmarks, docs, AST sandbox, and editor configurator.
 
 </div>
 
@@ -127,6 +132,8 @@ No full repository rebuild is required. Only modified files are reprocessed. Thi
 <details>
 <summary><strong>📦 MCP Tools</strong> — click to expand</summary>
 
+> Full interactive tool catalog with schemas and examples: [costaffective.dev/tools](https://costaffective-mcp.vercel.app/tools)
+
 ### search_code
 
 Semantic repository search powered by Tree-sitter.
@@ -167,6 +174,8 @@ Refresh or rebuild repository indexes.
 
 <details>
 <summary><strong>🏗️ Architecture</strong> — click to expand</summary>
+
+> Interactive architecture diagram with component deep-dives: [costaffective.dev/architecture](https://costaffective-mcp.vercel.app/architecture)
 
 ```text
 AI Client (MCP Host)
@@ -212,6 +221,8 @@ AI Client (MCP Host)
 
 <details>
 <summary><strong>💻 Installation</strong> — click to expand</summary>
+
+> Full installation guide with platform-specific variants: [costaffective.dev/docs/install](https://costaffective-mcp.vercel.app/docs/install)
 
 ### Quick Install (Linux / macOS / Windows via WSL)
 
@@ -293,6 +304,8 @@ Remove-Item (Get-Command costaffective).Source -Force
 <details>
 <summary><strong>📊 Benchmarks</strong> — click to expand</summary>
 
+> Full benchmark suite with global retriever leaderboard: [costaffective.dev/benchmarks](https://costaffective-mcp.vercel.app/benchmarks)
+
 ### Continue OSS Repository
 
 | Metric            | CostAffective | Alternative   |
@@ -353,6 +366,20 @@ Agent mode can auto-index when needed; interactive modes prompt first.
 
 ---
 
+## Use Cases
+
+> Explore detailed use case studies: [costaffective.dev/use-cases](https://costaffective-mcp.vercel.app/use-cases)
+
+CostAffective is ideal for:
+
+* **AI Coding Agents** — reduce token expenses by up to 45.9% with compressed AST scope lookups
+* **Large Monorepos** — fast SQLite b-tree index queries in microseconds instead of disk scans
+* **Code Reviews** — trace caller hierarchies to audit the impact of incoming changes
+* **Repository Audits** — generate summaries of file distribution, language splits, and structure
+* **MCP Development** — reference implementation for stdio protocol, fsnotify watchers, and tree-sitter mapping
+
+---
+
 ## Doctor
 
 `costaffective doctor` checks:
@@ -374,6 +401,21 @@ All platforms with Go 1.25+ and a C compiler are supported via the install scrip
 - Windows amd64
 
 Pre-built release binaries are available for Linux amd64 and Windows amd64. All other platforms are built from source by the install script.
+
+---
+
+## Learn More
+
+| Resource | Link |
+| -------- | ---- |
+| 🌐 Website & Interactive Tools | [costaffective.dev](https://costaffective-mcp.vercel.app) |
+| 📊 Full Benchmark Suite | [costaffective.dev/benchmarks](https://costaffective-mcp.vercel.app/benchmarks) |
+| 📚 Developer Documentation | [costaffective.dev/docs/install](https://costaffective-mcp.vercel.app/docs/install) |
+| 🔧 MCP Tool Catalog | [costaffective.dev/tools](https://costaffective-mcp.vercel.app/tools) |
+| 🏗️ Architecture Guide | [costaffective.dev/architecture](https://costaffective-mcp.vercel.app/architecture) |
+| ❓ FAQ | [costaffective.dev/faq](https://costaffective-mcp.vercel.app/faq) |
+| 📖 Blog & Research | [costaffective.dev/blog](https://costaffective-mcp.vercel.app/blog) |
+| 🔄 Compare with Alternatives | [costaffective.dev/compare/codegraph](https://costaffective-mcp.vercel.app/compare/codegraph) |
 
 ---
 
