@@ -1,0 +1,452 @@
+[
+  {
+    "query": "Where is match_by_line_fast_invert defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/searcher/src/searcher/core.rs",
+    "expected_symbols": [
+      "match_by_line_fast_invert"
+    ]
+  },
+  {
+    "query": "Where is is_inexact defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/regex/src/literal.rs",
+    "expected_symbols": [
+      "is_inexact"
+    ]
+  },
+  {
+    "query": "Where is RequiredExtensionStrategy defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/globset/src/lib.rs",
+    "expected_symbols": [
+      "RequiredExtensionStrategy"
+    ]
+  },
+  {
+    "query": "Where is requires_stats defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/printer/src/summary.rs",
+    "expected_symbols": [
+      "requires_stats"
+    ]
+  },
+  {
+    "query": "Where is Summary defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/printer/src/summary.rs",
+    "expected_symbols": [
+      "Summary"
+    ]
+  },
+  {
+    "query": "Where is write_path_field defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/printer/src/summary.rs",
+    "expected_symbols": [
+      "write_path_field"
+    ]
+  },
+  {
+    "query": "Where is Sortr defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/core/flags/defs.rs",
+    "expected_symbols": [
+      "Sortr"
+    ]
+  },
+  {
+    "query": "Where is make_not_prefix defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/regex/src/literal.rs",
+    "expected_symbols": [
+      "make_not_prefix"
+    ]
+  },
+  {
+    "query": "Where is encode defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/printer/src/hyperlink/mod.rs",
+    "expected_symbols": [
+      "encode"
+    ]
+  },
+  {
+    "query": "Where is is_tty_stdout defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/cli/src/lib.rs",
+    "expected_symbols": [
+      "is_tty_stdout"
+    ]
+  },
+  {
+    "query": "Where is path_prefix defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/globset/src/lib.rs",
+    "expected_symbols": [
+      "path_prefix"
+    ]
+  },
+  {
+    "query": "Where is context_code3 defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/searcher/src/searcher/glue.rs",
+    "expected_symbols": [
+      "context_code3"
+    ]
+  },
+  {
+    "query": "Where is base64_basic defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/printer/src/jsont.rs",
+    "expected_symbols": [
+      "base64_basic"
+    ]
+  },
+  {
+    "query": "Where is stdout_buffered_block defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/cli/src/wtr.rs",
+    "expected_symbols": [
+      "stdout_buffered_block"
+    ]
+  },
+  {
+    "query": "Where is PathPrinter defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/printer/src/path.rs",
+    "expected_symbols": [
+      "PathPrinter"
+    ]
+  },
+  {
+    "query": "Where is with_depth defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/ignore/src/lib.rs",
+    "expected_symbols": [
+      "with_depth"
+    ]
+  },
+  {
+    "query": "Where is char_to_escaped_literal defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/globset/src/glob.rs",
+    "expected_symbols": [
+      "char_to_escaped_literal"
+    ]
+  },
+  {
+    "query": "Where is skip_entry defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/ignore/src/walk.rs",
+    "expected_symbols": [
+      "skip_entry"
+    ]
+  },
+  {
+    "query": "Where is suggest_other_engine defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/core/flags/hiargs.rs",
+    "expected_symbols": [
+      "suggest_other_engine"
+    ]
+  },
+  {
+    "query": "Where is set_works defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/globset/src/lib.rs",
+    "expected_symbols": [
+      "set_works"
+    ]
+  },
+  {
+    "query": "Where is count_path_terminator defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/printer/src/summary.rs",
+    "expected_symbols": [
+      "count_path_terminator"
+    ]
+  },
+  {
+    "query": "Where is metadata defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/ignore/src/walk.rs",
+    "expected_symbols": [
+      "metadata"
+    ]
+  },
+  {
+    "query": "Where is filter defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/ignore/src/walk.rs",
+    "expected_symbols": [
+      "filter"
+    ]
+  },
+  {
+    "query": "Where is LineNumberNo defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/core/flags/defs.rs",
+    "expected_symbols": [
+      "LineNumberNo"
+    ]
+  },
+  {
+    "query": "Where is count_matches defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/printer/src/summary.rs",
+    "expected_symbols": [
+      "count_matches"
+    ]
+  },
+  {
+    "query": "Where is exact defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/regex/src/literal.rs",
+    "expected_symbols": [
+      "exact"
+    ]
+  },
+  {
+    "query": "Where is pattern_from_os defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/cli/src/pattern.rs",
+    "expected_symbols": [
+      "pattern_from_os"
+    ]
+  },
+  {
+    "query": "Where is is_readable_stdin defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/cli/src/lib.rs",
+    "expected_symbols": [
+      "is_readable_stdin"
+    ]
+  },
+  {
+    "query": "Where is basic4 defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/searcher/src/searcher/glue.rs",
+    "expected_symbols": [
+      "basic4"
+    ]
+  },
+  {
+    "query": "Where is test_passthru defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/core/flags/defs.rs",
+    "expected_symbols": [
+      "test_passthru"
+    ]
+  },
+  {
+    "query": "Where is test_byte_offset defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/core/flags/defs.rs",
+    "expected_symbols": [
+      "test_byte_offset"
+    ]
+  },
+  {
+    "query": "Where is StopOnNonmatch defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/core/flags/defs.rs",
+    "expected_symbols": [
+      "StopOnNonmatch"
+    ]
+  },
+  {
+    "query": "Where is DecompressionMatcher defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/cli/src/decompress.rs",
+    "expected_symbols": [
+      "DecompressionMatcher"
+    ]
+  },
+  {
+    "query": "Where is never_equal defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/ignore/src/walk.rs",
+    "expected_symbols": [
+      "never_equal"
+    ]
+  },
+  {
+    "query": "Where is test_no_unicode defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/core/flags/defs.rs",
+    "expected_symbols": [
+      "test_no_unicode"
+    ]
+  },
+  {
+    "query": "Where is index defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/matcher/src/lib.rs",
+    "expected_symbols": [
+      "index"
+    ]
+  },
+  {
+    "query": "Where is free_buffer defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/searcher/src/line_buffer.rs",
+    "expected_symbols": [
+      "free_buffer"
+    ]
+  },
+  {
+    "query": "Where is steal defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/ignore/src/walk.rs",
+    "expected_symbols": [
+      "steal"
+    ]
+  },
+  {
+    "query": "Where is ByteSet defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/matcher/src/lib.rs",
+    "expected_symbols": [
+      "ByteSet"
+    ]
+  },
+  {
+    "query": "Where is SinkContext defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/searcher/src/sink.rs",
+    "expected_symbols": [
+      "SinkContext"
+    ]
+  },
+  {
+    "query": "Where is RegexSizeLimit defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/core/flags/defs.rs",
+    "expected_symbols": [
+      "RegexSizeLimit"
+    ]
+  },
+  {
+    "query": "Where is switches_have_no_choices defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/core/flags/defs.rs",
+    "expected_symbols": [
+      "switches_have_no_choices"
+    ]
+  },
+  {
+    "query": "Where is get_matcher defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/cli/src/decompress.rs",
+    "expected_symbols": [
+      "get_matcher"
+    ]
+  },
+  {
+    "query": "Where is WithFilenameNo defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/core/flags/defs.rs",
+    "expected_symbols": [
+      "WithFilenameNo"
+    ]
+  },
+  {
+    "query": "Where is append_char defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/printer/src/hyperlink/mod.rs",
+    "expected_symbols": [
+      "append_char"
+    ]
+  },
+  {
+    "query": "Where is peek defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/globset/src/glob.rs",
+    "expected_symbols": [
+      "peek"
+    ]
+  },
+  {
+    "query": "Where is context_break_multiple_heading defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/printer/src/standard.rs",
+    "expected_symbols": [
+      "context_break_multiple_heading"
+    ]
+  },
+  {
+    "query": "Where is replacement_max_columns defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/printer/src/standard.rs",
+    "expected_symbols": [
+      "replacement_max_columns"
+    ]
+  },
+  {
+    "query": "Where is StandardBuilder defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/printer/src/standard.rs",
+    "expected_symbols": [
+      "StandardBuilder"
+    ]
+  },
+  {
+    "query": "Where is gitconfig_excludes_path defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "crates/ignore/src/gitignore.rs",
+    "expected_symbols": [
+      "gitconfig_excludes_path"
+    ]
+  }
+]

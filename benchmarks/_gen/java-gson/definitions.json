@@ -1,0 +1,452 @@
+[
+  {
+    "query": "Where is GenericArrayTypeImpl defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/GsonTypes.java",
+    "expected_symbols": [
+      "GenericArrayTypeImpl"
+    ]
+  },
+  {
+    "query": "Where is IdDeserializer defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/JsonDeserializer.java",
+    "expected_symbols": [
+      "IdDeserializer"
+    ]
+  },
+  {
+    "query": "Where is Serializer defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "test-shrinker/src/main/java/com/example/ClassWithJsonAdapterAnnotation.java",
+    "expected_symbols": [
+      "Serializer"
+    ]
+  },
+  {
+    "query": "Where is FieldReflectionAdapter defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java",
+    "expected_symbols": [
+      "FieldReflectionAdapter"
+    ]
+  },
+  {
+    "query": "Where is LinkedTreeMapIterator defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java",
+    "expected_symbols": [
+      "LinkedTreeMapIterator"
+    ]
+  },
+  {
+    "query": "Where is Since defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/annotations/Since.java",
+    "expected_symbols": [
+      "Since"
+    ]
+  },
+  {
+    "query": "Where is InterceptorAdapter defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "extras/src/main/java/com/google/gson/interceptors/InterceptorFactory.java",
+    "expected_symbols": [
+      "InterceptorAdapter"
+    ]
+  },
+  {
+    "query": "Where is ReaderUser defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java",
+    "expected_symbols": [
+      "ReaderUser"
+    ]
+  },
+  {
+    "query": "Where is Primitives defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/Primitives.java",
+    "expected_symbols": [
+      "Primitives"
+    ]
+  },
+  {
+    "query": "Where is Rectangle defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java",
+    "expected_symbols": [
+      "Rectangle"
+    ]
+  },
+  {
+    "query": "Where is NumberLimits defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/NumberLimits.java",
+    "expected_symbols": [
+      "NumberLimits"
+    ]
+  },
+  {
+    "query": "Where is RuntimeTypeAdapterFactory defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java",
+    "expected_symbols": [
+      "RuntimeTypeAdapterFactory"
+    ]
+  },
+  {
+    "query": "Where is UnsafeAllocator defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/UnsafeAllocator.java",
+    "expected_symbols": [
+      "UnsafeAllocator"
+    ]
+  },
+  {
+    "query": "Where is FooAnnotation defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/ExclusionStrategy.java",
+    "expected_symbols": [
+      "FooAnnotation"
+    ]
+  },
+  {
+    "query": "Where is Content defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java",
+    "expected_symbols": [
+      "Content"
+    ]
+  },
+  {
+    "query": "Where is GenericUsingGenericClass defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "test-shrinker/src/main/java/com/example/GenericClasses.java",
+    "expected_symbols": [
+      "GenericUsingGenericClass"
+    ]
+  },
+  {
+    "query": "Where is MyEnum defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java",
+    "expected_symbols": [
+      "MyEnum"
+    ]
+  },
+  {
+    "query": "Where is Feed defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java",
+    "expected_symbols": [
+      "Feed"
+    ]
+  },
+  {
+    "query": "Where is ProtoTypeAdapter defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java",
+    "expected_symbols": [
+      "ProtoTypeAdapter"
+    ]
+  },
+  {
+    "query": "Where is ClassWithUnreferencedHasArgsConstructor defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "test-shrinker/src/main/java/com/example/ClassWithUnreferencedHasArgsConstructor.java",
+    "expected_symbols": [
+      "ClassWithUnreferencedHasArgsConstructor"
+    ]
+  },
+  {
+    "query": "Where is PointAdapter defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/TypeAdapter.java",
+    "expected_symbols": [
+      "PointAdapter"
+    ]
+  },
+  {
+    "query": "Where is Shape defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java",
+    "expected_symbols": [
+      "Shape"
+    ]
+  },
+  {
+    "query": "Where is TypeAdapterRuntimeTypeWrapper defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/bind/TypeAdapterRuntimeTypeWrapper.java",
+    "expected_symbols": [
+      "TypeAdapterRuntimeTypeWrapper"
+    ]
+  },
+  {
+    "query": "Where is FactorySupplier defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java",
+    "expected_symbols": [
+      "FactorySupplier"
+    ]
+  },
+  {
+    "query": "Where is ISO8601Utils defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/bind/util/ISO8601Utils.java",
+    "expected_symbols": [
+      "ISO8601Utils"
+    ]
+  },
+  {
+    "query": "Where is FilterResult defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/ReflectionAccessFilter.java",
+    "expected_symbols": [
+      "FilterResult"
+    ]
+  },
+  {
+    "query": "Where is Gson defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/Gson.java",
+    "expected_symbols": [
+      "Gson"
+    ]
+  },
+  {
+    "query": "Where is Diamond defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java",
+    "expected_symbols": [
+      "Diamond"
+    ]
+  },
+  {
+    "query": "Where is FieldAttributes defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/FieldAttributes.java",
+    "expected_symbols": [
+      "FieldAttributes"
+    ]
+  },
+  {
+    "query": "Where is EnumClass defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "test-shrinker/src/main/java/com/example/EnumClass.java",
+    "expected_symbols": [
+      "EnumClass"
+    ]
+  },
+  {
+    "query": "Where is InterfaceWithImplementation defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "test-shrinker/src/main/java/com/example/InterfaceWithImplementation.java",
+    "expected_symbols": [
+      "InterfaceWithImplementation"
+    ]
+  },
+  {
+    "query": "Where is UsingGenericClass defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "test-shrinker/src/main/java/com/example/GenericClasses.java",
+    "expected_symbols": [
+      "UsingGenericClass"
+    ]
+  },
+  {
+    "query": "Where is JsonElement defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/JsonElement.java",
+    "expected_symbols": [
+      "JsonElement"
+    ]
+  },
+  {
+    "query": "Where is SqlDateTypeAdapter defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/sql/SqlDateTypeAdapter.java",
+    "expected_symbols": [
+      "SqlDateTypeAdapter"
+    ]
+  },
+  {
+    "query": "Where is CurrentWrite defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/Streams.java",
+    "expected_symbols": [
+      "CurrentWrite"
+    ]
+  },
+  {
+    "query": "Where is TestExecutor defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "test-shrinker/src/main/java/com/example/TestExecutor.java",
+    "expected_symbols": [
+      "TestExecutor"
+    ]
+  },
+  {
+    "query": "Where is ReflectionAccessFilter defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/ReflectionAccessFilter.java",
+    "expected_symbols": [
+      "ReflectionAccessFilter"
+    ]
+  },
+  {
+    "query": "Where is JsonAdapter defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/annotations/JsonAdapter.java",
+    "expected_symbols": [
+      "JsonAdapter"
+    ]
+  },
+  {
+    "query": "Where is JsonIOException defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/JsonIOException.java",
+    "expected_symbols": [
+      "JsonIOException"
+    ]
+  },
+  {
+    "query": "Where is FutureTypeAdapter defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/Gson.java",
+    "expected_symbols": [
+      "FutureTypeAdapter"
+    ]
+  },
+  {
+    "query": "Where is UtcDateTypeAdapter defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "extras/src/main/java/com/google/gson/typeadapters/UtcDateTypeAdapter.java",
+    "expected_symbols": [
+      "UtcDateTypeAdapter"
+    ]
+  },
+  {
+    "query": "Where is TypeAdapter defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/TypeAdapter.java",
+    "expected_symbols": [
+      "TypeAdapter"
+    ]
+  },
+  {
+    "query": "Where is InstanceCreator defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/InstanceCreator.java",
+    "expected_symbols": [
+      "InstanceCreator"
+    ]
+  },
+  {
+    "query": "Where is DateType defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/bind/DefaultDateTypeAdapter.java",
+    "expected_symbols": [
+      "DateType"
+    ]
+  },
+  {
+    "query": "Where is IgnoreJRERequirement defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/bind/IgnoreJRERequirement.java",
+    "expected_symbols": [
+      "IgnoreJRERequirement"
+    ]
+  },
+  {
+    "query": "Where is GenericClasses defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "test-shrinker/src/main/java/com/example/GenericClasses.java",
+    "expected_symbols": [
+      "GenericClasses"
+    ]
+  },
+  {
+    "query": "Where is JsonReaderInternalAccess defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/JsonReaderInternalAccess.java",
+    "expected_symbols": [
+      "JsonReaderInternalAccess"
+    ]
+  },
+  {
+    "query": "Where is ArrayTypeAdapter defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/bind/ArrayTypeAdapter.java",
+    "expected_symbols": [
+      "ArrayTypeAdapter"
+    ]
+  },
+  {
+    "query": "Where is ClassWithUnreferencedNoArgsConstructor defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "test-shrinker/src/main/java/com/example/ClassWithUnreferencedNoArgsConstructor.java",
+    "expected_symbols": [
+      "ClassWithUnreferencedNoArgsConstructor"
+    ]
+  },
+  {
+    "query": "Where is Streams defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "gson/src/main/java/com/google/gson/internal/Streams.java",
+    "expected_symbols": [
+      "Streams"
+    ]
+  }
+]

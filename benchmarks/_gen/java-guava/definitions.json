@@ -1,0 +1,242 @@
+[
+  {
+    "query": "Where is ImmutableMapEntry defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/ImmutableMapEntry.java"
+  },
+  {
+    "query": "Where is InternalFutureFailureAccess defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "futures/failureaccess/src/com/google/common/util/concurrent/internal/InternalFutureFailureAccess.java"
+  },
+  {
+    "query": "Where is CapacityEnforcingMap defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava-gwt/src-super/com/google/common/cache/super/com/google/common/cache/CapacityEnforcingMap.java"
+  },
+  {
+    "query": "Where is MultisetForEachEntryTester defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava-testlib/src/com/google/common/collect/testing/google/MultisetForEachEntryTester.java"
+  },
+  {
+    "query": "Where is VarHandleAtomicHelperMaker defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/util/concurrent/AbstractFutureState.java"
+  },
+  {
+    "query": "Where is JdkBackedImmutableBiMap defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/JdkBackedImmutableBiMap.java"
+  },
+  {
+    "query": "Where is ForceGuavaCompilationEntryPoint defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava-gwt/src/com/google/common/ForceGuavaCompilationEntryPoint.java"
+  },
+  {
+    "query": "Where is InverseEntry defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/HashBiMap.java"
+  },
+  {
+    "query": "Where is BucketOverflowException defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/RegularImmutableMap.java"
+  },
+  {
+    "query": "Where is DuplicateKey defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "android/guava/src/com/google/common/collect/ImmutableMap.java"
+  },
+  {
+    "query": "Where is RegularSetBuilderImpl defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/ImmutableSet.java"
+  },
+  {
+    "query": "Where is RejectCallbackFn defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava-gwt/src-super/com/google/common/util/concurrent/super/com/google/common/util/concurrent/ListenableFuture.java"
+  },
+  {
+    "query": "Where is PromiseExecutorCallbackFn defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava-gwt/src-super/com/google/common/util/concurrent/super/com/google/common/util/concurrent/ListenableFuture.java"
+  },
+  {
+    "query": "Where is EntryForValue defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "android/guava/src/com/google/common/collect/HashBiMap.java"
+  },
+  {
+    "query": "Where is ChecksumMethodHandles defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/hash/ChecksumHashFunction.java"
+  },
+  {
+    "query": "Where is NonTerminalImmutableBiMapEntry defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/ImmutableMapEntry.java"
+  },
+  {
+    "query": "Where is ArrayBasedBuilder defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "android/guava/src/com/google/common/collect/ImmutableCollection.java"
+  },
+  {
+    "query": "Where is JdkBackedSetBuilderImpl defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/ImmutableSet.java"
+  },
+  {
+    "query": "Where is VarHandleLittleEndianBytes defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/hash/LittleEndianByteArray.java"
+  },
+  {
+    "query": "Where is JdkBackedImmutableSet defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/JdkBackedImmutableSet.java"
+  },
+  {
+    "query": "Where is ObjectCountHashMap defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "android/guava/src/com/google/common/collect/ObjectCountHashMap.java"
+  },
+  {
+    "query": "Where is ClassValueValidator defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/util/concurrent/FuturesGetChecked.java"
+  },
+  {
+    "query": "Where is JdkBackedImmutableMultiset defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/JdkBackedImmutableMultiset.java"
+  },
+  {
+    "query": "Where is VarHandleAtomicHelper defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/util/concurrent/AbstractFutureState.java"
+  },
+  {
+    "query": "Where is GwtLongAddable defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava-gwt/src-super/com/google/common/cache/super/com/google/common/cache/LongAddables.java"
+  },
+  {
+    "query": "Where is ImmutableSortedAsList defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/ImmutableSortedAsList.java"
+  },
+  {
+    "query": "Where is MapBasedMultisetIterator defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/AbstractMapBasedMultiset.java"
+  },
+  {
+    "query": "Where is DummyJavadocClass defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava-gwt/src/com/google/common/DummyJavadocClass.java"
+  },
+  {
+    "query": "Where is ObjectCountLinkedHashMap defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "android/guava/src/com/google/common/collect/ObjectCountLinkedHashMap.java"
+  },
+  {
+    "query": "Where is InverseEntries defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/JdkBackedImmutableBiMap.java"
+  },
+  {
+    "query": "Where is VarHandleLittleEndianBytesMaker defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/hash/LittleEndianByteArray.java"
+  },
+  {
+    "query": "Where is View defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "android/guava/src/com/google/common/collect/HashBiMap.java"
+  },
+  {
+    "query": "Where is Promise defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava-gwt/src-super/com/google/common/util/concurrent/super/com/google/common/util/concurrent/ListenableFuture.java"
+  },
+  {
+    "query": "Where is NonTerminalEntry defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/RegularImmutableMultiset.java"
+  },
+  {
+    "query": "Where is SetBuilderImpl defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/ImmutableSet.java"
+  },
+  {
+    "query": "Where is InverseKeySet defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/collect/HashBiMap.java"
+  },
+  {
+    "query": "Where is Crc32CSupplier defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/hash/Hashing.java"
+  },
+  {
+    "query": "Where is EntryForKey defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "android/guava/src/com/google/common/collect/HashBiMap.java"
+  },
+  {
+    "query": "Where is JavaUtilConcurrentLongAdder defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/cache/LongAddables.java"
+  },
+  {
+    "query": "Where is ArraysCompareUnsignedComparatorMaker defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "guava/src/com/google/common/primitives/UnsignedBytes.java"
+  }
+]

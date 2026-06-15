@@ -1,0 +1,242 @@
+[
+  {
+    "query": "Where is addRoutingMiddleware defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/App.php"
+  },
+  {
+    "query": "Where is addDeferred defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/MiddlewareDispatcher.php"
+  },
+  {
+    "query": "Where is setMiddlewareDispatcher defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Factory/AppFactory.php"
+  },
+  {
+    "query": "Where is setServerRequestCreator defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Factory/ServerRequestCreatorFactory.php"
+  },
+  {
+    "query": "Where is ResponseEmitter defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/ResponseEmitter.php"
+  },
+  {
+    "query": "Where is resolveRoutingResultsFromRequest defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Middleware/RoutingMiddleware.php"
+  },
+  {
+    "query": "Where is determineResponseFactory defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Factory/AppFactory.php"
+  },
+  {
+    "query": "Where is HttpSpecializedException defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Exception/HttpSpecializedException.php"
+  },
+  {
+    "query": "Where is ErrorHandler defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Handlers/ErrorHandler.php"
+  },
+  {
+    "query": "Where is HttpTooManyRequestsException defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Exception/HttpTooManyRequestsException.php"
+  },
+  {
+    "query": "Where is RoutingMiddleware defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Middleware/RoutingMiddleware.php"
+  },
+  {
+    "query": "Where is getTitle defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Exception/HttpException.php"
+  },
+  {
+    "query": "Where is determineServerRequestCreator defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Factory/ServerRequestCreatorFactory.php"
+  },
+  {
+    "query": "Where is CallableResolver defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/CallableResolver.php"
+  },
+  {
+    "query": "Where is createDispatcher defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Routing/Dispatcher.php"
+  },
+  {
+    "query": "Where is registerErrorRenderer defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Handlers/ErrorHandler.php"
+  },
+  {
+    "query": "Where is performRouting defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Middleware/RoutingMiddleware.php"
+  },
+  {
+    "query": "Where is createCdataSection defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Error/Renderers/XmlErrorRenderer.php"
+  },
+  {
+    "query": "Where is getDescription defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Exception/HttpException.php"
+  },
+  {
+    "query": "Where is Psr17FactoryInterface defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Interfaces/Psr17FactoryInterface.php"
+  },
+  {
+    "query": "Where is registerBodyParser defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Middleware/BodyParsingMiddleware.php"
+  },
+  {
+    "query": "Where is setRouteResolver defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Factory/AppFactory.php"
+  },
+  {
+    "query": "Where is RoutingResults defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Routing/RoutingResults.php"
+  },
+  {
+    "query": "Where is writeToErrorLog defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Handlers/ErrorHandler.php"
+  },
+  {
+    "query": "Where is DispatcherInterface defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Interfaces/DispatcherInterface.php"
+  },
+  {
+    "query": "Where is RequestResponse defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Handlers/Strategies/RequestResponse.php"
+  },
+  {
+    "query": "Where is emitHeaders defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/ResponseEmitter.php"
+  },
+  {
+    "query": "Where is ServerRequestCreator defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Factory/Psr17/ServerRequestCreator.php"
+  },
+  {
+    "query": "Where is setResponseFactory defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Factory/AppFactory.php"
+  },
+  {
+    "query": "Where is handleException defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Middleware/ErrorMiddleware.php"
+  },
+  {
+    "query": "Where is RouteResolverInterface defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Interfaces/RouteResolverInterface.php"
+  },
+  {
+    "query": "Where is HtmlErrorRenderer defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Error/Renderers/HtmlErrorRenderer.php"
+  },
+  {
+    "query": "Where is renderHtmlBody defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Error/Renderers/HtmlErrorRenderer.php"
+  },
+  {
+    "query": "Where is determineStatusCode defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Handlers/ErrorHandler.php"
+  },
+  {
+    "query": "Where is HttpInternalServerErrorException defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Exception/HttpInternalServerErrorException.php"
+  },
+  {
+    "query": "Where is getUri defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Routing/RoutingResults.php"
+  },
+  {
+    "query": "Where is RouteCollector defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Routing/RouteCollector.php"
+  },
+  {
+    "query": "Where is getRoute defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Routing/RouteContext.php"
+  },
+  {
+    "query": "Where is getGroups defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Routing/Route.php"
+  },
+  {
+    "query": "Where is isServerRequestDecoratorAvailable defined?",
+    "category": "definition",
+    "expected_retriever": "treesitter",
+    "expected_file": "Slim/Factory/Psr17/SlimHttpServerRequestCreator.php"
+  }
+]
