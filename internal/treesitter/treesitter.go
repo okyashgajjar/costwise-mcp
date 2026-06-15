@@ -31,7 +31,11 @@ func NewParser(lang Language) (*Parser, error) {
 	case LangTypeScript:
 		langObj = ts.GetLanguage()
 	default:
-		return nil, fmt.Errorf("unsupported language: %s", lang)
+		if spec, ok := langRegistry[lang]; ok {
+			langObj = spec.Grammar
+		} else {
+			return nil, fmt.Errorf("unsupported language: %s", lang)
+		}
 	}
 
 	p := sitter.NewParser()
@@ -67,6 +71,10 @@ func (p *Parser) ParseFile(ctx context.Context, filePath string) ([]Symbol, erro
 		symbols = extractJavaScriptSymbols(root, filePath, data)
 	case LangTypeScript:
 		symbols = extractTypeScriptSymbols(root, filePath, data)
+	default:
+		if spec, ok := langRegistry[p.language]; ok {
+			symbols = extractGenericSymbols(root, filePath, data, spec)
+		}
 	}
 
 	return symbols, nil

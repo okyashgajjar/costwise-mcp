@@ -8,6 +8,10 @@ const (
 	SymbolClass     SymbolKind = "class"
 	SymbolInterface SymbolKind = "interface"
 	SymbolStruct    SymbolKind = "struct"
+	SymbolType      SymbolKind = "type"
+	SymbolEnum      SymbolKind = "enum"
+	SymbolConstant  SymbolKind = "constant"
+	SymbolVariable  SymbolKind = "variable"
 	SymbolImport    SymbolKind = "import"
 	SymbolExport    SymbolKind = "export"
 )

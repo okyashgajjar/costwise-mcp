@@ -21,9 +21,9 @@ func CompressForAnswerType(results []RetrievalResult, answerType answertype.Clas
 	case answertype.Location:
 		return compressLocation(results)
 	case answertype.Caller:
-		return compressCaller(results)
+		return compressCaller(results, budget)
 	case answertype.Reference:
-		return compressReference(results)
+		return compressReference(results, budget)
 	case answertype.Overview:
 		return compressOverview(results, budget)
 	default:
@@ -92,65 +92,53 @@ func compressLocation(results []RetrievalResult) CompressedContext {
 	}
 }
 
-func compressCaller(results []RetrievalResult) CompressedContext {
-	if len(results) == 0 {
-		return CompressedContext{Context: "", Tokens: 0, Passed: false}
-	}
-
-	var b strings.Builder
-	b.WriteString("Callers:\n")
-	seen := make(map[string]bool)
-	for _, r := range results {
-		if r.Snippet != "" {
-			lines := strings.Split(r.Snippet, "\n")
-			for _, line := range lines {
-				trimmed := strings.TrimSpace(line)
-				if trimmed != "" && !seen[trimmed] {
-					seen[trimmed] = true
-					fmt.Fprintf(&b, "  %s\n", trimmed)
-				}
-			}
-		} else {
-			rel := shortenPath(r.File)
-			if !seen[rel] {
-				seen[rel] = true
-				fmt.Fprintf(&b, "  %s\n", rel)
-			}
-		}
-	}
-	ctx := b.String()
-	return CompressedContext{
-		Context: ctx,
-		Tokens:  len(ctx) / 4,
-		Passed:  true,
-	}
+func compressCaller(results []RetrievalResult, budget int) CompressedContext {
+	return compressLineList(results, budget, "Callers:", "call sites")
 }
 
-func compressReference(results []RetrievalResult) CompressedContext {
+func compressReference(results []RetrievalResult, budget int) CompressedContext {
+	return compressLineList(results, budget, "References:", "references")
+}
+
+// compressLineList emits the unique, non-empty lines from result snippets (or
+// file paths) under a header, stopping once the running token estimate reaches
+// budget and appending a truncation tail. This caps pathological answers — e.g.
+// "who calls <ubiquitous symbol>" — that would otherwise blow past the budget.
+func compressLineList(results []RetrievalResult, budget int, header, noun string) CompressedContext {
 	if len(results) == 0 {
 		return CompressedContext{Context: "", Tokens: 0, Passed: false}
 	}
 
 	var b strings.Builder
-	b.WriteString("References:\n")
+	b.WriteString(header + "\n")
 	seen := make(map[string]bool)
+	omitted := 0
+	truncated := false
 	for _, r := range results {
+		var lines []string
 		if r.Snippet != "" {
-			lines := strings.Split(r.Snippet, "\n")
-			for _, line := range lines {
-				trimmed := strings.TrimSpace(line)
-				if trimmed != "" && !seen[trimmed] {
-					seen[trimmed] = true
-					fmt.Fprintf(&b, "  %s\n", trimmed)
-				}
-			}
+			lines = strings.Split(r.Snippet, "\n")
 		} else {
-			rel := shortenPath(r.File)
-			if !seen[rel] {
-				seen[rel] = true
-				fmt.Fprintf(&b, "  %s\n", rel)
-			}
+			lines = []string{shortenPath(r.File)}
 		}
+		for _, line := range lines {
+			trimmed := strings.TrimSpace(line)
+			if trimmed == "" || seen[trimmed] {
+				continue
+			}
+			seen[trimmed] = true
+			if !truncated && len(b.String())/4 >= budget {
+				truncated = true
+			}
+			if truncated {
+				omitted++
+				continue
+			}
+			fmt.Fprintf(&b, "  %s\n", trimmed)
+		}
+	}
+	if omitted > 0 {
+		fmt.Fprintf(&b, "  ... (+%d more %s truncated to fit budget)\n", omitted, noun)
 	}
 	ctx := b.String()
 	return CompressedContext{

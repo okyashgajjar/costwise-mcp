@@ -83,6 +83,39 @@ func extractGoSymbols(root *sitter.Node, filePath string, data []byte) []Symbol 
 				EndLine:   int(n.EndPoint().Row) + 1,
 				Signature: truncateSig(content),
 			})
+
+		case "const_declaration", "var_declaration":
+			// Only package-level declarations — indexing function-local consts
+			// and vars would flood the symbol table with ambiguous names.
+			if n.Parent() == nil || n.Parent().Type() != "source_file" {
+				break
+			}
+			kind := SymbolConstant
+			if n.Type() == "var_declaration" {
+				kind = SymbolVariable
+			}
+			sig := extractSourceLine(data, n.StartPoint(), n.EndPoint())
+			for i := 0; i < int(n.ChildCount()); i++ {
+				spec := n.Child(i)
+				if spec.Type() != "const_spec" && spec.Type() != "var_spec" {
+					continue
+				}
+				for j := 0; j < int(spec.ChildCount()); j++ {
+					id := spec.Child(j)
+					if id.Type() != "identifier" {
+						continue
+					}
+					symbols = append(symbols, Symbol{
+						Name:      id.Content(data),
+						Kind:      kind,
+						Language:  "go",
+						File:      filePath,
+						StartLine: int(n.StartPoint().Row) + 1,
+						EndLine:   int(n.EndPoint().Row) + 1,
+						Signature: truncateSig(sig),
+					})
+				}
+			}
 		}
 
 		for i := 0; i < int(n.ChildCount()); i++ {
@@ -215,7 +248,7 @@ func extractCommonJSTS(root *sitter.Node, filePath string, data []byte, lang str
 				Signature: truncateSig(sig),
 			})
 
-		case "class_declaration":
+		case "class_declaration", "abstract_class_declaration":
 			name := extractNameFromChild(n, data)
 			sig := extractSourceLine(data, n.StartPoint(), n.EndPoint())
 			symbols = append(symbols, Symbol{
@@ -227,6 +260,36 @@ func extractCommonJSTS(root *sitter.Node, filePath string, data []byte, lang str
 				EndLine:   int(n.EndPoint().Row) + 1,
 				Signature: truncateSig(sig),
 			})
+
+		case "type_alias_declaration":
+			if lang == "typescript" {
+				name := extractNameFromChild(n, data)
+				sig := extractSourceLine(data, n.StartPoint(), n.EndPoint())
+				symbols = append(symbols, Symbol{
+					Name:      name,
+					Kind:      SymbolType,
+					Language:  lang,
+					File:      filePath,
+					StartLine: int(n.StartPoint().Row) + 1,
+					EndLine:   int(n.EndPoint().Row) + 1,
+					Signature: truncateSig(sig),
+				})
+			}
+
+		case "enum_declaration":
+			if lang == "typescript" {
+				name := extractNameFromChild(n, data)
+				sig := extractSourceLine(data, n.StartPoint(), n.EndPoint())
+				symbols = append(symbols, Symbol{
+					Name:      name,
+					Kind:      SymbolEnum,
+					Language:  lang,
+					File:      filePath,
+					StartLine: int(n.StartPoint().Row) + 1,
+					EndLine:   int(n.EndPoint().Row) + 1,
+					Signature: truncateSig(sig),
+				})
+			}
 
 		case "interface_declaration":
 			if lang == "typescript" {

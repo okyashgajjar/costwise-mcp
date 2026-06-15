@@ -25,6 +25,9 @@ func extractCalls(root *sitter.Node, filePath string, data []byte, lang Language
 	case LangTypeScript:
 		return extractJSTSCalls(root, filePath, data, "typescript")
 	default:
+		if spec, ok := langRegistry[lang]; ok {
+			return extractGenericCalls(root, filePath, data, spec)
+		}
 		return nil
 	}
 }

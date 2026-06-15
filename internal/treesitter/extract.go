@@ -17,6 +17,9 @@ func extractReferences(root *sitter.Node, filePath string, data []byte, lang Lan
 	case LangTypeScript:
 		return extractJSTSRefs(root, filePath, data, "typescript")
 	default:
+		if spec, ok := langRegistry[lang]; ok {
+			return extractGenericRefs(root, filePath, data, spec)
+		}
 		return nil
 	}
 }
