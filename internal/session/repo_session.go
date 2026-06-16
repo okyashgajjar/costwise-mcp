@@ -14,6 +14,7 @@ import (
 	"github.com/okyashgajjar/costaffective-mcp/internal/repo_memory"
 	"github.com/okyashgajjar/costaffective-mcp/internal/repository"
 	"github.com/okyashgajjar/costaffective-mcp/internal/retrieval"
+	"github.com/okyashgajjar/costaffective-mcp/internal/stash"
 	"github.com/okyashgajjar/costaffective-mcp/internal/treesitter"
 )
 
@@ -39,6 +40,11 @@ type RepoSession struct {
 
 	// Session knowledge memory (structured facts across turns)
 	KnowledgeMem *kmemory.KnowledgeMemory
+
+	// V2 cache-reducing stores: large-blob stash + per-repo path for the
+	// persisted user facts that back `remember`.
+	Stash     *stash.Store
+	FactsPath string
 }
 
 // NewRepoSession creates a new repository session, initializing the DB, Indexer,
@@ -86,7 +92,11 @@ func newRepoSession(ctx context.Context, repoRoot string, sessionID string, shou
 
 	knowledge := retrieval.NewKnowledgeStore(db, info.Root)
 
-	c, _ := cache.NewCache(info.Root, 100)
+	c, err := cache.NewCache(info.Root, 100)
+	if err != nil {
+		db.Close()
+		return nil, fmt.Errorf("failed to open cache: %w", err)
+	}
 
 	repoMemPath := filepath.Join(os.TempDir(), "repo_memory.db")
 	repoMem, err := repo_memory.Init(repoMemPath)
@@ -99,6 +109,16 @@ func newRepoSession(ctx context.Context, repoRoot string, sessionID string, shou
 		return nil, fmt.Errorf("init discovery memory: %w", err)
 	}
 
+	// V2: per-repo large-blob stash and durable user facts (NOT os.TempDir —
+	// those would clobber across repos). Both live under the repo index dir.
+	stashStore, err := stash.New(info.Root)
+	if err != nil {
+		return nil, fmt.Errorf("init stash: %w", err)
+	}
+	factsPath := filepath.Join(info.Root, ".mycli-fts", "session_facts.json")
+	km := kmemory.NewKnowledgeMemory()
+	_ = km.LoadFromFile(factsPath) // missing file is fine
+
 	return &RepoSession{
 		SessionID:     sessionID,
 		Repo:          info,
@@ -109,8 +129,42 @@ func newRepoSession(ctx context.Context, repoRoot string, sessionID string, shou
 		RecentSymbols: make(map[string]retrieval.RetrievalResult),
 		RepoMem:       repoMem,
 		DiscMem:       discMem,
-		KnowledgeMem:  kmemory.NewKnowledgeMemory(),
+		KnowledgeMem:  km,
+		Stash:         stashStore,
+		FactsPath:     factsPath,
 	}, nil
+}
+
+// RememberFact stores a durable user note and persists it to the per-repo facts
+// file so it survives server restarts.
+func (rs *RepoSession) RememberFact(key, fact string) error {
+	rs.KnowledgeMem.Store(kmemory.UserNote, key, kmemory.NewUserNote(key, fact))
+	if rs.FactsPath != "" {
+		return rs.KnowledgeMem.SaveToFile(rs.FactsPath)
+	}
+	return nil
+}
+
+// RecallFacts returns remembered user notes matching query as "key: value"
+// lines. An empty query returns all notes.
+func (rs *RepoSession) RecallFacts(query string) []string {
+	var entries []*kmemory.KnowledgeEntry
+	if strings.TrimSpace(query) == "" {
+		entries = rs.KnowledgeMem.Snapshot()
+	} else {
+		entries = rs.KnowledgeMem.Search(kmemory.UserNote, query)
+		if len(entries) == 0 {
+			entries = rs.KnowledgeMem.SearchAll(query)
+		}
+	}
+	var out []string
+	for _, e := range entries {
+		if e.Type != kmemory.UserNote {
+			continue
+		}
+		out = append(out, fmt.Sprintf("%s: %s", e.Key, e.Value))
+	}
+	return out
 }
 
 // Close releases all underlying resources.

@@ -35,3 +35,9 @@ temp/
 
 .serena/
 .serena/
+
+.claude/
+.codex-history/
+
+internal/.mycli-fts/
+.claude-code-history/

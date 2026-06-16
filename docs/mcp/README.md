@@ -10,9 +10,9 @@ The CostAffective MCP server (`costaffective serve`) provides 7 code intelligenc
 |------|-------------|
 | `search_code` | Semantic code search with tree-sitter AST parsing |
 | `find_symbol` | Find symbol definitions across the codebase |
+| `read_symbol` | Return a symbol's full implementation body by name |
 | `find_references` | Find all references to a symbol |
 | `find_callers` | Find functions that call a given function |
-| `grep_code` | Regex-based text search (fallback) |
 | `get_repository_summary` | High-level repo overview (modules, files, languages) |
 | `index_repository` | Trigger re-indexing of the codebase |
 
@@ -83,7 +83,6 @@ AI Client (MCP Host)
     │                           ├── find_symbol ───────────► SymbolDB lookup
     │                           ├── find_references ───────► SymbolDB reference search
     │                           ├── find_callers ──────────► SymbolDB call graph
-    │                           ├── grep_code ─────────────► ripgrep full-text search
     │                           ├── get_repository_summary ► KnowledgeStore
     │                           └── index_repository ──────► SharedIndexer
 ```

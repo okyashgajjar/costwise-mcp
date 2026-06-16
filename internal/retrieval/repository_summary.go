@@ -93,6 +93,189 @@ func BuildRepositorySummary(ks *KnowledgeStore) (*RepositorySummary, string) {
 	return summary, text
 }
 
+// BuildRepositorySummaryCompact returns a token-budgeted repository overview
+// (or a single-module drill-down when module != ""). Unlike BuildRepositorySummary,
+// it never emits unbounded output: modules are capped to fit the budget, the
+// per-directory "Layers" chain is dropped, and entry points are capped. This keeps
+// the session-opening summary tiny so it doesn't bloat the cached context.
+//
+// budget is an approximate token ceiling (len/4, the repo-wide convention).
+func BuildRepositorySummaryCompact(ks *KnowledgeStore, budget int, module string) string {
+	if ks == nil {
+		return ""
+	}
+	if budget <= 0 {
+		budget = 500
+	}
+
+	modules, err := ks.GetModules()
+	if err != nil || len(modules) == 0 {
+		return ""
+	}
+
+	if module != "" {
+		return formatModuleDetail(ks, modules, module, budget)
+	}
+
+	// Header stats — derived from GetModules data only (no per-file disk reads).
+	fileCount := 0
+	testCount := 0
+	totalSymbols := 0
+	langMix := make(map[string]int)
+	for _, mod := range modules {
+		totalSymbols += mod.Symbols
+		if mod.Language != "" {
+			langMix[mod.Language] += len(mod.Files)
+		}
+		for _, f := range mod.Files {
+			fileCount++
+			if isTestFile(f) {
+				testCount++
+			}
+		}
+	}
+
+	sort.Slice(modules, func(i, j int) bool {
+		return modules[i].Symbols > modules[j].Symbols
+	})
+
+	var b strings.Builder
+	fmt.Fprintf(&b, "Files: %d\n", fileCount)
+	fmt.Fprintf(&b, "Symbols: %d\n", totalSymbols)
+	fmt.Fprintf(&b, "Test Files: %d\n", testCount)
+	if len(langMix) > 0 {
+		langs := make([]string, 0, len(langMix))
+		for lang, count := range langMix {
+			langs = append(langs, fmt.Sprintf("%s:%d", lang, count))
+		}
+		sort.Strings(langs)
+		fmt.Fprintf(&b, "Languages: %s\n", strings.Join(langs, ", "))
+	}
+
+	b.WriteString("Modules:\n")
+	shown := 0
+	for i, mod := range modules {
+		// Always show at least one module; otherwise stop once over budget and
+		// roll the remainder into a single line.
+		if shown > 0 && b.Len()/4 >= budget {
+			moreFiles, moreSymbols := 0, 0
+			for _, rest := range modules[i:] {
+				moreFiles += len(rest.Files)
+				moreSymbols += rest.Symbols
+			}
+			fmt.Fprintf(&b, "  +%d more modules (%d files, %d symbols)\n", len(modules)-shown, moreFiles, moreSymbols)
+			break
+		}
+		fmt.Fprintf(&b, "  %s (%s) - %d files, %d symbols\n", mod.Name, mod.Language, len(mod.Files), mod.Symbols)
+		// Compute top symbols only for displayed modules.
+		top := extractTopSymbols(ks, mod)
+		if len(top) > 3 {
+			top = top[:3]
+		}
+		if len(top) > 0 {
+			fmt.Fprintf(&b, "    Symbols: %s\n", strings.Join(top, ", "))
+		}
+		shown++
+	}
+
+	// Entry points, capped.
+	entries := extractArchitectureEntries(modules)
+	if len(entries) > 0 {
+		const maxEntries = 5
+		head := entries
+		if len(head) > maxEntries {
+			head = head[:maxEntries]
+		}
+		fmt.Fprintf(&b, "Entry Points: %s", strings.Join(head, ", "))
+		if len(entries) > maxEntries {
+			fmt.Fprintf(&b, " +%d more", len(entries)-maxEntries)
+		}
+		b.WriteString("\n")
+	}
+
+	return b.String()
+}
+
+// formatModuleDetail renders a single module's files and symbols within budget.
+// Match is by module name, full directory path, or path basename.
+func formatModuleDetail(ks *KnowledgeStore, modules []ModuleInfo, module string, budget int) string {
+	var target *ModuleInfo
+	for i := range modules {
+		m := &modules[i]
+		if m.Name == module || m.Path == module || filepath.Base(m.Path) == module {
+			target = m
+			break
+		}
+	}
+	if target == nil {
+		return fmt.Sprintf("Module %q not found. Call without a module for the repository overview.", module)
+	}
+
+	var b strings.Builder
+	fmt.Fprintf(&b, "Module: %s (%s)\n", target.Path, target.Language)
+	fmt.Fprintf(&b, "Files: %d, Symbols: %d\n", len(target.Files), target.Symbols)
+
+	b.WriteString("Files:\n")
+	const maxFiles = 20
+	shownFiles := 0
+	for _, f := range target.Files {
+		if shownFiles >= maxFiles || b.Len()/4 >= budget {
+			break
+		}
+		fmt.Fprintf(&b, "  %s\n", f)
+		shownFiles++
+	}
+	if shownFiles < len(target.Files) {
+		fmt.Fprintf(&b, "  +%d more files\n", len(target.Files)-shownFiles)
+	}
+
+	// Gather symbols from the displayed files, then fit them to the budget.
+	var symbols []string
+	for i, f := range target.Files {
+		if i >= maxFiles {
+			break
+		}
+		fs, err := ks.GetFileSummary(f)
+		if err != nil {
+			continue
+		}
+		symbols = append(symbols, fs.Functions...)
+		symbols = append(symbols, fs.Classes...)
+	}
+	if line := joinWithinBudget(symbols, budget-b.Len()/4); line != "" {
+		fmt.Fprintf(&b, "Symbols: %s\n", line)
+	}
+
+	return b.String()
+}
+
+// joinWithinBudget joins items with ", " up to an approximate token budget
+// (len/4, the repo-wide convention), appending "+N more" when it truncates.
+func joinWithinBudget(items []string, tokenBudget int) string {
+	if tokenBudget <= 0 || len(items) == 0 {
+		return ""
+	}
+	maxChars := tokenBudget * 4
+	var b strings.Builder
+	n := 0
+	for _, it := range items {
+		addition := len(it)
+		if n > 0 {
+			addition += 2 // ", "
+		}
+		if b.Len()+addition > maxChars {
+			fmt.Fprintf(&b, " +%d more", len(items)-n)
+			break
+		}
+		if n > 0 {
+			b.WriteString(", ")
+		}
+		b.WriteString(it)
+		n++
+	}
+	return b.String()
+}
+
 func (rs *RepositorySummary) Format() string {
 	var b strings.Builder
 	fmt.Fprintf(&b, "Files: %d\n", rs.FileCount)

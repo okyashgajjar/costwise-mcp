@@ -45,11 +45,14 @@ mcp_servers:
       include:
         - search_code
         - find_symbol
+        - read_symbol
         - find_references
         - find_callers
-        - grep_code
         - get_repository_summary
         - index_repository
+        - remember
+        - stash_context
+        - recall
 ```
 
 ### With environment variables

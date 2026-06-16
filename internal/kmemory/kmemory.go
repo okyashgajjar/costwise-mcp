@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -22,6 +23,9 @@ const (
 	RepoSummary
 	ModuleOwnership
 	FileOwnership
+	// UserNote is a durable fact the user/model asked to `remember`. Appended
+	// last so existing persisted Type ints keep their values.
+	UserNote
 )
 
 func (kt KnowledgeType) String() string {
@@ -44,6 +48,8 @@ func (kt KnowledgeType) String() string {
 		return "module_ownership"
 	case FileOwnership:
 		return "file_ownership"
+	case UserNote:
+		return "user_note"
 	default:
 		return "unknown"
 	}
@@ -116,61 +122,80 @@ func (km *KnowledgeMemory) Search(kt KnowledgeType, query string) []*KnowledgeEn
 	km.mu.RLock()
 	defer km.mu.RUnlock()
 
-	lower := strings.ToLower(query)
-	seen := make(map[string]bool)
-	var results []*KnowledgeEntry
-
-	prefix := kt.String() + ":"
-
-	if entries, ok := km.index[lower]; ok {
-		for _, ek := range entries {
-			if strings.HasPrefix(ek, prefix) && !seen[ek] {
-				if e, ok2 := km.entries[ek]; ok2 {
-					seen[ek] = true
-					results = append(results, e)
-				}
-			}
-		}
-		return results
+	terms := queryTerms(query)
+	if len(terms) == 0 {
+		return nil
 	}
-
-	for _, ek := range km.entries {
-		if !strings.HasPrefix(ek.Key, prefix) {
-			continue
-		}
-		if strings.Contains(strings.ToLower(ek.Key), lower) ||
-			strings.Contains(strings.ToLower(ek.Value), lower) ||
-			containsAny(strings.ToLower(ek.File), lower) {
-			if !seen[ek.Key] {
-				seen[ek.Key] = true
-				results = append(results, ek)
-			}
-		}
-	}
-
-	return results
+	return rankByOverlap(km.entries, terms, func(e *KnowledgeEntry) bool {
+		return e.Type == kt
+	})
 }
 
 func (km *KnowledgeMemory) SearchAll(query string) []*KnowledgeEntry {
 	km.mu.RLock()
 	defer km.mu.RUnlock()
 
-	lower := strings.ToLower(query)
-	seen := make(map[string]bool)
-	var results []*KnowledgeEntry
+	terms := queryTerms(query)
+	if len(terms) == 0 {
+		return nil
+	}
+	return rankByOverlap(km.entries, terms, func(*KnowledgeEntry) bool { return true })
+}
 
-	for _, ek := range km.entries {
-		if strings.Contains(strings.ToLower(ek.Key), lower) ||
-			strings.Contains(strings.ToLower(ek.Value), lower) ||
-			containsAny(strings.ToLower(ek.File), lower) {
-			if !seen[ek.Key] {
-				seen[ek.Key] = true
-				results = append(results, ek)
-			}
+// queryTerms splits a free-text query into lowercased search terms (reusing the
+// same tokenizer as the index, so matching is consistent).
+func queryTerms(query string) []string {
+	return tokenizeKey(query)
+}
+
+// matchScore counts how many distinct query terms hit an entry, weighting key
+// matches above value/file matches. Zero means no overlap. This replaces the old
+// whole-query substring check, which failed for any multi-word query.
+func matchScore(e *KnowledgeEntry, terms []string) int {
+	key := strings.ToLower(e.Key)
+	val := strings.ToLower(e.Value)
+	file := strings.ToLower(e.File)
+	score := 0
+	for _, t := range terms {
+		switch {
+		case strings.Contains(key, t):
+			score += 2
+		case strings.Contains(val, t), strings.Contains(file, t):
+			score++
 		}
 	}
+	return score
+}
 
-	return results
+// rankByOverlap returns the entries passing keep that share at least one query
+// term, ordered by descending overlap score (ties broken by most-recently-used).
+// The search space is bounded by remembered/cached entries — not repo size — so
+// this stays microsecond-fast regardless of how large the indexed repo is.
+func rankByOverlap(entries map[string]*KnowledgeEntry, terms []string, keep func(*KnowledgeEntry) bool) []*KnowledgeEntry {
+	type scored struct {
+		e *KnowledgeEntry
+		s int
+	}
+	var hits []scored
+	for _, e := range entries {
+		if !keep(e) {
+			continue
+		}
+		if s := matchScore(e, terms); s > 0 {
+			hits = append(hits, scored{e, s})
+		}
+	}
+	sort.Slice(hits, func(i, j int) bool {
+		if hits[i].s != hits[j].s {
+			return hits[i].s > hits[j].s
+		}
+		return hits[i].e.LastUsedAt.After(hits[j].e.LastUsedAt)
+	})
+	out := make([]*KnowledgeEntry, len(hits))
+	for i, h := range hits {
+		out[i] = h.e
+	}
+	return out
 }
 
 func (km *KnowledgeMemory) Stats() map[string]int {
@@ -273,10 +298,6 @@ func tokenizeKey(key string) []string {
 	return tokens
 }
 
-func containsAny(s, substr string) bool {
-	return s != "" && strings.Contains(s, substr)
-}
-
 func NewSymbolEntry(symbolName, file, definition string, callers []string) *KnowledgeEntry {
 	return &KnowledgeEntry{
 		Type:       SymbolKnowledge,
@@ -304,5 +325,15 @@ func NewCallerEntry(symbol string, callers []string) *KnowledgeEntry {
 		Value:      strings.Join(callers, ", "),
 		Metadata:   callers,
 		Confidence: 0.85,
+	}
+}
+
+// NewUserNote builds a durable user-remembered fact entry.
+func NewUserNote(key, fact string) *KnowledgeEntry {
+	return &KnowledgeEntry{
+		Type:       UserNote,
+		Key:        key,
+		Value:      fact,
+		Confidence: 1.0,
 	}
 }

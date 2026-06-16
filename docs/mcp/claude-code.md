@@ -97,14 +97,17 @@ claude mcp list
 claude run --tools "Search for the function CompressForAnswerType in this repo"
 ```
 
-Expected output shows the server connected with 7 tools:
+Expected output shows the server connected with these tools:
 - `search_code`
 - `find_symbol`
+- `read_symbol`
 - `find_references`
 - `find_callers`
-- `grep_code`
 - `get_repository_summary`
 - `index_repository`
+- `remember`
+- `stash_context`
+- `recall`
 
 ## Troubleshooting
 

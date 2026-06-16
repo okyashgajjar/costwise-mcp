@@ -41,6 +41,7 @@ Examples:
 		local, _ := cmd.Flags().GetBool("local")
 		yes, _ := cmd.Flags().GetBool("yes")
 		repair, _ := cmd.Flags().GetBool("repair")
+		noSkill, _ := cmd.Flags().GetBool("no-skill")
 
 		loc := installer.Location("")
 		if local {
@@ -50,13 +51,14 @@ Examples:
 		}
 
 		inst := &installer.Installer{
-			Build:    build,
-			All:      all,
-			DryRun:   dryRun,
-			TargetID: targetID,
-			Location: loc,
-			Yes:      yes,
-			Repair:   repair,
+			Build:     build,
+			All:       all,
+			DryRun:    dryRun,
+			TargetID:  targetID,
+			Location:  loc,
+			Yes:       yes,
+			Repair:    repair,
+			SkipSkill: noSkill,
 		}
 
 		if dryRun {
@@ -76,5 +78,6 @@ func init() {
 	installCmd.Flags().Bool("local", false, "Install for current project only (instead of global)")
 	installCmd.Flags().BoolP("yes", "y", false, "Non-interactive: auto-detect and accept defaults")
 	installCmd.Flags().Bool("repair", false, "Repair mode: reinstall binary and fix stale configs")
+	installCmd.Flags().Bool("no-skill", false, "Skip installing the costaffective-session awareness skill")
 	rootCmd.AddCommand(installCmd)
 }

@@ -6,6 +6,8 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/okyashgajjar/costaffective-mcp/internal/skill"
 )
 
 type Installer struct {
@@ -17,6 +19,7 @@ type Installer struct {
 	Uninstall bool
 	Yes       bool
 	Repair    bool
+	SkipSkill bool // --no-skill: don't write the costaffective-session skill
 }
 
 func (inst *Installer) Run() error {
@@ -100,7 +103,44 @@ func (inst *Installer) runInstall() error {
 		}
 	}
 
+	// 6. Session-awareness skill. The MCP instructions field already delivers
+	// the guidance to every client automatically; this additionally writes the
+	// native Claude Code SKILL.md. Opt out with --no-skill.
+	inst.installSkill(loc)
+
 	return nil
+}
+
+// installSkill writes the costaffective-session skill (Claude Code) unless
+// disabled. Failures are reported but never fail the overall install.
+func (inst *Installer) installSkill(loc Location) {
+	if inst.SkipSkill {
+		return
+	}
+	fmt.Println()
+	fmt.Println("Session-awareness skill (costaffective-session):")
+	if inst.DryRun {
+		fmt.Println("  [DRY RUN] Would write each client's native rules file and rely on the MCP instructions field for the rest")
+		return
+	}
+	results, err := skill.Install(skillScope(loc))
+	if err != nil {
+		fmt.Printf("  Warning: could not install skill: %v\n", err)
+		return
+	}
+	for _, r := range results {
+		fmt.Printf("  %s (%s): %s %s\n", r.Target, r.Scope, r.Action, Tildify(r.Path))
+	}
+	fmt.Println("  Other clients also receive this automatically via the MCP instructions field.")
+}
+
+// skillScope maps an install Location to the matching skill scope: a global MCP
+// install writes per-user rules files; a local one writes project files.
+func skillScope(loc Location) skill.Scope {
+	if loc == LocationLocal {
+		return skill.ScopeProject
+	}
+	return skill.ScopeGlobal
 }
 
 func (inst *Installer) runRepair() error {
@@ -439,6 +479,17 @@ func (inst *Installer) runUninstall() error {
 			}
 			if r.Action != "not-found" && r.Action != "unchanged" {
 				fmt.Printf("  %s: %s %s\n", t.DisplayName(), verb, Tildify(r.Path))
+			}
+		}
+	}
+
+	// Remove the session-awareness skill too (best-effort).
+	if !inst.DryRun {
+		if results, err := skill.Uninstall(skillScope(inst.Location)); err == nil {
+			for _, r := range results {
+				if r.Action == "removed" {
+					fmt.Printf("  skill: Removed %s\n", Tildify(r.Path))
+				}
 			}
 		}
 	}

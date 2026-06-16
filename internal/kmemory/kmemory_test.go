@@ -72,6 +72,29 @@ func TestSearchAllNoMatch(t *testing.T) {
 	}
 }
 
+// A multi-word query that is NOT a verbatim substring of the stored fact must
+// still match via term overlap. The old whole-query Contains check failed this,
+// which made `recall` return nothing for natural-language queries.
+func TestSearchMultiWordTermOverlap(t *testing.T) {
+	km := NewKnowledgeMemory()
+	km.Store(UserNote, "sess-verify", NewUserNote("sess-verify", "9 tools, grep_code removed, multi-client skills"))
+
+	results := km.SearchAll("multi-client skills native rules files AGENTS.md GEMINI.md")
+	if len(results) == 0 || results[0].Key != "sess-verify" {
+		t.Fatalf("multi-word query should match the fact via term overlap, got %v", results)
+	}
+
+	typed := km.Search(UserNote, "did we remove the grep_code tool")
+	if len(typed) == 0 || typed[0].Key != "sess-verify" {
+		t.Errorf("typed Search should match via term overlap, got %v", typed)
+	}
+
+	// A query sharing no terms still returns nothing.
+	if got := km.SearchAll("database migration rollback"); len(got) != 0 {
+		t.Errorf("unrelated query should not match, got %v", got)
+	}
+}
+
 func TestStoreMultipleTypes(t *testing.T) {
 	km := NewKnowledgeMemory()
 

@@ -2,6 +2,19 @@
 
 > Last updated by big-pickle on 2026-06-10.
 
+## V2 Foundation (in progress — branch `feat/v2-foundation`)
+
+**Goal:** cut the dominant cost of long single sessions — Anthropic **prompt-cache write/read**, not model output. Evidence: a single call charged $2.95 where $2.84 was a 5-min cache *write* of ~455k tokens; output was only ~3.9k. The MCP cannot control *when/how* the client caches (breakpoints/TTL are client-owned); its only lever is **reducing how many tokens ever enter the resident context window** (the thing re-cached every turn). Every V2 piece serves that one goal.
+
+Three steps:
+1. **DONE — compact `repo_summary`.** `BuildRepositorySummaryCompact(ks, budget, module)` in `internal/retrieval/repository_summary.go`: token-budgeted (reuses `parseBudget`), top modules by symbol count + `+N more` rollup, dropped the unbounded `Layers` chain, optional `module` drill-down. Tool gained `budget`+`module` params. Legacy `BuildRepositorySummary`/`Format()` untouched. (50-module synthetic: 1192→216 tokens; capped regardless of repo size.)
+2. **DONE (code) — 3 cache-reducing tools** in `internal/mcpserver/tools.go`: `remember(repo_path,key,fact)` (durable fact → `kmemory` `UserNote` + per-repo `session_facts.json`), `stash_context(repo_path,content,label?)` (park large blob out of window → tiny handle; file-backed `internal/stash` at `<repoRoot>/.mycli-fts/stash/`), `recall(repo_path,query,source?,budget?)` (query-scoped read of a stash by handle, or facts; hard-capped via step-1 budgeting). Stores wired into `RepoSession` (`Stash`, `FactsPath`, `RememberFact`, `RecallFacts`). Chosen over compact/summarize/forget because the user requires **no context drop** — stash is lossless (relocates tokens, re-fetchable). All tool outputs stay tiny. New names added to `claude.go` allow-list. Tests: `internal/stash`, `internal/session/repo_session_v2_test.go`.
+3. **DONE — `costaffective-session` skill (session-awareness).** Teaches the model to keep the session lean (route large content through stash/recall, remember durable facts, prefer narrow retrieval). Single embedded source of truth: `internal/skill/policy.md` (`go:embed`, ~275 tok). Delivered two ways: (a) **automatic/cross-IDE** via `server.WithInstructions(skill.Instructions())` in `internal/mcpserver/server.go` — every MCP client auto-loads it, zero install; (b) **native Claude Code SKILL.md** via `costaffective skill {install,uninstall,print}` (`cmd/skill.go`) writing `~/.claude/skills/costaffective-session/SKILL.md` (or `.claude/...` with `--local`). `install` writes the skill by default (opt out `--no-skill`); `uninstall` removes it. Other IDEs rely on the instructions field + `skill print` for manual placement. `internal/skill` is standalone (NOT in the Target interface). Tests in `internal/skill/skill_test.go`.
+
+**LANDMINE:** `repo_memory`/`discovery_memory` Init with shared `os.TempDir()` paths (NOT per-repo) — a clobber risk (same class as the shared-index bug). New V2 stores MUST be per-repo (derive from `repoRoot` like `treesitter.NewSymbolDB`/`cache.NewCache`).
+
+**Honest limit:** these tools can't evict content the client already placed in context; they only help when the model *routes new large content through them* — which is what the step-3 skill enforces. MCP server-side state persists across tool calls via a process-global per-repo `SessionCache` (`internal/mcpserver/session_cache.go`).
+
 ## CGO Requirement
 
 **CGO is mandatory.** The project depends on:

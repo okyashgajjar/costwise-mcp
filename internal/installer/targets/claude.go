@@ -101,11 +101,14 @@ func (t *ClaudeTarget) writePermissions(loc installer.Location) installer.WriteR
 	want := []string{
 		"mcp__costaffective__search_code",
 		"mcp__costaffective__find_symbol",
+		"mcp__costaffective__read_symbol",
 		"mcp__costaffective__find_references",
 		"mcp__costaffective__find_callers",
-		"mcp__costaffective__grep_code",
 		"mcp__costaffective__get_repository_summary",
 		"mcp__costaffective__index_repository",
+		"mcp__costaffective__remember",
+		"mcp__costaffective__stash_context",
+		"mcp__costaffective__recall",
 	}
 
 	changed := false

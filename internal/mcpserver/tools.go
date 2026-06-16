@@ -3,6 +3,8 @@ package mcpserver
 import (
 	"context"
 	"fmt"
+	"os"
+	"strings"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
@@ -29,6 +31,14 @@ func RegisterTools(s *server.MCPServer) {
 		mcp.WithString("budget", mcp.Description("Token budget: small (500), medium (1500), large (3000). Default is small."), mcp.Enum("small", "medium", "large")),
 	), findSymbolHandler)
 
+	// read_symbol — the full implementation body of a symbol, not just its location.
+	s.AddTool(mcp.NewTool("read_symbol",
+		mcp.WithDescription("Return the full source code of a symbol (function, method, or type) by name — the implementation body itself, not just its location. Use this instead of reading a whole file when you need to see how something is implemented."),
+		mcp.WithString("repo_path", mcp.Required(), mcp.Description("Absolute path to the repository root")),
+		mcp.WithString("symbol", mcp.Required(), mcp.Description("Symbol name to read (function/method/type)")),
+		mcp.WithString("budget", mcp.Description("Token budget: small (500), medium (1500), large (3000). Default is medium."), mcp.Enum("small", "medium", "large")),
+	), readSymbolHandler)
+
 	// find_references
 	s.AddTool(mcp.NewTool("find_references",
 		mcp.WithDescription("Find all references and usages of a symbol across the repository."),
@@ -45,18 +55,12 @@ func RegisterTools(s *server.MCPServer) {
 		mcp.WithString("budget", mcp.Description("Token budget: small (500), medium (1500), large (3000). Default is medium."), mcp.Enum("small", "medium", "large")),
 	), findCallersHandler)
 
-	// grep_code
-	s.AddTool(mcp.NewTool("grep_code",
-		mcp.WithDescription("Exact text search across the repository using ripgrep-like functionality."),
-		mcp.WithString("repo_path", mcp.Required(), mcp.Description("Absolute path to the repository root")),
-		mcp.WithString("pattern", mcp.Required(), mcp.Description("Regex or exact text pattern to search")),
-		mcp.WithString("budget", mcp.Description("Token budget: small (500), medium (1500), large (3000). Default is medium."), mcp.Enum("small", "medium", "large")),
-	), grepCodeHandler)
-
 	// get_repository_summary
 	s.AddTool(mcp.NewTool("get_repository_summary",
-		mcp.WithDescription("Get a high-level overview of the entire repository (modules, languages, file counts)."),
+		mcp.WithDescription("Get a compact, token-budgeted overview of the repository (top modules, languages, file counts). Pass `module` to drill into one directory instead of the whole repo."),
 		mcp.WithString("repo_path", mcp.Required(), mcp.Description("Absolute path to the repository root")),
+		mcp.WithString("budget", mcp.Description("Token budget: small (~500), medium (~1500), large (~3000). Default small."), mcp.Enum("small", "medium", "large")),
+		mcp.WithString("module", mcp.Description("Optional: a module name or directory path to drill into (its files + symbols) instead of the whole-repo overview.")),
 	), repoSummaryHandler)
 
 	// index_repository
@@ -64,6 +68,31 @@ func RegisterTools(s *server.MCPServer) {
 		mcp.WithDescription("Manually trigger a re-index of the repository. Usually unnecessary as the watcher auto-reindexes."),
 		mcp.WithString("repo_path", mcp.Required(), mcp.Description("Absolute path to the repository root")),
 	), indexRepoHandler)
+
+	// remember — persist a small durable fact so it need not be repeated inline.
+	s.AddTool(mcp.NewTool("remember",
+		mcp.WithDescription("Persist a small durable fact (a decision, a path, a gotcha) so you don't have to keep repeating it inline in the conversation. Recall it later with `recall` instead of re-deriving it. Keeps the context window small."),
+		mcp.WithString("repo_path", mcp.Required(), mcp.Description("Absolute path to the repository root")),
+		mcp.WithString("key", mcp.Required(), mcp.Description("Short label for the fact, e.g. 'auth-entrypoint'")),
+		mcp.WithString("fact", mcp.Required(), mcp.Description("The fact to remember, in one or two sentences")),
+	), rememberHandler)
+
+	// stash_context — park a large blob out of the window, return a tiny handle.
+	s.AddTool(mcp.NewTool("stash_context",
+		mcp.WithDescription("Park a large blob (a long file, a big command output, a generated report) OUT of the conversation and get back a tiny handle. Nothing is lost — the full content stays on disk and is re-fetchable with `recall`. Use this instead of pasting large output inline, which would be re-cached every turn."),
+		mcp.WithString("repo_path", mcp.Required(), mcp.Description("Absolute path to the repository root")),
+		mcp.WithString("content", mcp.Required(), mcp.Description("The large text to stash out of context")),
+		mcp.WithString("label", mcp.Description("Optional short label describing the content")),
+	), stashContextHandler)
+
+	// recall — query-scoped read of remembered facts and stashed blobs.
+	s.AddTool(mcp.NewTool("recall",
+		mcp.WithDescription("Take back ONLY what you need: returns the budgeted slice of a stashed blob (by handle) or matching remembered facts, instead of the whole thing. With no `source`, lists matching facts and stash handles."),
+		mcp.WithString("repo_path", mcp.Required(), mcp.Description("Absolute path to the repository root")),
+		mcp.WithString("query", mcp.Required(), mcp.Description("What to look for within the source")),
+		mcp.WithString("source", mcp.Description("A stash handle to read from, or 'facts' for remembered facts. Omit to search both.")),
+		mcp.WithString("budget", mcp.Description("Token budget: small (~500), medium (~1500), large (~3000). Default small."), mcp.Enum("small", "medium", "large")),
+	), recallHandler)
 }
 
 func getStringArg(args interface{}, key string) string {
@@ -165,6 +194,86 @@ func findSymbolHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.C
 	return mcp.NewToolResultText(compressed.Context), nil
 }
 
+func readSymbolHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	repoPath := getStringArg(request.Params.Arguments, "repo_path")
+	symbol := getStringArg(request.Params.Arguments, "symbol")
+
+	if repoPath == "" || symbol == "" {
+		return mcp.NewToolResultError("repo_path and symbol are required"), nil
+	}
+
+	rs, err := GetOrCreateRepoSession(ctx, repoPath)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	ret := retrieval.NewSymbolRetriever()
+	if err := ret.Initialize(ctx, rs.Repo); err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	results, err := ret.Retrieve(ctx, symbol)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+	if len(results) == 0 {
+		return mcp.NewToolResultText(fmt.Sprintf("Symbol '%s' not found.", symbol)), nil
+	}
+
+	// Read the top match's body straight from its known line range — one file
+	// slice, independent of repo size.
+	top := results[0]
+	budget := parseBudget(request.Params.Arguments, 1500)
+	body, err := readLineRange(top.File, top.LineFrom, top.LineTo, budget*4)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("read %s: %v", top.File, err)), nil
+	}
+
+	var b strings.Builder
+	fmt.Fprintf(&b, "%s:%d-%d\n%s", relToRepo(rs.Repo.Root, top.File), top.LineFrom, top.LineTo, body)
+	if len(results) > 1 {
+		others := make([]string, 0, 4)
+		for _, r := range results[1:] {
+			others = append(others, fmt.Sprintf("%s:%d", relToRepo(rs.Repo.Root, r.File), r.LineFrom))
+			if len(others) >= 4 {
+				break
+			}
+		}
+		fmt.Fprintf(&b, "\n\nOther matches (read_symbol returns the top one): %s", strings.Join(others, ", "))
+	}
+	return mcp.NewToolResultText(b.String()), nil
+}
+
+// readLineRange returns lines [from, to] (1-based, inclusive) of a file, capped
+// to maxChars. Reading a single source file is cheap regardless of repo size.
+func readLineRange(path string, from, to, maxChars int) (string, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return "", err
+	}
+	lines := strings.Split(string(data), "\n")
+	if from < 1 {
+		from = 1
+	}
+	if to > len(lines) {
+		to = len(lines)
+	}
+	if from > to {
+		return "", nil
+	}
+	body := strings.Join(lines[from-1:to], "\n")
+	if maxChars > 0 && len(body) > maxChars {
+		body = body[:maxChars] + "\n… (truncated; raise budget to see the rest)"
+	}
+	return body, nil
+}
+
+// relToRepo renders an absolute file path relative to the repo root for display.
+func relToRepo(root, abs string) string {
+	rel := strings.TrimPrefix(abs, root)
+	return strings.TrimPrefix(rel, string(os.PathSeparator))
+}
+
 func findReferencesHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	repoPath := getStringArg(request.Params.Arguments, "repo_path")
 	symbol := getStringArg(request.Params.Arguments, "symbol")
@@ -217,32 +326,6 @@ func findCallersHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.
 	return mcp.NewToolResultText(compressed.Context), nil
 }
 
-func grepCodeHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-	repoPath := getStringArg(request.Params.Arguments, "repo_path")
-	pattern := getStringArg(request.Params.Arguments, "pattern")
-
-	rs, err := GetOrCreateRepoSession(ctx, repoPath)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	ret := retrieval.NewGrepRetriever()
-	if err := ret.Initialize(ctx, rs.Repo); err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	results, err := ret.Retrieve(ctx, pattern)
-	if err != nil {
-		return mcp.NewToolResultError(err.Error()), nil
-	}
-
-	atc := answertype.Classification{Type: answertype.Explanation} // Generic
-	budget := parseBudget(request.Params.Arguments, 1500)
-	compressed := retrieval.CompressForAnswerType(results, atc, budget)
-
-	return mcp.NewToolResultText(compressed.Context), nil
-}
-
 func repoSummaryHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	repoPath := getStringArg(request.Params.Arguments, "repo_path")
 
@@ -251,7 +334,10 @@ func repoSummaryHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.
 		return mcp.NewToolResultError(err.Error()), nil
 	}
 
-	_, summaryText := retrieval.BuildRepositorySummary(rs.Knowledge)
+	budget := parseBudget(request.Params.Arguments, 500)
+	module := getStringArg(request.Params.Arguments, "module")
+
+	summaryText := retrieval.BuildRepositorySummaryCompact(rs.Knowledge, budget, module)
 	if summaryText == "" {
 		return mcp.NewToolResultText("Repository summary is empty or unavailable."), nil
 	}
@@ -279,4 +365,125 @@ func indexRepoHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.Ca
 	}
 
 	return mcp.NewToolResultText(fmt.Sprintf("Repository re-indexed successfully.\nChanged: %d\nSkipped: %d\nDeleted: %d\nTotal: %d", result.Changed, result.Skipped, result.Deleted, result.Total)), nil
+}
+
+func rememberHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	repoPath := getStringArg(request.Params.Arguments, "repo_path")
+	key := getStringArg(request.Params.Arguments, "key")
+	fact := getStringArg(request.Params.Arguments, "fact")
+
+	if repoPath == "" || key == "" || fact == "" {
+		return mcp.NewToolResultError("repo_path, key, and fact are required"), nil
+	}
+
+	rs, err := GetOrCreateRepoSession(ctx, repoPath)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	if err := rs.RememberFact(key, fact); err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("Failed to remember: %v", err)), nil
+	}
+
+	return mcp.NewToolResultText(fmt.Sprintf("Remembered %q. Use recall(query=%q) to retrieve it.", key, key)), nil
+}
+
+func stashContextHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	repoPath := getStringArg(request.Params.Arguments, "repo_path")
+	content := getStringArg(request.Params.Arguments, "content")
+	label := getStringArg(request.Params.Arguments, "label")
+
+	if repoPath == "" || content == "" {
+		return mcp.NewToolResultError("repo_path and content are required"), nil
+	}
+
+	rs, err := GetOrCreateRepoSession(ctx, repoPath)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	e, err := rs.Stash.Store(content, label)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("Failed to stash: %v", err)), nil
+	}
+
+	labelPart := ""
+	if e.Label != "" {
+		labelPart = fmt.Sprintf(" %q", e.Label)
+	}
+	return mcp.NewToolResultText(fmt.Sprintf(
+		"Stashed%s → %s (~%d tokens kept out of context). Read only what you need with recall(source=%q, query=...).",
+		labelPart, e.Handle, e.Tokens, e.Handle,
+	)), nil
+}
+
+func recallHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	repoPath := getStringArg(request.Params.Arguments, "repo_path")
+	query := getStringArg(request.Params.Arguments, "query")
+	source := getStringArg(request.Params.Arguments, "source")
+
+	if repoPath == "" {
+		return mcp.NewToolResultError("repo_path is required"), nil
+	}
+
+	rs, err := GetOrCreateRepoSession(ctx, repoPath)
+	if err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	budget := parseBudget(request.Params.Arguments, 500)
+
+	// A concrete stash handle: query-scope just that blob.
+	if source != "" && source != "facts" {
+		out, err := rs.Stash.Query(source, query, budget)
+		if err != nil {
+			return mcp.NewToolResultError(err.Error()), nil
+		}
+		return mcp.NewToolResultText(out), nil
+	}
+
+	// Otherwise search remembered facts (and, when source is unset, list stashes).
+	var lines []string
+	if facts := rs.RecallFacts(query); len(facts) > 0 {
+		lines = append(lines, "Facts:")
+		for _, f := range facts {
+			lines = append(lines, "  "+f)
+		}
+	}
+
+	if source == "" {
+		ql := strings.ToLower(strings.TrimSpace(query))
+		var stashLines []string
+		for _, e := range rs.Stash.List() {
+			if ql == "" || strings.Contains(strings.ToLower(e.Label+" "+e.Handle), ql) {
+				stashLines = append(stashLines, fmt.Sprintf("  %s — %s (~%d tok)", e.Handle, e.Label, e.Tokens))
+			}
+		}
+		if len(stashLines) > 0 {
+			lines = append(lines, "Stashes (recall with source=<handle>):")
+			lines = append(lines, stashLines...)
+		}
+	}
+
+	if len(lines) == 0 {
+		return mcp.NewToolResultText(fmt.Sprintf("Nothing remembered or stashed matches %q.", query)), nil
+	}
+
+	return mcp.NewToolResultText(trimToBudget(lines, budget)), nil
+}
+
+// trimToBudget joins lines up to an approximate token budget (len/4), appending
+// a truncation note when it cuts off.
+func trimToBudget(lines []string, budget int) string {
+	maxChars := budget * 4
+	var b strings.Builder
+	for i, ln := range lines {
+		if b.Len()+len(ln)+1 > maxChars && b.Len() > 0 {
+			fmt.Fprintf(&b, "... +%d more (raise budget to see them)\n", len(lines)-i)
+			break
+		}
+		b.WriteString(ln)
+		b.WriteByte('\n')
+	}
+	return b.String()
 }
