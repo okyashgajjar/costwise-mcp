@@ -191,25 +191,25 @@ func replaceExecutable(path string, data []byte) error {
 	tmpName := tmp.Name()
 	if _, err := tmp.Write(data); err != nil {
 		tmp.Close()
-		os.Remove(tmpName)
+		_ = os.Remove(tmpName)
 		return err
 	}
 	tmp.Close()
 	if err := os.Chmod(tmpName, 0o755); err != nil {
-		os.Remove(tmpName)
+		_ = os.Remove(tmpName)
 		return err
 	}
 
 	if runtime.GOOS == "windows" {
 		old := path + ".old"
-		os.Remove(old)
+		_ = os.Remove(old)
 		if err := os.Rename(path, old); err != nil {
-			os.Remove(tmpName)
+			_ = os.Remove(tmpName)
 			return err
 		}
 		if err := os.Rename(tmpName, path); err != nil {
-			os.Rename(old, path) // rollback
-			os.Remove(tmpName)
+			_ = os.Rename(old, path) // rollback
+			_ = os.Remove(tmpName)
 			return err
 		}
 		return nil

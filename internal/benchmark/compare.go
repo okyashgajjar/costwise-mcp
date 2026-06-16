@@ -154,7 +154,13 @@ func CompareReport(name string, rows []CompareRow) string {
 	fmt.Fprintf(&b, "%-22s %14.0f %14.0f %11.0f%%\n", "Avg input tokens", avg(withTok), avg(withoutTok), red(withTok, withoutTok))
 	fmt.Fprintf(&b, "%-22s %14d %14d %11.0f%%\n", "Total input tokens", withTok, withoutTok, red(withTok, withoutTok))
 	fmt.Fprintf(&b, "%-22s %14.2f %14.2f %11.0f%%\n", "Avg tool calls", avg(withCalls), avg(withoutCalls), red(withCalls, withoutCalls))
-	fmt.Fprintf(&b, "%-22s %14d %14d %12s\n", "Files read (full)", 0, func() int { f := 0; for _, r := range rows { f += r.WithoutFiles }; return f }(), "")
+	fmt.Fprintf(&b, "%-22s %14d %14d %12s\n", "Files read (full)", 0, func() int {
+		f := 0
+		for _, r := range rows {
+			f += r.WithoutFiles
+		}
+		return f
+	}(), "")
 	fmt.Fprintf(&b, "%-22s %13.0f%% %14s %12s\n", "Answer accuracy", float64(hits)/float64(n)*100, "(n/a)", "")
 	fmt.Fprintf(&b, "\nWith MCP = one search_code call returning a compressed answer.\n")
 	fmt.Fprintf(&b, "Without  = grep the symbol, then read the most-relevant file (the default agent loop).\n")

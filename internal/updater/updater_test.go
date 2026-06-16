@@ -12,7 +12,7 @@ func TestIsNewer(t *testing.T) {
 		{"v1.1.0", "v1.0.9", true},
 		{"v1.0.2", "v1.0.2", false},
 		{"v1.0.1", "v1.0.2", false},
-		{"v2.0.0", "dev", true},          // non-semver current -> update offered
+		{"v2.0.0", "dev", true},            // non-semver current -> update offered
 		{"v2.0.0", "v1.0.2-10-gabc", true}, // describe-style suffix dropped
 		{"v1.0.2", "v1.0.2-SNAPSHOT-ab", false},
 		{"not-a-version", "v1.0.0", false}, // bad latest -> no update

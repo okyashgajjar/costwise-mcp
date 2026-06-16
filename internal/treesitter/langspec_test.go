@@ -12,10 +12,10 @@ import (
 // type would surface here as a missing symbol.
 func TestGenericExtractors(t *testing.T) {
 	cases := []struct {
-		lang     Language
-		file     string
-		source   string
-		expect   []string // symbol names that must be found
+		lang   Language
+		file   string
+		source string
+		expect []string // symbol names that must be found
 	}{
 		{
 			lang: LangRust, file: "a.rs",

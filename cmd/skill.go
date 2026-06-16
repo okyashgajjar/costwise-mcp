@@ -84,9 +84,9 @@ var skillPrintCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		full, _ := cmd.Flags().GetBool("full")
 		if full {
-			fmt.Fprint(cmd.OutOrStdout(), skill.SkillMarkdown())
+			_, _ = fmt.Fprint(cmd.OutOrStdout(), skill.SkillMarkdown())
 		} else {
-			fmt.Fprintln(cmd.OutOrStdout(), skill.Policy())
+			_, _ = fmt.Fprintln(cmd.OutOrStdout(), skill.Policy())
 		}
 		return nil
 	},
