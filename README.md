@@ -10,7 +10,7 @@
   />
 </p>
 
-**52.8% fewer tokens · 4.3x Faster · 60.6% fewer tool interactions ·  100% local**
+**52.8% fewer tokens · 4.3x Faster · 60.6% fewer tool interactions · Reduces cache write (Client Side) ·  100% local**
 
 [![Website](https://img.shields.io/badge/Website-costaffective--mcp.vercel.app-0066CC)](https://costaffective-mcp.vercel.app)
 [![GitHub Stars](https://img.shields.io/github/stars/okyashgajjar/costaffective-mcp?style=social)](https://github.com/okyashgajjar/costaffective-mcp)
