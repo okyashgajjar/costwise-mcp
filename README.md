@@ -32,16 +32,16 @@ One command on Linux, macOS, or Windows (via WSL). Detects your OS, installs Go 
 <table>
   <tr>
     <td align="center">
-      <a href="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/opencode-without-costaffective.webm">
+      <a href="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/without-mcp-smallrepo-opencode.png">
         <img src="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/without-mcp-smallrepo-opencode.png" width="400" alt="Without CostAffective">
       </a>
-      <br><strong>Without CostAffective</strong> — <a href="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/opencode-without-costaffective.webm">watch video</a>
+      <br><strong>Without CostAffective</strong><br><a href="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/opencode-without-costaffective.webm">▶ watch video</a>
     </td>
     <td align="center">
-      <a href="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/opencode-with-costaffective.webm">
+      <a href="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/with-mcp-smallrepo-opencode.png">
         <img src="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/with-mcp-smallrepo-opencode.png" width="400" alt="With CostAffective">
       </a>
-      <br><strong>With CostAffective</strong> — <a href="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/opencode-with-costaffective.webm">watch video</a>
+      <br><strong>With CostAffective</strong><br><a href="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/opencode-with-costaffective.webm">▶ watch video</a>
     </td>
   </tr>
 </table>
