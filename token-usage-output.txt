@@ -1,86 +1,70 @@
 ═══════════════════════════════════════════════════════════════════════════
-Token Analysis: Session ses_12a0489c1ffeJT7i6h4uWtHtco
+Token Analysis: Session ses_124ee8b4bffeAHxSkDqB4Yc9D1
 Model: big-pickle
 ═══════════════════════════════════════════════════════════════════════════
-
-WARNINGS
-───────────────────────────────────────────────────
-- OpenCode export failed for session ses_12a0489c1ffeJT7i6h4uWtHtco. Context sections were skipped: JSON Parse error: Unterminated string
 
 TOKEN BREAKDOWN BY CATEGORY
 ─────────────────────────────────────────────────────────────────────────
 Estimated using tokenizer analysis of message content:
 
 Input Categories:
-  SYSTEM    ██████████████░░░░░░░░░░░░░░░░    46.7% (35,223)
-  USER      ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░      6.3% (4,776)
-  TOOLS     ██████████████░░░░░░░░░░░░░░░░    47.0% (35,490)
+  SYSTEM    ███████████████████████░░░░░░░    77.6% (12,784)
+  USER      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.5% (88)
+  TOOLS     ███████░░░░░░░░░░░░░░░░░░░░░░░     21.9% (3,612)
 
-  Subtotal: 75,489 estimated input tokens
+  Subtotal: 16,484 estimated input tokens
   Note: inferred system/overhead values are heuristic estimates from API telemetry.
 
 Output Categories:
-  ASSISTANT ███████████░░░░░░░░░░░░░░░░░░░     35.5% (4,622)
-  REASONING ███████████████████░░░░░░░░░░░     64.5% (8,386)
+  ASSISTANT █████████████████████████░░░░░       84.2% (634)
+  REASONING █████░░░░░░░░░░░░░░░░░░░░░░░░░       15.8% (119)
 
-  Subtotal: 13,008 estimated output tokens
+  Subtotal: 753 estimated output tokens
 
-Local Total: 88,497 tokens (estimated)
+Local Total: 17,237 tokens (estimated)
 
 TOOL USAGE BREAKDOWN
 ─────────────────────────────────────────────────────────────────────────
-read                 ██████████████████░░░░░░░░░░░░    60.8% (21,580)   19x
-bash                 ████████░░░░░░░░░░░░░░░░░░░░░░     27.3% (9,698)   10x
-grep                 █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░      4.9% (1,734)    3x
-costaffective_get_repository_summary █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░        2.1% (740)    1x
-costaffective_search_code █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░        1.9% (678)    1x
-todowrite            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░        1.0% (344)    3x
-tokenscope           ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░        0.7% (263)    4x
-costaffective_read_symbol ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░        0.5% (171)    2x
-costaffective_stash_context ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░        0.4% (135)    3x
-costaffective_remember ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.1% (42)    2x
-glob                 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.1% (40)    2x
-edit                 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.1% (32)    8x
-costaffective_recall ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.1% (23)    1x
-write                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.0% (10)    2x
+task                 ██████████████████████████████     100.0% (3,612)    1x
 
 TOP CONTRIBUTORS
 ─────────────────────────────────────────────────────────────────────────
-• System (inferred from API telemetry) 35,223 tokens (39.8%)
-• read                         21,580 tokens (24.4%)
-• bash                         9,698 tokens (11.0%)
-• grep                         1,734 tokens (2.0%)
-• User#25                      995 tokens (1.1%)
+• System (inferred from API telemetry) 12,784 tokens (74.2%)
+• task                         3,612 tokens (21.0%)
+• Assistant#1                  634 tokens (3.7%)
+• User#2                       63 tokens (0.4%)
+• Reasoning#3                  53 tokens (0.3%)
 
 ═══════════════════════════════════════════════════════════════════════════
 MOST RECENT API CALL
 ─────────────────────────────────────────────────────────────────────────
 
 Raw telemetry from last API response:
-  Input (fresh):            225 tokens
-  Cache read:            75,264 tokens
-  Output:                    81 tokens
-  Provider total:        75,570 tokens
+  Input (fresh):          3,812 tokens
+  Cache read:            12,672 tokens
+  Output:                   671 tokens
+  Reasoning:                 18 tokens
+  Provider total:        17,173 tokens
   ─────────────────────────────────────
-  Total:                 75,570 tokens
+  Total:                 17,173 tokens
 
 ═══════════════════════════════════════════════════════════════════════════
-SESSION TOTALS (All 80 API calls)
+SESSION TOTALS (All 2 API calls)
 ─────────────────────────────────────────────────────────────────────────
 
-Assistant messages observed: 81 (structural count)
+Assistant messages observed: 3 (structural count)
 
 Total tokens processed across the entire session (for cost calculation):
 
-  Input tokens:          63,363 (fresh tokens across all calls)
-  Cache read:         3,643,904 (cached tokens across all calls)
+  Input tokens:          16,270 (fresh tokens across all calls)
+  Cache read:            12,672 (cached tokens across all calls)
   Cache write:                0 (tokens written to cache)
-  Output tokens:         16,584 (all model responses)
-  Reasoning tokens:       8,599 (thinking/reasoning)
+  Output tokens:            919 (all model responses)
+  Reasoning tokens:          67 (thinking/reasoning)
   ─────────────────────────────────────
-  Session Total:      3,732,450 tokens (for billing)
-  Cache read calls:          79 / 80
-  Cache write calls:          0 / 80
+  Session Total:         29,928 tokens (for billing)
+  Cache read calls:           1 / 2
+  Cache write calls:          0 / 2
 
 ═══════════════════════════════════════════════════════════════════════════
 ESTIMATED SESSION COST (API Key Pricing)
@@ -89,9 +73,9 @@ ESTIMATED SESSION COST (API Key Pricing)
 You appear to be on a subscription plan (API cost is $0).
 Here's what this session would cost with direct API access:
 
-  Input tokens:          63,363 × $0.00/M  = $0.0000
-  Output tokens:         25,183 × $0.00/M  = $0.0000
-  Cache read:         3,643,904 × $0.00/M  = $0.0000
+  Input tokens:          16,270 × $0.00/M  = $0.0000
+  Output tokens:            986 × $0.00/M  = $0.0000
+  Cache read:            12,672 × $0.00/M  = $0.0000
 ─────────────────────────────────────────────────────────────────────────
 ESTIMATED TOTAL: $0.0000
 
@@ -114,10 +98,64 @@ These subagents are embedded in the task tool description and consume tokens on 
   Note: Full task tool description is ~631 tokens (includes instructions/examples).
 
 ═══════════════════════════════════════════════════════════════════════════
+TOOL DEFINITION COSTS (Tokenized from OpenCode tool metadata)
+─────────────────────────────────────────────────────────────────────────
+
+  Tool                Est. Tokens   Args   Complexity
+  ───────────────────────────────────────────────────────────────────
+  bash                     ~1,361       4   simple
+  task                       ~885       5   simple
+  todowrite                  ~680       1   complex (arrays/objects)
+  websearch                  ~502       5   simple
+  edit                       ~479       4   simple
+  question                   ~458       1   complex (arrays/objects)
+  read                       ~457       3   simple
+  webfetch                   ~352       3   simple
+  grep                       ~321       3   simple
+  glob                       ~280       2   simple
+  write                      ~258       2   simple
+  tokenscope                 ~200       3   simple
+  skill                      ~170       1   simple
+  invalid                    ~103       2   simple
+  ───────────────────────────────────────────────────────────────────
+  Total:             ~      6,506 tokens (14 enabled tools)
+
+  Note: Tokenized from the current OpenCode tool descriptions and JSON schemas.
+        Provider-specific schema wrapping may still add small overhead.
+
+═══════════════════════════════════════════════════════════════════════════
+CACHE EFFICIENCY
+─────────────────────────────────────────────────────────────────────────
+
+  Token Distribution:
+    Cache Read:            12,672 tokens   █████████████░░░░░░░░░░░░░░░░░  43.8%
+    Fresh Input:           16,270 tokens   █████████████████░░░░░░░░░░░░░  56.2%
+  ───────────────────────────────────────────────────────────────────
+  Cache Hit Rate:      43.8% (cache read / (cache read + fresh input))
+
+  Cost Analysis (big-pickle @ $0.00/M input, $0.00/M cache read, $0.00/M cache write):
+    Without caching:   $0.0000  (28,942 tokens x $0.00/M)
+    With caching:      $0.0000  (fresh x $0.00/M + cache read x $0.00/M + cache write x $0.00/M)
+  ───────────────────────────────────────────────────────────────────
+  Cost Savings:        $0.0000  (0.0% reduction)
+  Effective Rate:      $0.00/M tokens  (vs. $0.00/M standard)
+
+═══════════════════════════════════════════════════════════════════════════
+SUBAGENT COSTS (1 child sessions, 6 API calls)
+─────────────────────────────────────────────────────────────────────────
+
+  explore                      $0.0000  (132,616 tokens, 6 calls)
+─────────────────────────────────────────────────────────────────────────
+Subagent Total:            $0.0000  (132,616 tokens, 6 calls)
+
+═══════════════════════════════════════════════════════════════════════════
 SUMMARY
 ─────────────────────────────────────────────────────────────────────────
 
                           Cost        Tokens          API Calls
-  Session:           $    0.0000     3,732,450            80
+  Main session:      $    0.0000        29,928             2
+  Subagents:         $    0.0000       132,616             6
+─────────────────────────────────────────────────────────────────────────
+  TOTAL:             $    0.0000       162,544             8
 
 ═══════════════════════════════════════════════════════════════════════════
