@@ -61,13 +61,29 @@ Most AI coding agents do the opposite. They re-explore the same repository over 
 
 CostAffective is a local MCP server that makes coding agents behave more like that experienced engineer. It gives them fast, token-budgeted access to your repository — so they stop reading whole files to find small facts.
 
+---
+
+## Benchmarks
+
+### Small repository
+
 | Metric | Without | With | Change |
 |---|---|---|---|
 | Tokens consumed | 162,544 | 76,757 | **52.8% fewer** |
 | Wall time | 84s | 19.6s | **4.3x faster** |
 | Tool calls | 54 | 4 | **92.6% fewer** |
 
-*Small-repository benchmark: same analysis task, same model, same output quality. The difference is index-backed tools instead of file dumps.*
+*Same analysis task, same model, same output quality. The difference is index-backed tools instead of file dumps.*
+
+### Continue OSS (large repository)
+
+| Metric | CostAffective | Alternative | Change |
+|---|---|---|---|
+| Tokens | 4.7M | 8.7M | **45.9% lower** |
+| API Calls | 89 | 134 | **33.6% fewer** |
+| Exploration Calls | 43 | 94 | **54.3% fewer** |
+
+> Full benchmark suite: [costaffective-mcp.vercel.app/benchmarks](https://costaffective-mcp.vercel.app/benchmarks)
 
 ---
 
@@ -457,30 +473,7 @@ Remove-Item (Get-Command costaffective).Source -Force
 
 </details>
 
-<details>
-<summary><strong>Detailed benchmarks</strong></summary>
 
-<br>
-
-> Full benchmark suite with the global retriever leaderboard: [costaffective-mcp.vercel.app/benchmarks](https://costaffective-mcp.vercel.app/benchmarks)
-
-### Continue OSS Repository
-
-| Metric            | CostAffective | Alternative |
-| ----------------- | ------------- | ----------- |
-| Tokens            | 4.7M          | 8.7M        |
-| API Calls         | 89            | 134         |
-| Exploration Calls | 43            | 94          |
-
-### Improvement
-
-| Metric            | Result          |
-| ----------------- | --------------- |
-| Token Usage       | **45.9%** lower |
-| Exploration Loops | **54.3%** lower |
-| Tool Interactions | **42.1%** lower |
-
-</details>
 
 <details>
 <summary><strong>Storage locations — where everything lives on disk</strong></summary>
