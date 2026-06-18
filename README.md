@@ -32,11 +32,11 @@ One command on Linux, macOS, or Windows (via WSL). Detects your OS, installs Go 
 <table>
   <tr>
     <td align="center">
-      <video src="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/opencode-without-costaffective.mp4" width="400" controls></video>
+      <video src="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/opencode-without-costaffective.webm" width="400" controls></video>
       <br><strong>Without CostAffective</strong>
     </td>
     <td align="center">
-      <video src="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/opencode-with-costaffective.mp4" width="400" controls></video>
+      <video src="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/opencode-with-costaffective.webm" width="400" controls></video>
       <br><strong>With CostAffective</strong>
     </td>
   </tr>
