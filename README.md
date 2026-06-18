@@ -89,31 +89,6 @@ CostAffective is a local MCP server that makes coding agents behave more like th
 
 > Full benchmark suite: [costaffective-mcp.vercel.app/benchmarks](https://costaffective-mcp.vercel.app/benchmarks)
 
----
-
-## Why long sessions get expensive
-
-The problem is not the model's output. The problem is everything around it.
-
-### Repositories get re-explored
-
-Ask your coding agent "where is X defined" and it reads the file. Ask again five minutes later — it reads the same file again. Each read puts thousands of tokens into the context window. Over the course of a session this adds up to hundreds of thousands of tokens for information the model has already seen.
-
-### Context grows without being useful
-
-A typical session starts small. Then the model dumps a file to answer a question. Then it dumps a test output. Then a build log. None of these leave — they accumulate in the resident context window, making every subsequent turn more expensive.
-
-### The prompt cache makes it worse
-
-Providers cache the conversation so repeated context is cheaper to resend. But caching has a cost:
-
-- Every turn pays to **read** the entire resident context (everything currently in the window).
-- Any change to earlier context, or a short idle gap, invalidates the cache and forces a full **rewrite** of everything resident.
-
-In a long session this compounds. A real measured example: a single API call billed at **\$2.95**, of which **\$2.84 was the cache *write*** of roughly **455,000 tokens** of resident context. The model's actual output that turn was under 4,000 tokens. The expensive part was not the answer — it was the size of the context being carried and re-cached.
-
----
-
 ## How CostAffective fixes it
 
 A tool that connects over MCP cannot control how or when the client caches. Cache breakpoints and TTLs are the client's decision. There is exactly one lever the server controls:
@@ -326,6 +301,110 @@ Take back **only what you need**: the budgeted slice of a stashed blob (by handl
 ---
 
 <details>
+<summary><strong>End-to-end workflow: a real CostAffective session</strong></summary>
+
+<br>
+
+See what a typical session looks like from first command to final answer — and how many tokens stay *out* of the window.
+
+**Step 1 — Install and index**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
+# Script detects OS, installs Go + C compiler if needed,
+# builds binary, detects AI coding clients, and writes MCP config.
+# The server auto-indexes your repo on first connection.
+```
+
+**Step 2 — Start a coding session**
+
+Your AI agent connects to CostAffective via MCP. On connect, the agent receives the ~275-token session skill — it now knows to use stash/recall/remember instead of pasting things inline.
+
+**Step 3 — Ask a navigation question**
+
+Instead of dumping a file, the agent calls:
+
+```
+find_symbol("UserService")
+→ user_service.go:142
+
+read_symbol("UserService")
+→ func (s *UserService) Create(ctx context.Context, req *CreateRequest) (*User, error) {
+      // full body returned, not the whole file
+  }
+```
+
+Cost: ~50 tokens. Without CostAffective: the agent reads `user_service.go` (potentially 500+ lines) into the window.
+
+**Step 4 — Trace an impact**
+
+You ask "what calls validateInput?" The agent calls:
+
+```
+find_callers("validateInput")
+→ processPayment (payment.go:310)
+  → validateOrder (order.go:88)
+    → validateInput (validator.go:45)
+```
+
+Cost: ~30 tokens. Without CostAffective: the agent opens each file, reads the callers, reconstructs the chain. Hundreds of tokens entering the window.
+
+**Step 5 — Run tests, get a failure**
+
+Tests fail with a 2,000-line log. Instead of pasting the whole thing inline:
+
+```
+stash_context(label="test-failure-output", content=<full 2000-line log>)
+→ Stashed → abc123 (~28,000 tokens kept out of context)
+```
+
+Cost of the handle: ~20 tokens in context. The full log sits on disk.
+
+**Step 6 — Investigate the failure**
+
+```
+recall(source="abc123", query="FAIL|panic|error")
+→ test_service_test.go:42: TestCreateUser FAILED
+    expected: 201, got: 500
+    error: database connection refused
+```
+
+Cost: ~40 tokens (just the matching lines). Without CostAffective: the agent re-reads or re-pastes the whole 2,000-line log.
+
+**Step 7 — Remember what you found**
+
+```
+remember(key="db-conn-fix", fact="Database connection refused in tests — check DB_HOST env var in .env.test")
+→ Remembered "db-conn-fix"
+```
+
+Cost: ~20 tokens, persisted for the rest of the session and future sessions.
+
+**Step 8 — Later, recall the fact**
+
+```
+recall(query="db fix")
+→ db-conn-fix: Database connection refused in tests — check DB_HOST env var in .env.test
+```
+
+No need to re-derive the fix. Cost: ~15 tokens.
+
+**Bottom line**
+
+| Step | Without CostAffective | With CostAffective |
+|------|---------------------|-------------------|
+| Find `UserService` | 500+ tokens (whole file) | ~15 tokens (location) |
+| Read implementation | 500+ tokens (whole file) | ~40 tokens (body only) |
+| Call chain trace | 300+ tokens (multiple files) | ~30 tokens (precomputed edges) |
+| Test log investigation | 2,000+ tokens (pasted inline) | ~20 tokens (handle) + ~40 tokens (recall) |
+| Remember the fix | Re-derived next time | ~20 tokens (persisted) |
+| **Total window cost** | **~3,300+ tokens** | **~165 tokens** |
+
+Over a full session, those savings compound to 80%+ fewer tokens in the resident window — and every subsequent turn pays less cache read.
+
+</details>
+
+<details>
 <summary><strong>How the session skill makes the model use all of this automatically</strong></summary>
 
 <br>
@@ -351,43 +430,6 @@ For editors that read their own rules or instructions files, `costaffective skil
 
 </details>
 
-<details>
-<summary><strong>Lower session cost — the cache-aware design in one place</strong></summary>
-
-<br>
-
-This section ties the pieces together. In long sessions the dominant cost is usually the **prompt cache** — re-reading and re-writing everything resident in the context window every turn — not the model's output. CostAffective reduces this by keeping tokens out of the window:
-
-* **Answer from the index, not from files** — the retrieval tools return scopes and locations measured in tens of tokens, instead of whole files measured in thousands.
-* **Budgeted summaries** — `get_repository_summary` is hard-capped and supports drill-down via `module`, so it never dumps a giant tree into the cached context at session start.
-* **Stash instead of paste** — `stash_context` moves large output out of the window and returns a tiny handle; `recall` brings back only the matching slice. This is lossless: the full content stays on disk.
-* **Remember instead of repeat** — `remember` persists durable facts per repository; `recall` brings them back without re-deriving or re-pasting them.
-* **The session skill** — makes the model do all of the above by default, in every editor.
-
-Why not just summarize or delete old context? Because that loses information. Stashing **relocates** tokens rather than discarding them, so nothing is dropped — you can always recall the full content. That was a hard design constraint: reduce the window without ever losing context.
-
-</details>
-
-<details>
-<summary><strong>The honest truth: skills are suggestions, not commands</strong></summary>
-
-<br>
-
-The session skill sends about 275 tokens of guidance at the start of every session. It helps, but it is not a guarantee.
-
-Here is what we cannot control. AI models decide what to pay attention to. A short set of instructions competes with everything else in the conversation the model is managing. Even the best-crafted skill can be ignored when the model is deep in a task. The model's weights and training determine its behavior, not the text in the system prompt. That is simply how these systems work today.
-
-Here is what we can control:
-
-- **Keep the skill short.** At 275 tokens it is one of the shortest and most direct instructions the model sees. That makes it more likely to be followed than a long document full of rules.
-- **Use AGENTS.md.** Models treat repository-local instruction files with higher priority than global skills. If the session guidance matters for your project, put it in AGENTS.md as well.
-- **Remind the model directly.** When you see it paste a large blob inline instead of using `stash_context`, one reminder is usually enough to correct course for the rest of the session.
-- **Deliver through the MCP protocol.** The `instructions` field is automatic on every connection. Unlike a skill file that must be installed, this works everywhere with zero setup.
-- **Build tools that do not require cooperation.** Tools like `stash_context` and `recall` do not need the model to remember the rules. They just need to be called.
-
-The honest answer is that we are building tools for systems that do not reliably follow instructions. That is not a flaw in the skill. It is a constraint of the technology. The best we can do is make the right path the easiest path, keep our guidance direct, and accept that sometimes the model will do its own thing.
-
-</details>
 
 <details>
 <summary><strong>Architecture</strong></summary>
@@ -522,6 +564,35 @@ rm -f /tmp/repo_memory.db /tmp/discovery_memory.db
 </details>
 
 <details>
+<summary><strong>Contributing</strong></summary>
+
+<br>
+
+We welcome contributions of all kinds — bug fixes, new language parsers, better retrievers, documentation, benchmarks.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for full details.
+
+**Quick start for contributors:**
+
+```bash
+git clone https://github.com/okyashgajjar/costaffective-mcp.git
+cd costaffective-mcp
+CGO_ENABLED=1 go build ./...
+CGO_ENABLED=1 go test ./...
+```
+
+**Good first issues:**
+- Add Tree-sitter grammar for a new language
+- Fix the shared `/tmp/` DB path clobbering (per-repo paths needed)
+- Improve compression for a specific answer type
+- Add SSE/HTTP transport for remote deployment
+- Write better benchmarks
+
+Don't know where to start? Open an issue asking for guidance.
+
+</details>
+
+<details>
 <summary><strong>Development</strong></summary>
 
 <br>
@@ -599,6 +670,26 @@ Agent mode can auto-index when needed; interactive modes prompt first.
 - MCP configuration for each client
 - Server startup
 - Repository state
+
+</details>
+
+<details>
+<summary><strong>Troubleshooting</strong></summary>
+
+<br>
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| `costaffective: command not found` | Binary not in PATH | Add `~/.local/bin` or `/usr/local/bin` to PATH, or use absolute path |
+| Server shows "disconnected" | Binary crashed or missing | Run `costaffective serve` directly to see error output |
+| Tools not appearing in client | Config syntax error | Validate JSON: `python3 -m json.tool ~/.claude.json` |
+| `CGO_ENABLED=0` build failure | CGO required by go-sqlite3 and tree-sitter | Always use `CGO_ENABLED=1` |
+| Permission denied | Binary lacks execute bit | `chmod +x $(which costaffective)` |
+| Index seems stale | Files changed after last index | Call `index_repository` or wait for auto-watchdog |
+| Stashed blobs missing | `.mycli-fts/stash/` was deleted | Re-stash the content — old handles will not work |
+| Session skill not working | MCP instructions field not supported in older clients | Upgrade to latest client version, or manually install the skill with `costaffective skill install` |
+
+Still stuck? Run `costaffective doctor` and open an issue with the output.
 
 </details>
 
