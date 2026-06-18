@@ -1,6 +1,6 @@
 <div align="center">
 
-**CostAffective - MCP**
+**CostAffective — MCP**
 
 <p align="center">
   <img
@@ -10,151 +10,214 @@
   />
 </p>
 
-**52.8% fewer tokens · 4.3x Faster · 60.6% fewer tool interactions · Reduces cache write (Client Side) ·  100% local**
+Coding agents that explore less, remember more, and carry less context.
 
-[![Website](https://img.shields.io/badge/Website-costaffective--mcp.vercel.app-0066CC)](https://costaffective-mcp.vercel.app)
-[![GitHub Stars](https://img.shields.io/github/stars/okyashgajjar/costaffective-mcp?style=social)](https://github.com/okyashgajjar/costaffective-mcp)
-[![GitHub Forks](https://img.shields.io/github/forks/okyashgajjar/costaffective-mcp?style=social)](https://github.com/okyashgajjar/costaffective-mcp)
 [![Go 1.25+](https://img.shields.io/badge/Go-1.25%2B-00ADD8.svg)](#installation)
-[![Windows](https://img.shields.io/badge/Windows-supported-blue.svg)](#supported-platforms)
-[![macOS](https://img.shields.io/badge/macOS-supported-blue.svg)](#supported-platforms)
 [![Linux](https://img.shields.io/badge/Linux-supported-blue.svg)](#supported-platforms)
+[![macOS](https://img.shields.io/badge/macOS-supported-blue.svg)](#supported-platforms)
+[![Windows](https://img.shields.io/badge/Windows-supported-blue.svg)](#supported-platforms)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-supported-blueviolet.svg)](#supported-clients--config)
 [![Cursor](https://img.shields.io/badge/Cursor-supported-blueviolet.svg)](#supported-clients--config)
 [![OpenCode](https://img.shields.io/badge/OpenCode-supported-blueviolet.svg)](#supported-clients--config)
-[![Codex CLI](https://img.shields.io/badge/Codex_CLI-supported-blueviolet.svg)](#supported-clients--config)
-[![Antigravity](https://img.shields.io/badge/Antigravity-supported-blueviolet.svg)](#supported-clients--config)
+[![GitHub Stars](https://img.shields.io/github/stars/okyashgajjar/costaffective-mcp?style=social)](https://github.com/okyashgajjar/costaffective-mcp)
 
----
-
-**INSTALLATION** [ Linux & macOS & Windows ]
 ```
 curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
 ```
-Detects OS, installs Go if missing, builds from source, installs globally, and configures your AI coding clients. No manual steps needed.
 
-**Star this repo** it helps others find CostAffective.
+One command on Linux, macOS, or Windows (via WSL). Detects your OS, installs Go if needed, builds from source, and connects your AI coding client.
 
-**Learn more at [costaffective-mcp.vercel.app](https://costaffective-mcp.vercel.app)** interactive benchmarks, docs, AST sandbox, and editor configurator.
+**Star this repo** — it helps others find CostAffective.
+
+<table>
+  <tr>
+    <td align="center">
+      <video src="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/opencode-without-costaffective.mp4" width="400" controls></video>
+      <br><strong>Without CostAffective</strong>
+    </td>
+    <td align="center">
+      <video src="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/opencode-with-costaffective.mp4" width="400" controls></video>
+      <br><strong>With CostAffective</strong>
+    </td>
+  </tr>
+</table>
 
 </div>
 
 ---
 
-## The Story: Why CostAffective Exists
+## Coding agents should behave like experienced engineers
 
-Every section below states not just *what* a feature does, but *why* it exists. If you only read one part, read this one it is the reasoning the rest of the project is built on.
+An experienced engineer walks into a codebase and does **not**:
 
-### The problem
+- Re-read the same files every time they answer a question.
+- Re-discover symbols they already found ten minutes ago.
+- Keep a 5,000-line build log in their head because they might need it later.
+- Carry every detail of every conversation around forever.
 
-An AI coding assistant working in a real repository spends most of its budget on two things, and neither of them is "thinking":
+They remember where things live. They open only what they need. They hold facts, not files.
 
-1. **Rediscovery.** The model reads the same files over and over to answer questions it has effectively already answered ("where is this defined", "who calls this", "what does this module do"). Each read pushes thousands of tokens into the context window.
+Most AI coding agents do the opposite. They re-explore the same repository over and over. They dump whole files into context. They grow the conversation window until every turn becomes expensive — not because the answer is hard, but because *everything else* in the window has to be re-read and re-cached.
 
-2. **The prompt cache.** Providers cache the conversation so repeated context is cheaper to resend. But the cache is not free:
-   - Every turn pays to **read** the entire resident context (everything currently in the window).
-   - Any change to earlier context, or a short idle gap, invalidates the cache and forces a full **rewrite** of everything resident.
+CostAffective is a local MCP server that makes coding agents behave more like that experienced engineer. It gives them fast, token-budgeted access to your repository — so they stop reading whole files to find small facts.
 
-In a long session this compounds. A real measured example: a single API call was billed at **\$2.95**, of which **\$2.84 was the cache *write*** of roughly **455,000 tokens** of resident context. The model's actual output that turn was under 4,000 tokens. The expensive part was not the answer it was the size of the context being carried and re-cached.
+| Metric | Without | With | Change |
+|---|---|---|---|
+| Tokens consumed | 162,544 | 76,757 | **52.8% fewer** |
+| Wall time | 84s | 19.6s | **4.3x faster** |
+| Tool calls | 54 | 4 | **92.6% fewer** |
 
-### The insight
+*Small-repository benchmark: same analysis task, same model, same output quality. The difference is index-backed tools instead of file dumps.*
 
-A tool that connects to an editor over MCP **cannot control how or when the client caches** cache breakpoints and time-to-live are decided by the client, not the server. There is exactly one lever a server *does* control:
+---
+
+## Why long sessions get expensive
+
+The problem is not the model's output. The problem is everything around it.
+
+### Repositories get re-explored
+
+Ask your coding agent "where is X defined" and it reads the file. Ask again five minutes later — it reads the same file again. Each read puts thousands of tokens into the context window. Over the course of a session this adds up to hundreds of thousands of tokens for information the model has already seen.
+
+### Context grows without being useful
+
+A typical session starts small. Then the model dumps a file to answer a question. Then it dumps a test output. Then a build log. None of these leave — they accumulate in the resident context window, making every subsequent turn more expensive.
+
+### The prompt cache makes it worse
+
+Providers cache the conversation so repeated context is cheaper to resend. But caching has a cost:
+
+- Every turn pays to **read** the entire resident context (everything currently in the window).
+- Any change to earlier context, or a short idle gap, invalidates the cache and forces a full **rewrite** of everything resident.
+
+In a long session this compounds. A real measured example: a single API call billed at **\$2.95**, of which **\$2.84 was the cache *write*** of roughly **455,000 tokens** of resident context. The model's actual output that turn was under 4,000 tokens. The expensive part was not the answer — it was the size of the context being carried and re-cached.
+
+---
+
+## How CostAffective fixes it
+
+A tool that connects over MCP cannot control how or when the client caches. Cache breakpoints and TTLs are the client's decision. There is exactly one lever the server controls:
 
 > **How many tokens ever enter the resident context window in the first place.**
 
-Shrink that, and both costs fall at the same time: a smaller window is cheaper to read every turn *and* cheaper to rewrite when the cache is invalidated. Every design decision in CostAffective serves this one goal **keep tokens out of the window without losing information.**
+Shrink that, and both costs fall: a smaller window is cheaper to read every turn *and* cheaper to rewrite when the cache is invalidated. CostAffective does four things in service of that goal.
 
-### The approach
+### 1. Answer from a local index, not from files
 
-CostAffective is a local MCP server that does three things in service of that goal:
+CostAffective parses your repository once with Tree-sitter and stores symbols, references, and call edges in a local SQLite index. Navigation questions — "where is this defined," "who calls this," "what references this" — are answered from the index in a few tokens instead of by dumping source files.
 
-1. **Answer from a local index instead of from raw files.** It parses your repository once with Tree-sitter, stores symbols, references, and call edges in a local SQLite index, and answers navigation questions from that index in a few tokens instead of by dumping files. (Original feature set.)
+Results are compressed scopes sized to the kind of question asked. The model gets the location, not the file; the implementation body, not the whole module; the caller list, not the grep output.
 
-2. **Give the model explicit tools to keep large content *out* of the window.** Stash large output to disk behind a tiny handle, recall only the slice that a query needs, and remember durable facts so they are not repeated every turn. (Added in V2.)
+### 2. Remember facts instead of repeating them
 
-3. **Make the model actually use all of the above, automatically.** A small session-awareness skill, delivered to every connected editor, teaches the model the lean workflow once per session so you do not have to ask for it. (Added in V2.)
+The `remember` tool persists a small durable fact — a decision, an entry point, a gotcha — to a per-repository store. The `recall` tool retrieves it later. Facts the model would otherwise re-derive or re-paste each turn are written down once and read back only when relevant.
 
-**Everything runs locally.** No API keys. No cloud indexing. No code leaves your machine.
+### 3. Stash large output instead of pasting it inline
 
----
+The `stash_context` tool parks a large blob — a file, a command output, a test log — out of the conversation and returns a short handle. The full content stays on disk, recoverable. The `recall` tool pulls back only the slice that matches a query, within a token budget.
 
-## What is CostAffective?
+A 5,000-line build log pasted inline is re-read and potentially re-written to the cache every turn for the rest of the session. Stashed, it costs about 20 tokens (the handle) and is pulled back only in the slice you need.
 
-CostAffective is a local MCP server that helps AI coding assistants understand large repositories without repeatedly exploring the same code, and without carrying large blobs of context they do not need.
+### 4. A session-awareness skill that makes the model use all of the above
 
-Instead of sending large amounts of code into the model context, it builds a local repository index and provides fast, token-cheap access to:
+A small piece of guidance (about 275 tokens) is delivered to every connected editor through the MCP protocol's `instructions` field. It teaches the model the lean workflow once per session: route large output through `stash_context`, persist durable facts with `remember`, prefer narrow retrieval over file reads.
 
-* Symbol definitions
-* References
-* Call relationships
-* Repository summaries (token-budgeted)
-* Architecture information
-* Semantic code search
-* A durable per-repository memory and an out-of-context stash (V2)
+It is also installable as a native Claude Code skill, AGENTS.md entry, or rules file for any editor that reads them. The same canonical source backs all delivery paths.
 
 ---
 
-## Works With
-
-| Client                 | Supported |
-| ---------------------- | --------- |
-| Claude Code            | Yes       |
-| Cursor                 | Yes       |
-| OpenCode               | Yes       |
-| Codex CLI              | Yes       |
-| Antigravity            | Yes       |
-| MCP-Compatible Clients | Yes       |
-
----
-
-## Repository Intelligence
-
-CostAffective combines multiple repository analysis techniques. The reasoning is the same throughout: each technique exists to answer a question precisely, so the model never has to read a whole file to find a small fact.
-
-* **Tree-sitter AST parsing** understands code structurally, not as text, so a "definition" is an actual definition and not a string match.
-* **Symbol indexing** "where is X defined" becomes a single index lookup returning a location, not a file dump.
-* **Reference indexing** "where is X used" is precomputed instead of grepped live.
-* **Call graph analysis** "what calls X" is answered from stored call edges.
-* **Architecture extraction** module and layer structure without reading every file.
-* **Repository summaries** a budgeted, high-level map of the repo (see the V2 changes below).
-* **Context compression** results are returned as compressed scopes sized to the kind of question asked.
-* **Incremental indexing** only changed files are reprocessed, so the index stays fresh cheaply.
-
-This provides significantly better repository understanding than simple text search, at a fraction of the tokens.
-
----
-
-## Automatic Incremental Indexing
-
-**Why it exists:** a stale index is useless and a full rebuild on every change is too slow to keep current. CostAffective watches the repository and updates only what changed, so the index is always fresh without ever paying for a full rebuild during a session.
-
-When files change:
-
-```text
-File Change
-     ↓
-Watchdog
-     ↓
-Hash Comparison
-     ↓
-Re-index Changed Files Only
-     ↓
-Cache Invalidation
-```
-
-No full repository rebuild is required. Only modified files are reprocessed. This keeps indexing fast even on large repositories.
-
----
+## Installation
 
 <details>
-<summary><strong>MCP Tools full catalog and the reasoning behind each</strong></summary>
+<summary><strong>Installation</strong></summary>
 
 <br>
 
-> Full interactive tool catalog with schemas and examples: [costaffective-mcp.vercel.app/tools](https://costaffective-mcp.vercel.app/tools)
+> Full installation guide with platform-specific variants: [costaffective-mcp.vercel.app/docs/install](https://costaffective-mcp.vercel.app/docs/install)
 
-The tools fall into three groups. The first five are **retrieval** answer a question in a few tokens instead of by reading files. The next two are **maintenance**. The last three (V2) are **context control** keep large content and durable facts out of the window entirely.
+### Quick Install (Linux / macOS / Windows via WSL)
+
+The recommended way — one command:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
+```
+
+The script does everything:
+1. On Windows, detects Git Bash / MSYS and routes through WSL automatically
+2. Checks for Go and installs it if missing
+3. Checks for a C compiler (a CGO dependency) and installs it if missing
+4. Clones the repo and builds from source
+5. Installs to `/usr/local/bin/costaffective`
+6. Detects AI coding clients and asks which to connect
+7. Configures MCP for the selected clients (and installs the session skill unless `--no-skill`)
+
+### Windows (Native PowerShell)
+
+Not recommended unless you already have Go and gcc. Build manually:
+
+```powershell
+git clone https://github.com/okyashgajjar/costaffective-mcp.git
+cd costaffective-mcp
+$env:CGO_ENABLED=1
+go build -o costaffective.exe ./cmd/costaffective/
+```
+
+Or use the recommended path — install WSL (Windows 10 2004+ / Windows 11):
+
+```powershell
+# In PowerShell as Administrator:
+wsl --install
+
+# Then in WSL:
+curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
+```
+
+### macOS / Linux (Manual Build)
+
+Requires Go 1.25+ and a C compiler (CGO is mandatory — see the build notes below).
+
+```bash
+git clone https://github.com/okyashgajjar/costaffective-mcp.git
+cd costaffective-mcp
+CGO_ENABLED=1 go build -o costaffective ./cmd/costaffective/
+sudo mv costaffective /usr/local/bin/
+costaffective --version
+```
+
+</details>
+
+---
+
+## What you get
+
+CostAffective provides **9 MCP tools** that fall into three categories.
+
+**Retrieval tools** answer questions from a pre-built index instead of by reading files:
+
+- `search_code` — semantic search by natural language question.
+- `find_symbol` — locate where a symbol is defined.
+- `read_symbol` — return a symbol's full implementation body.
+- `find_references` — every usage of a symbol, precomputed.
+- `find_callers` — which functions call a given function.
+
+**Maintenance tools** keep the index in sync:
+
+- `get_repository_summary` — token-budgeted overview of the repo, drillable by module.
+- `index_repository` — manual re-index trigger (auto-watcher normally handles this).
+
+**Context-control tools** keep large content and durable facts out of the resident window:
+
+- `remember` — persist a fact once instead of repeating it inline.
+- `stash_context` — park a large blob out of context behind a tiny handle.
+- `recall` — pull back only the slice that matches a query, within a budget.
+
+<details>
+<summary><strong>Full tool catalog — why each tool exists and how to use it</strong></summary>
+
+<br>
+
+> Interactive tool catalog with schemas and examples: [costaffective-mcp.vercel.app/tools](https://costaffective-mcp.vercel.app/tools)
 
 ### Retrieval tools
 
@@ -206,7 +269,7 @@ Find which functions call another function.
 
 A token-budgeted overview of the repository: languages, the top modules by symbol count, and key symbols. Pass `module` to drill into one directory, and `budget` (`small` / `medium` / `large`) to cap the output.
 
-*Why:* this is usually the first call of a session, so it is also the first thing that lands in the cached context and stays there. The earlier version emitted one line per directory plus a full per-directory chain with no limit on a large monorepo that was tens of thousands of tokens, cached for the entire session. It is now hard-capped: the output stays small no matter how large the repository is, and details are pulled on demand via `module`. (See the V2 changes section for the before/after.)
+*Why:* this is usually the first call of a session, so it is also the first thing that lands in the cached context and stays there. The earlier version emitted one line per directory plus a full per-directory chain with no limit — on a large monorepo that was tens of thousands of tokens, cached for the entire session. It is now hard-capped: the output stays small no matter how large the repository is, and details are pulled on demand via `module`.
 
 #### index_repository
 
@@ -214,17 +277,17 @@ Refresh or rebuild repository indexes manually. Usually unnecessary because the 
 
 ### Context-control tools (V2)
 
-These exist because of the cache cost described in the story. They let the model keep large content and durable facts *out* of the resident window, losslessly.
+These exist because of the cache cost described above. They let the model keep large content and durable facts *out* of the resident window, losslessly.
 
 #### remember
 
-Persist a small durable fact a decision, an entrypoint, a gotcha to a per-repository store, so it does not have to be repeated inline in the conversation every time it is relevant.
+Persist a small durable fact — a decision, an entry point, a gotcha — to a per-repository store, so it does not have to be repeated inline in the conversation every time it is relevant.
 
 *Why:* facts the model re-derives or re-pastes each turn are pure cache overhead. Write them down once; read them back when needed.
 
 #### stash_context
 
-Park a large blob (a whole file, a long command or test output, a generated report) **out of the conversation** and get back a short handle. Nothing is lost the full content is written to disk and remains re-fetchable.
+Park a large blob (a whole file, a long command or test output, a generated report) **out of the conversation** and get back a short handle. Nothing is lost — the full content is written to disk and remains re-fetchable.
 
 *Why:* this is the most direct lever on window size. A 5,000-line log pasted inline is re-read and potentially re-written to the cache every turn for the rest of the session. Stashed, it costs about 20 tokens (the handle) and is pulled back only in the slice you actually need.
 
@@ -232,7 +295,7 @@ Park a large blob (a whole file, a long command or test output, a generated repo
 
 #### recall
 
-Take back **only what you need**: the budgeted slice of a stashed blob (by handle), or matching remembered facts instead of re-reading the whole thing.
+Take back **only what you need**: the budgeted slice of a stashed blob (by handle), or matching remembered facts — instead of re-reading the whole thing.
 
 *Why:* "take output by necessary query" is the read side of the loop. Combined with `stash_context` it becomes: stash the monster, then recall only the lines that match your query, within a token budget.
 
@@ -240,18 +303,20 @@ Take back **only what you need**: the budgeted slice of a stashed blob (by handl
 
 </details>
 
+---
+
 <details>
-<summary><strong>The costaffective-session skill making the model use all of this automatically</strong></summary>
+<summary><strong>How the session skill makes the model use all of this automatically</strong></summary>
 
 <br>
 
-**Why it exists:** the context-control tools above only help if the model actually reaches for them. Left to its defaults, a model will happily paste a whole file inline. The `costaffective-session` skill is a small piece of session-awareness guidance that teaches the model the lean workflow **once per session**, after which it applies automatically route large output through `stash_context` / `recall`, persist durable facts with `remember`, and prefer narrow retrieval over reading whole files.
+**Why it exists:** the context-control tools above only help if the model actually reaches for them. Left to its defaults, a model will happily paste a whole file inline. The `costaffective-session` skill is a small piece of session-awareness guidance that teaches the model the lean workflow **once per session**, after which it applies automatically — route large output through `stash_context` / `recall`, persist durable facts with `remember`, and prefer narrow retrieval over reading whole files.
 
 It is deliberately tiny (about 275 tokens). That is a fixed, one-time cost per session, and it pays for itself the first time it prevents a single large blob from entering the window.
 
 It is delivered two ways, so it works everywhere with no ongoing effort from you:
 
-1. **Automatically, in every editor.** The MCP server advertises the guidance through the protocol's `instructions` field. Every MCP client loads it on connect Claude Code, Cursor, Codex, OpenCode, Antigravity, and any other MCP-compatible client. No setup, no per-editor files.
+1. **Automatically, in every editor.** The MCP server advertises the guidance through the protocol's `instructions` field. Every MCP client loads it on connect — Claude Code, Cursor, Codex, OpenCode, Antigravity, and any other MCP-compatible client. No setup, no per-editor files.
 
 2. **As a native Claude Code skill.** Running `costaffective install` also writes `~/.claude/skills/costaffective-session/SKILL.md` (opt out with `--no-skill`). You can manage it directly:
 
@@ -267,41 +332,42 @@ For editors that read their own rules or instructions files, `costaffective skil
 </details>
 
 <details>
-<summary><strong>Lower session cost the cache-aware design in one place</strong></summary>
+<summary><strong>Lower session cost — the cache-aware design in one place</strong></summary>
 
 <br>
 
-This section ties the pieces together. In long sessions the dominant cost is usually the **prompt cache** re-reading and re-writing everything resident in the context window every turn not the model's output. CostAffective reduces this by keeping tokens out of the window:
+This section ties the pieces together. In long sessions the dominant cost is usually the **prompt cache** — re-reading and re-writing everything resident in the context window every turn — not the model's output. CostAffective reduces this by keeping tokens out of the window:
 
-* **Answer from the index, not from files** the retrieval tools return scopes and locations measured in tens of tokens, instead of whole files measured in thousands.
-* **Budgeted summaries** `get_repository_summary` is hard-capped and supports drill-down via `module`, so it never dumps a giant tree into the cached context at session start.
-* **Stash instead of paste** `stash_context` moves large output out of the window and returns a tiny handle; `recall` brings back only the matching slice. This is lossless: the full content stays on disk.
-* **Remember instead of repeat** `remember` persists durable facts per repository; `recall` brings them back without re-deriving or re-pasting them.
-* **The session skill** makes the model do all of the above by default, in every editor.
+* **Answer from the index, not from files** — the retrieval tools return scopes and locations measured in tens of tokens, instead of whole files measured in thousands.
+* **Budgeted summaries** — `get_repository_summary` is hard-capped and supports drill-down via `module`, so it never dumps a giant tree into the cached context at session start.
+* **Stash instead of paste** — `stash_context` moves large output out of the window and returns a tiny handle; `recall` brings back only the matching slice. This is lossless: the full content stays on disk.
+* **Remember instead of repeat** — `remember` persists durable facts per repository; `recall` brings them back without re-deriving or re-pasting them.
+* **The session skill** — makes the model do all of the above by default, in every editor.
 
-Why not just summarize or delete old context? Because that loses information. Stashing **relocates** tokens rather than discarding them, so nothing is dropped you can always recall the full content. That was a hard design constraint: reduce the window without ever losing context.
+Why not just summarize or delete old context? Because that loses information. Stashing **relocates** tokens rather than discarding them, so nothing is dropped — you can always recall the full content. That was a hard design constraint: reduce the window without ever losing context.
 
 </details>
 
-## The Honest Truth: Skills Are Suggestions, Not Commands
+<details>
+<summary><strong>The honest truth: skills are suggestions, not commands</strong></summary>
 
-The costaffective session skill sends about 275 tokens of guidance to the model at the start of every session. It helps, but it is not a guarantee.
+<br>
 
-Here is what we cannot control. AI models decide what to pay attention to. A short set of instructions competes with everything else in the conversation the model is managing. Even the best crafted skill can be ignored when the model is deep in a task. The model's weights and training determine its behavior, not the text in the system prompt. That is simply how these systems work today.
+The session skill sends about 275 tokens of guidance at the start of every session. It helps, but it is not a guarantee.
 
-Here is what we can control.
+Here is what we cannot control. AI models decide what to pay attention to. A short set of instructions competes with everything else in the conversation the model is managing. Even the best-crafted skill can be ignored when the model is deep in a task. The model's weights and training determine its behavior, not the text in the system prompt. That is simply how these systems work today.
 
-Keep the skill short. At 275 tokens it is already one of the shortest and most direct instructions the model sees. That makes it more likely to be followed than a long document full of rules.
+Here is what we can control:
 
-Use AGENTS.md. Models treat repository local instruction files with higher priority than global skills. If the session guidance matters for your project, put it in AGENTS.md as well. That file is harder for the model to ignore.
+- **Keep the skill short.** At 275 tokens it is one of the shortest and most direct instructions the model sees. That makes it more likely to be followed than a long document full of rules.
+- **Use AGENTS.md.** Models treat repository-local instruction files with higher priority than global skills. If the session guidance matters for your project, put it in AGENTS.md as well.
+- **Remind the model directly.** When you see it paste a large blob inline instead of using `stash_context`, one reminder is usually enough to correct course for the rest of the session.
+- **Deliver through the MCP protocol.** The `instructions` field is automatic on every connection. Unlike a skill file that must be installed, this works everywhere with zero setup.
+- **Build tools that do not require cooperation.** Tools like `stash_context` and `recall` do not need the model to remember the rules. They just need to be called.
 
-Remind the model directly. When you see it paste a large blob inline instead of using stash_context, one reminder is usually enough to correct course for the rest of the session.
+The honest answer is that we are building tools for systems that do not reliably follow instructions. That is not a flaw in the skill. It is a constraint of the technology. The best we can do is make the right path the easiest path, keep our guidance direct, and accept that sometimes the model will do its own thing.
 
-Deliver through the MCP protocol. The instructions field is automatic on every connection. Unlike a skill file that must be installed, this delivery path works everywhere with zero setup. It is the most reliable mechanism available.
-
-Build tools that do not require cooperation. Tools like stash_context and recall do not need the model to remember the rules. They just need to be called. The easier they are to reach for, the more likely the model will use them.
-
-The honest answer is that we are building tools for systems that do not reliably follow instructions. That is not a flaw in the skill. It is a constraint of the technology. The best we can do is make the right path the easiest path, keep our guidance direct, and accept that sometimes the model will do its own thing. That is the reality of working with AI agents today. Understanding this is better than pretending we have solved it.
+</details>
 
 <details>
 <summary><strong>Architecture</strong></summary>
@@ -365,65 +431,6 @@ All per-repository state (index, stash, facts) lives under the repository's loca
 </details>
 
 <details>
-<summary><strong>Installation</strong></summary>
-
-<br>
-
-> Full installation guide with platform-specific variants: [costaffective-mcp.vercel.app/docs/install](https://costaffective-mcp.vercel.app/docs/install)
-
-### Quick Install (Linux / macOS / Windows via WSL)
-
-The recommended way one command:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
-```
-
-The script does everything:
-1. On Windows, detects Git Bash / MSYS and routes through WSL automatically
-2. Checks for Go and installs it if missing
-3. Checks for a C compiler (a CGO dependency) and installs it if missing
-4. Clones the repo and builds from source
-5. Installs to `/usr/local/bin/costaffective`
-6. Detects AI coding clients and asks which to connect
-7. Configures MCP for the selected clients (and installs the session skill unless `--no-skill`)
-
-### Windows (Native PowerShell)
-
-Not recommended unless you already have Go and gcc. Build manually:
-
-```powershell
-git clone https://github.com/okyashgajjar/costaffective-mcp.git
-cd costaffective-mcp
-$env:CGO_ENABLED=1
-go build -o costaffective.exe ./cmd/costaffective/
-```
-
-Or use the recommended path install WSL (Windows 10 2004+ / Windows 11):
-
-```powershell
-# In PowerShell as Administrator:
-wsl --install
-
-# Then in WSL:
-curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
-```
-
-### macOS / Linux (Manual Build)
-
-Requires Go 1.25+ and a C compiler (CGO is mandatory see the build notes below).
-
-```bash
-git clone https://github.com/okyashgajjar/costaffective-mcp.git
-cd costaffective-mcp
-CGO_ENABLED=1 go build -o costaffective ./cmd/costaffective/
-sudo mv costaffective /usr/local/bin/
-costaffective --version
-```
-
-</details>
-
-<details>
 <summary><strong>Uninstall</strong></summary>
 
 <br>
@@ -451,7 +458,7 @@ Remove-Item (Get-Command costaffective).Source -Force
 </details>
 
 <details>
-<summary><strong>Benchmarks</strong></summary>
+<summary><strong>Detailed benchmarks</strong></summary>
 
 <br>
 
@@ -476,7 +483,7 @@ Remove-Item (Get-Command costaffective).Source -Force
 </details>
 
 <details>
-<summary><strong>Storage Locations — where everything lives on disk</strong></summary>
+<summary><strong>Storage locations — where everything lives on disk</strong></summary>
 
 <br>
 
@@ -536,7 +543,7 @@ On Ubuntu/Debian: `sudo apt install gcc libsqlite3-dev`. On macOS: Xcode Command
 </details>
 
 <details>
-<summary><strong>Supported Clients & Config</strong></summary>
+<summary><strong>Supported clients and config surfaces</strong></summary>
 
 <br>
 
@@ -551,9 +558,10 @@ On Ubuntu/Debian: `sudo apt install gcc libsqlite3-dev`. On macOS: Xcode Command
 
 </details>
 
----
+<details>
+<summary><strong>Repository state</strong></summary>
 
-## Repository State
+<br>
 
 **Why it exists:** the model should know whether the index it is querying is trustworthy. CostAffective tracks three states and behaves accordingly.
 
@@ -565,21 +573,27 @@ On Ubuntu/Debian: `sudo apt install gcc libsqlite3-dev`. On macOS: Xcode Command
 
 Agent mode can auto-index when needed; interactive modes prompt first.
 
----
+</details>
 
-## Use Cases
+<details>
+<summary><strong>Use cases</strong></summary>
+
+<br>
 
 > Explore detailed use case studies: [costaffective-mcp.vercel.app/use-cases](https://costaffective-mcp.vercel.app/use-cases)
 
-* **AI coding agents** reduce token spend by up to 45.9% with compressed, scope-level lookups, and keep long sessions cheap by parking large content out of context.
-* **Large monorepos** fast SQLite index queries in microseconds instead of disk scans, and budgeted summaries that stay small regardless of repo size.
-* **Code reviews** trace caller hierarchies to audit the impact of incoming changes.
-* **Repository audits** generate summaries of file distribution, language splits, and structure.
-* **MCP development** a reference implementation for the stdio protocol, fsnotify watchers, tree-sitter mapping, and the MCP instructions field.
+* **AI coding agents** — reduce token spend by up to 45.9% with compressed, scope-level lookups, and keep long sessions cheap by parking large content out of context.
+* **Large monorepos** — fast SQLite index queries in microseconds instead of disk scans, and budgeted summaries that stay small regardless of repo size.
+* **Code reviews** — trace caller hierarchies to audit the impact of incoming changes.
+* **Repository audits** — generate summaries of file distribution, language splits, and structure.
+* **MCP development** — a reference implementation for the stdio protocol, fsnotify watchers, tree-sitter mapping, and the MCP instructions field.
 
----
+</details>
 
-## Doctor
+<details>
+<summary><strong>Doctor</strong></summary>
+
+<br>
 
 `costaffective doctor` checks:
 
@@ -589,9 +603,12 @@ Agent mode can auto-index when needed; interactive modes prompt first.
 - Server startup
 - Repository state
 
----
+</details>
 
-## Supported Platforms
+<details>
+<summary><strong>Supported platforms</strong></summary>
+
+<br>
 
 All platforms with Go 1.25+ and a C compiler are supported via the install script (`install.sh`), which handles toolchain setup automatically:
 
@@ -601,9 +618,12 @@ All platforms with Go 1.25+ and a C compiler are supported via the install scrip
 
 Pre-built release binaries are available for Linux amd64 and Windows amd64. All other platforms are built from source by the install script.
 
----
+</details>
 
-## Learn More
+<details>
+<summary><strong>Learn more</strong></summary>
+
+<br>
 
 | Resource | Link |
 | -------- | ---- |
@@ -615,6 +635,8 @@ Pre-built release binaries are available for Linux amd64 and Windows amd64. All 
 | FAQ | [costaffective-mcp.vercel.app/faq](https://costaffective-mcp.vercel.app/faq) |
 | Blog and research | [costaffective-mcp.vercel.app/blog](https://costaffective-mcp.vercel.app/blog) |
 | Compare with alternatives | [costaffective-mcp.vercel.app/compare/codegraph](https://costaffective-mcp.vercel.app/compare/codegraph) |
+
+</details>
 
 ---
 
