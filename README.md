@@ -73,9 +73,9 @@ CostAffective is a local MCP server that makes coding agents behave more like th
 
 | Metric | Without | With | Change |
 |---|---|---|---|
-| Tokens consumed | 162,544 | 76,757 | **52.8% fewer** |
-| Wall time | 84s | 19.6s | **4.3x faster** |
-| Tool calls | 54 | 4 | **92.6% fewer** |
+| Tokens consumed | 299,300 | 54,745 | **81.7% fewer** |
+| Wall time | 14.6s | 6.7s | **2.2x faster** |
+| Tool calls | 10 | 3 | **70% fewer** |
 
 *Same analysis task, same model, same output quality. The difference is index-backed tools instead of file dumps.*
 
