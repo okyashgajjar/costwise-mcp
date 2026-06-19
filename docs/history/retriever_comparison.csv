@@ -1,3 +1,5 @@
+> **Historical research artifact. Not representative of current releases.** Cross-repository retrieval research (Campaign C — 5 repos × 140 queries). Metrics here (e.g. treesitter 22.3%) differ substantially from single-repo benchmarks due to different aggregation and methodology.
+
 Retriever,Repo,Accuracy,AvgTokens,AvgLatencyMs,AvgKeywordCoverage,ValidationPassRate,ResearchScore
 naive,Aider,0.143,2640.0,0.0,0.182,1.000,15.38
 grep,Aider,0.086,1519.2,839.5,0.418,1.000,19.00

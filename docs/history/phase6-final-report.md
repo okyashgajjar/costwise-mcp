@@ -1,3 +1,5 @@
+> **Historical benchmark artifact. Not representative of current releases.** This report measures CostAffective retrievers against the **Aider** codebase (Python project, not CostAffective itself). Campaign B continuation. Numbers here (99.2% retrieval) slightly differ from the excellence report (98.4%) due to incremental fixes. Overview category baseline (80%) contradicts the excellence report's claim of 100%.
+
 # Phase 6: Benchmark Excellence & Production Retrieval Sprint
 
 ## Executive Summary

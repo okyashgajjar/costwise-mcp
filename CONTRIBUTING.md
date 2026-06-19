@@ -175,13 +175,6 @@ Each answer type (explanation, plan, location, etc.) has a token budget and a co
 **Files involved:** `internal/retrieval/compress.go`, `internal/answertype/`
 **Difficulty:** easy.
 
-### Add SSE/HTTP transport
-
-The server currently only speaks stdio MCP. Adding HTTP+SSE transport would let Smithery and other platforms host it as a remote server.
-
-**Files involved:** `internal/mcpserver/server.go`, `cmd/serve.go`
-**Difficulty:** moderate.
-
 ### Write more benchmarks
 
 The benchmark suite at `internal/benchmark/` evaluates retrieval accuracy and token efficiency. More benchmark tasks across different languages and repository sizes would help validate improvements.

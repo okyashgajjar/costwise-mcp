@@ -1,3 +1,5 @@
+> **Historical research artifact. Not representative of current releases.** Cross-repository retrieval research (Campaign C — 5 repos × 140 queries). Metrics here (e.g. treesitter 22.3%) differ substantially from single-repo benchmarks due to different aggregation and methodology.
+
 # Global Retrievers Leaderboard
 
 This report ranks all 9 retrievers across all 5 evaluation repositories.

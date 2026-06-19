@@ -1,3 +1,5 @@
+> **Historical research artifact. Not representative of current releases.** Cross-repository retrieval research (Campaign C — 5 repos × 140 queries). Metrics here (e.g. treesitter 22.3%) differ substantially from single-repo benchmarks due to different aggregation and methodology.
+
 # Cross-Repository Retrieval Research Study V1
 
 ## 1. Executive Summary

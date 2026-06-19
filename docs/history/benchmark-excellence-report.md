@@ -1,3 +1,5 @@
+> **Historical benchmark artifact. Not representative of current releases.** This report measures CostAffective retrievers against the **Aider** codebase (Python project, not CostAffective itself). Campaign B — 149 queries on a third-party codebase. Not indicative of CostAffective-vs-CostAffective performance. Overview accuracy claim (100%) conflicts with the Phase 6 follow-up report which says baseline was 80%.
+
 # Benchmark Excellence Sprint — Final Report
 
 ## Success Criteria Checklist

@@ -4,7 +4,7 @@ This directory contains installation guides for the CostAffective MCP server acr
 
 ## What is CostAffective MCP?
 
-The CostAffective MCP server (`costaffective serve`) provides 7 code intelligence tools via the [Model Context Protocol](https://modelcontextprotocol.io):
+The CostAffective MCP server (`costaffective serve`) provides 7 retrieval and maintenance tools via the [Model Context Protocol](https://modelcontextprotocol.io), plus 3 context-control tools (see the main README for the full catalog):
 
 | Tool | Description |
 |------|-------------|
