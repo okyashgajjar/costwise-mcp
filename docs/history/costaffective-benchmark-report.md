@@ -1,3 +1,5 @@
+> **Historical benchmark artifact. Not representative of current releases.** Campaign A extended analysis — CostAffective self-benchmark with deeper failure analysis. Reports 23 false negatives and identifies that old-format flat files override richer ground-truth data.
+
 # CostAffective Native Benchmark Report
 
 **Generated:** 2026-06-06

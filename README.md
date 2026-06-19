@@ -69,25 +69,15 @@ CostAffective is a local MCP server that makes coding agents behave more like th
 
 ## Benchmarks
 
-### Small repository
+The benchmark runner at `cmd/benchmark.go` measures per-retriever accuracy against curated query datasets. Key results (measured against the CostAffective codebase itself, 85 queries):
 
-| Metric | Without | With | Change |
+| Retriever | File-match accuracy | Avg tokens | Avg latency |
 |---|---|---|---|
-| Tokens consumed | 299,300 | 54,745 | **81.7% fewer** |
-| Wall time | 14.6s | 6.7s | **2.2x faster** |
-| Tool calls | 10 | 3 | **70% fewer** |
+| treesitter | 62.4% | 688 | 7ms |
+| grep | 15.3% | 1,454 | 233ms |
+| architecture | 32.9% | 304 | 6ms |
 
-*Same analysis task, same model, same output quality. The difference is index-backed tools instead of file dumps.*
-
-### Continue OSS (large repository)
-
-| Metric | CostAffective | Alternative | Change |
-|---|---|---|---|
-| Tokens | 4.7M | 8.7M | **45.9% lower** |
-| API Calls | 89 | 134 | **33.6% fewer** |
-| Exploration Calls | 43 | 94 | **54.3% fewer** |
-
-> Full benchmark suite: [costaffective-mcp.vercel.app/benchmarks](https://costaffective-mcp.vercel.app/benchmarks)
+> Note: These are retrieval-evidence metrics (did the retriever surface the expected file?), not end-to-end agent benchmarks. No LLM is invoked during benchmark runs. Router accuracy is measured separately via routing-specific query sets. Full benchmark details and historical archives: see `docs/history/`.
 
 ## How CostAffective fixes it
 
@@ -186,7 +176,7 @@ costaffective --version
 
 ## What you get
 
-CostAffective provides **9 MCP tools** that fall into three categories.
+CostAffective provides **10 MCP tools** that fall into three categories.
 
 **Retrieval tools** answer questions from a pre-built index instead of by reading files:
 
@@ -650,7 +640,7 @@ Agent mode can auto-index when needed; interactive modes prompt first.
 
 > Explore detailed use case studies: [costaffective-mcp.vercel.app/use-cases](https://costaffective-mcp.vercel.app/use-cases)
 
-* **AI coding agents** — reduce token spend by up to 45.9% with compressed, scope-level lookups, and keep long sessions cheap by parking large content out of context.
+* **AI coding agents** — reduce token spend with compressed, scope-level lookups, and keep long sessions cheap by parking large content out of context.
 * **Large monorepos** — fast SQLite index queries in microseconds instead of disk scans, and budgeted summaries that stay small regardless of repo size.
 * **Code reviews** — trace caller hierarchies to audit the impact of incoming changes.
 * **Repository audits** — generate summaries of file distribution, language splits, and structure.

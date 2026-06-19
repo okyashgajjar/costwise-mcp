@@ -1,3 +1,5 @@
+> **NOT a CostAffective file. This is the README for CodeGraph by colbymchenry** (https://github.com/colbymchenry/codegraph) — a separate, unrelated MCP server project. Archived here to avoid confusion with CostAffective benchmarks and claims.
+
 <div align="center">
 
 # CodeGraph
