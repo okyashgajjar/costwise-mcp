@@ -67,18 +67,6 @@ CostAffective is a local MCP server that makes coding agents behave more like th
 
 ---
 
-## Benchmarks
-
-The benchmark runner at `cmd/benchmark.go` measures per-retriever accuracy against curated query datasets. Key results (measured against the CostAffective codebase itself, 85 queries):
-
-| Retriever | File-match accuracy | Avg tokens | Avg latency |
-|---|---|---|---|
-| treesitter | 62.4% | 688 | 7ms |
-| grep | 15.3% | 1,454 | 233ms |
-| architecture | 32.9% | 304 | 6ms |
-
-> Note: These are retrieval-evidence metrics (did the retriever surface the expected file?), not end-to-end agent benchmarks. No LLM is invoked during benchmark runs. Router accuracy is measured separately via routing-specific query sets. Full benchmark details and historical archives: see `docs/history/`.
-
 ## How CostAffective fixes it
 
 A tool that connects over MCP cannot control how or when the client caches. Cache breakpoints and TTLs are the client's decision. There is exactly one lever the server controls:
