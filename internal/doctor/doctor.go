@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -288,6 +287,7 @@ func CheckMCPStartup() []CheckResult {
 		}
 	}
 
+	// 5-second hard deadline for the entire startup check
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
@@ -301,12 +301,24 @@ func CheckMCPStartup() []CheckResult {
 		}}
 	}
 
-	stdoutReader, stdoutWriter := io.Pipe()
+	// Use StdoutPipe directly (no intermediate io.Pipe) to avoid a blocking
+	// copier goroutine inside os/exec that would prevent cmd.Wait() from
+	// returning if the client stops reading before the server is killed.
+	stdout, err := cmd.StdoutPipe()
+	if err != nil {
+		stdin.Close()
+		return []CheckResult{{
+			Name:   "MCP Startup",
+			Status: FAIL,
+			Detail: fmt.Sprintf("Cannot create stdout pipe: %s", err),
+		}}
+	}
+
 	var stderrBuf strings.Builder
-	cmd.Stdout = stdoutWriter
 	cmd.Stderr = &stderrBuf
 
 	if err := cmd.Start(); err != nil {
+		stdin.Close()
 		return []CheckResult{{
 			Name:   "MCP Startup",
 			Status: FAIL,
@@ -319,9 +331,12 @@ func CheckMCPStartup() []CheckResult {
 	frame := fmt.Sprintf("Content-Length: %d\r\n\r\n%s", len(body), body)
 	_, _ = fmt.Fprint(stdin, frame)
 
+	// Read stdout line-by-line looking for a JSON-RPC response.
+	// Closing stdin signals the server that no more requests will come;
+	// the server will exit (or be killed by the context deadline).
 	responded := make(chan bool, 1)
 	go func() {
-		scanner := bufio.NewScanner(stdoutReader)
+		scanner := bufio.NewScanner(stdout)
 		for scanner.Scan() {
 			line := scanner.Text()
 			if strings.Contains(line, `"jsonrpc"`) || strings.Contains(line, `"result"`) {
@@ -334,7 +349,8 @@ func CheckMCPStartup() []CheckResult {
 	select {
 	case <-responded:
 		stdin.Close()
-		_ = cmd.Process.Kill()
+		// Cancel the context so exec.CommandContext kills the server process.
+		cancel()
 		_ = cmd.Wait()
 		return []CheckResult{{
 			Name:   "MCP Startup",
@@ -343,7 +359,8 @@ func CheckMCPStartup() []CheckResult {
 		}}
 	case <-time.After(3 * time.Second):
 		stdin.Close()
-		_ = cmd.Process.Kill()
+		// Cancel the context so exec.CommandContext kills the server process.
+		cancel()
 		_ = cmd.Wait()
 		stderr := strings.TrimSpace(stderrBuf.String())
 		if stderr != "" {

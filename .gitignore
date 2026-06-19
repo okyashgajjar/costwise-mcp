@@ -43,4 +43,7 @@ internal/.mycli-fts/
 .claude-code-history/
 
 architecture.html
-medium-article.mdtoken-usage-output.txt
+
+# Audit / cleanup reports (not part of source)
+production-installation-review.md
+trust-cleanup-report.md
