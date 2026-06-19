@@ -51,10 +51,10 @@ Options:
 | `--dry-run` | Show what would be done without making changes |
 | `--build=false` | Skip binary build (if already built) |
 
-### Via install script
+### Via install script (recommended for first-time setup)
 
 ```bash
-bash install-mcp.sh
+bash install.sh
 ```
 
 ## Build From Source

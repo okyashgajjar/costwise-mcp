@@ -1,6 +1,7 @@
 # Local binaries
 /costaffective
 /costaffective.exe
+/mycli
 *.test
 
 # GoReleaser build output
@@ -34,7 +35,6 @@ temp/
 .git/
 
 .serena/
-.serena/
 
 .claude/
 .codex-history/
@@ -43,6 +43,9 @@ internal/.mycli-fts/
 .claude-code-history/
 
 architecture.html
+
+# Redundant installer (replaced by install.sh + costaffective install)
+/install-mcp.sh
 
 # Audit / cleanup reports (not part of source)
 production-installation-review.md
