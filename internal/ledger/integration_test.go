@@ -9,7 +9,7 @@ import (
 
 func TestIntegrationWithRepoSession(t *testing.T) {
 	dir := t.TempDir()
-	os.MkdirAll(filepath.Join(dir, ".git"), 0755)
+	_ = os.MkdirAll(filepath.Join(dir, ".git"), 0755)
 
 	// This test exercises the full flow: repoSession operations → ledger.append → sessionBrief
 	// It verifies the two systems integrate correctly.

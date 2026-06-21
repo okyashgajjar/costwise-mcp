@@ -196,8 +196,8 @@ func TestAppendConcurrency(t *testing.T) {
 		go func(i int) {
 			defer wg.Done()
 			if err := Append(repo, Event{
-				Kind:   "fact",
-				Action: "add",
+				Kind:    "fact",
+				Action:  "add",
 				Summary: "concurrent test",
 			}); err != nil {
 				t.Errorf("concurrent Append: %v", err)
@@ -382,14 +382,14 @@ func TestFilterByScope(t *testing.T) {
 	if len(out) != 3 {
 		t.Fatalf("ScopeAll: got %d, want 3", len(out))
 	}
-	if out[0].TS != now {
+	if !out[0].TS.Equal(now) {
 		t.Errorf("ScopeAll: expected newest first")
 	}
 
 	// ScopeToday — only today's events, newest first
 	out = filterByScope(events, ScopeToday)
 	for _, e := range out {
-		if e.TS == old {
+		if e.TS.Equal(old) {
 			t.Errorf("ScopeToday should exclude events from other days")
 		}
 	}

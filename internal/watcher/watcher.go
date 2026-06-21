@@ -19,13 +19,13 @@ import (
 const maxChangedFiles = 10
 
 type Watchdog struct {
-	repoSession   *session.RepoSession
-	watcher       *fsnotify.Watcher
-	ctx           context.Context
-	cancel        context.CancelFunc
-	mu            sync.Mutex
-	timer         *time.Timer
-	changedFiles  []string
+	repoSession  *session.RepoSession
+	watcher      *fsnotify.Watcher
+	ctx          context.Context
+	cancel       context.CancelFunc
+	mu           sync.Mutex
+	timer        *time.Timer
+	changedFiles []string
 }
 
 func NewWatchdog(rs *session.RepoSession) (*Watchdog, error) {

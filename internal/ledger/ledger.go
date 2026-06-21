@@ -14,22 +14,22 @@ import (
 const ledgerFile = "session_events.jsonl"
 
 var (
-	mu       sync.Mutex
-	handles  = make(map[string]*os.File)
+	mu      sync.Mutex
+	handles = make(map[string]*os.File)
 )
 
 type Event struct {
-	TS      time.Time `json:"ts"`
-	Kind    string    `json:"kind"`
-	Action  string    `json:"action"`
-	Summary string    `json:"summary,omitempty"`
-	Handle  string    `json:"handle,omitempty"`
-	Tokens  int       `json:"tokens,omitempty"`
-	Query   string    `json:"query,omitempty"`
-	Source  string    `json:"source,omitempty"`
-	Files   int       `json:"files,omitempty"`
-	Trigger string    `json:"trigger,omitempty"`
-	ChangedFiles []string `json:"changed_files,omitempty"`
+	TS           time.Time `json:"ts"`
+	Kind         string    `json:"kind"`
+	Action       string    `json:"action"`
+	Summary      string    `json:"summary,omitempty"`
+	Handle       string    `json:"handle,omitempty"`
+	Tokens       int       `json:"tokens,omitempty"`
+	Query        string    `json:"query,omitempty"`
+	Source       string    `json:"source,omitempty"`
+	Files        int       `json:"files,omitempty"`
+	Trigger      string    `json:"trigger,omitempty"`
+	ChangedFiles []string  `json:"changed_files,omitempty"`
 }
 
 func Append(repoPath string, e Event) error {
