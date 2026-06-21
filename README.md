@@ -99,6 +99,28 @@ It is also installable as a native Claude Code skill, AGENTS.md entry, or rules 
 
 ---
 
+## Supported Languages
+
+CostWise indexes **11 languages** using Tree-sitter AST parsers — symbol definitions, references, and call edges are all precomputed and stored in a local SQLite index.
+
+| Language      | File Extensions                                 | Parser           |
+|---------------|------------------------------------------------|------------------|
+| **Go**          | `.go`                                        | Native (bespoke) |
+| **Python**      | `.py`                                        | Native (bespoke) |
+| **JavaScript**  | `.js`, `.jsx`, `.mjs`                        | Native (bespoke) |
+| **TypeScript**  | `.ts`, `.tsx`                                | Native (bespoke) |
+| **Rust**        | `.rs`                                        | Tree-sitter      |
+| **Java**        | `.java`                                      | Tree-sitter      |
+| **C**           | `.c`, `.h`                                   | Tree-sitter      |
+| **C++**         | `.cpp`, `.cc`, `.cxx`, `.hpp`, `.hh`         | Tree-sitter      |
+| **C#**          | `.cs`                                        | Tree-sitter      |
+| **Ruby**        | `.rb`                                        | Tree-sitter      |
+| **PHP**         | `.php`                                       | Tree-sitter      |
+
+Go, Python, JavaScript, and TypeScript use bespoke extractors with deeper analysis; the other seven use a generic spec-driven extractor built on Tree-sitter's common conventions. All languages get symbols, references, call edges, and full-text search.
+
+---
+
 ## Installation
 
 <details>
