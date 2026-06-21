@@ -8,14 +8,14 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/cache"
-	"github.com/okyashgajjar/costaffective-mcp/internal/discovery_memory"
-	"github.com/okyashgajjar/costaffective-mcp/internal/kmemory"
-	"github.com/okyashgajjar/costaffective-mcp/internal/repo_memory"
-	"github.com/okyashgajjar/costaffective-mcp/internal/repository"
-	"github.com/okyashgajjar/costaffective-mcp/internal/retrieval"
-	"github.com/okyashgajjar/costaffective-mcp/internal/stash"
-	"github.com/okyashgajjar/costaffective-mcp/internal/treesitter"
+	"github.com/okyashgajjar/costwise-mcp/internal/cache"
+	"github.com/okyashgajjar/costwise-mcp/internal/discovery_memory"
+	"github.com/okyashgajjar/costwise-mcp/internal/kmemory"
+	"github.com/okyashgajjar/costwise-mcp/internal/repo_memory"
+	"github.com/okyashgajjar/costwise-mcp/internal/repository"
+	"github.com/okyashgajjar/costwise-mcp/internal/retrieval"
+	"github.com/okyashgajjar/costwise-mcp/internal/stash"
+	"github.com/okyashgajjar/costwise-mcp/internal/treesitter"
 )
 
 // RepoSession represents the stateful repository context for a conversation.

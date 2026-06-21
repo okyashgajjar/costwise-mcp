@@ -34,7 +34,7 @@ Five repositories of varying size and language composition were evaluated:
 - **OpenCode**: located at `/home/mryg/Testings/opencode`
 - **Continue**: located at `/home/mryg/Testings/continue-main`
 - **Claude Code**: located at `/home/mryg/Testings/claude-code`
-- **MyCLI**: located at `/home/mryg/CostAffective-CLI/CLI`
+- **MyCLI**: located at `/home/mryg/CostWise-CLI/CLI`
 
 ## 5. Retriever Overview
 The 9 benchmarked retrievers represent a matrix of indexing methods:

@@ -1,6 +1,6 @@
 # Local binaries
-/costaffective
-/costaffective.exe
+/costwise
+/costwise.exe
 /mycli
 *.test
 
@@ -44,7 +44,7 @@ internal/.mycli-fts/
 
 architecture.html
 
-# Redundant installer (replaced by install.sh + costaffective install)
+# Redundant installer (replaced by install.sh + costwise install)
 /install-mcp.sh
 
 # Audit / cleanup reports (not part of source)

@@ -1,7 +1,7 @@
 package retrieval
 
 import (
-	"github.com/okyashgajjar/costaffective-mcp/internal/answertype"
+	"github.com/okyashgajjar/costwise-mcp/internal/answertype"
 )
 
 func NeedsCompression(outputTokens int, answerType answertype.Classification) bool {

@@ -1,36 +1,36 @@
-# CostAffective MCP — Cursor
+# CostWise MCP — Cursor
 
 ## Installation
 
 ### Auto-install (recommended)
 
 ```bash
-costaffective install --target cursor
+costwise install --target cursor
 ```
 
 Or let the auto-detector find it:
 
 ```bash
-costaffective install --all
+costwise install --all
 ```
 
 ### Prerequisites
 
 - Go 1.25+ (`go version`)
 - Cursor IDE installed (latest version)
-- The CostAffective repository cloned
+- The CostWise repository cloned
 
 ### Build the binary
 
 ```bash
-cd /path/to/CostAffective-CLI/CLI
-go build -o /usr/local/bin/costaffective ./cmd/costaffective/
+cd /path/to/CostWise-CLI/CLI
+go build -o /usr/local/bin/costwise ./cmd/costwise/
 ```
 
 Or keep it local:
 
 ```bash
-go build -o costaffective ./cmd/costaffective/
+go build -o costwise ./cmd/costwise/
 ```
 
 ## Configuration
@@ -41,9 +41,9 @@ go build -o costaffective ./cmd/costaffective/
 2. Navigate to **Tools & MCP** (or **Features → Model Context Protocol**)
 3. Click **+ New MCP Server**
 4. Fill in:
-   - **Name**: `costaffective`
+   - **Name**: `costwise`
    - **Transport Type**: `stdio`
-   - **Command**: `costaffective`
+   - **Command**: `costwise`
    - **Args**: `serve`
 5. Click **Save**
 
@@ -54,8 +54,8 @@ Create `.cursor/mcp.json` in your project root:
 ```json
 {
   "mcpServers": {
-    "costaffective": {
-      "command": "costaffective",
+    "costwise": {
+      "command": "costwise",
       "args": ["serve"]
     }
   }
@@ -69,8 +69,8 @@ Edit `~/.cursor/mcp.json`:
 ```json
 {
   "mcpServers": {
-    "costaffective": {
-      "command": "costaffective",
+    "costwise": {
+      "command": "costwise",
       "args": ["serve"]
     }
   }
@@ -81,21 +81,21 @@ Edit `~/.cursor/mcp.json`:
 
 1. Press `Cmd+Shift+P` (macOS) or `Ctrl+Shift+P` (Windows/Linux)
 2. Type "MCP" and select **MCP: Add Server**
-3. Follow the prompts with name="costaffective", transport=stdio, command="costaffective serve"
+3. Follow the prompts with name="costwise", transport=stdio, command="costwise serve"
 
 ## Verification
 
 - Open **Cursor Settings → Tools & MCP**
-- Look for a **green dot** next to "costaffective"
+- Look for a **green dot** next to "costwise"
 - Open the Cursor chat and ask: *"Search this repo for the function CompressForAnswerType"*
 
-Cursor will call the `costaffective` MCP tools automatically.
+Cursor will call the `costwise` MCP tools automatically.
 
 ## Troubleshooting
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|
-| Red dot next to server | Binary not found or crashed | Run `which costaffective` to confirm path; try `costaffective serve` in terminal |
+| Red dot next to server | Binary not found or crashed | Run `which costwise` to confirm path; try `costwise serve` in terminal |
 | Tools not in chat | MCP not loaded | Restart Cursor entirely after config change |
 | Permission error on save | Config file ownership | Check `~/.cursor/mcp.json` permissions |
 
@@ -103,11 +103,11 @@ Cursor will call the `costaffective` MCP tools automatically.
 
 ```bash
 # In Cursor terminal
-cd /path/to/CostAffective-CLI/CLI
+cd /path/to/CostWise-CLI/CLI
 
 # Run benchmark
 go test ./... -bench=Benchmark -run=^$
 
 # Or use MCP tools directly via Cursor chat:
-# "Run the costaffective benchmark on this repo and report accuracy per retriever"
+# "Run the costwise benchmark on this repo and report accuracy per retriever"
 ```

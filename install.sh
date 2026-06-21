@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════════
-# CostAffective MCP — Unified Installer
+# CostWise MCP — Unified Installer
 #
-# Installs Go (if missing), builds CostAffective from source,
+# Installs Go (if missing), builds CostWise from source,
 # installs globally, and configures your AI coding clients.
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costwise-mcp/main/install.sh | bash
 # ═══════════════════════════════════════════════════════════════
 set -euo pipefail
 
-REPO="okyashgajjar/costaffective-mcp"
+REPO="okyashgajjar/costwise-mcp"
 REPO_URL="https://github.com/$REPO.git"
 INSTALL_DIR="/usr/local/bin"
 GO_VERSION_MIN="1.25"
@@ -25,7 +25,7 @@ warn()  { echo -e "${YELLOW}[WARN]${NC}  $*"; }
 err()   { echo -e "${RED}[ERR]${NC}   $*"; }
 
 echo "═══════════════════════════════════════════════"
-echo "  CostAffective MCP — Unified Installer"
+echo "  CostWise MCP — Unified Installer"
 echo "═══════════════════════════════════════════════"
 echo ""
 
@@ -57,7 +57,7 @@ if [[ "$(uname -s)" =~ ^(MINGW|MSYS|CYGWIN) ]] || [[ -n "${PROCESSOR_ARCHITECTUR
   # No WSL — explain options
   echo ""
   err "Windows detected but WSL is not installed."
-  err "CostAffective needs WSL, Linux, or macOS to run."
+  err "CostWise needs WSL, Linux, or macOS to run."
   echo ""
   info "To install WSL (requires Windows 10 2004+ or Windows 11):"
   echo ""
@@ -71,9 +71,9 @@ if [[ "$(uname -s)" =~ ^(MINGW|MSYS|CYGWIN) ]] || [[ -n "${PROCESSOR_ARCHITECTUR
   echo ""
   info "Alternatively, install Go and build manually in PowerShell:"
   info "  git clone $REPO_URL"
-  info "  cd costaffective-mcp"
+  info "  cd costwise-mcp"
   info '  $env:CGO_ENABLED=1'
-  info "  go build -o costaffective.exe ./cmd/costaffective/"
+  info "  go build -o costwise.exe ./cmd/costwise/"
   exit 1
 fi
 
@@ -100,7 +100,7 @@ install_go() {
   tar="go${version}.${os}-${arch}.tar.gz"
   url="https://go.dev/dl/$tar"
 
-  info "Go is required to build CostAffective from source."
+  info "Go is required to build CostWise from source."
   info "Latest Go version: $version"
   echo ""
   read -r -p "Install Go ${version} to /usr/local/go? [Y/n] " reply
@@ -243,7 +243,7 @@ fi
 # PHASE 4 — Clone & Build
 # ═══════════════════════════════════════════════════════════════
 
-info "Phase 4: Building CostAffective from source..."
+info "Phase 4: Building CostWise from source..."
 
 BUILD_DIR="$(mktemp -d)"
 trap 'rm -rf "$BUILD_DIR"' EXIT
@@ -257,10 +257,10 @@ git clone --depth 1 "$REPO_URL" "$BUILD_DIR" 2>/dev/null || {
 info "Building binary..."
 (
   cd "$BUILD_DIR"
-  CGO_ENABLED=1 go build -o costaffective ./cmd/costaffective/
+  CGO_ENABLED=1 go build -o costwise ./cmd/costwise/
 ) 2>&1 | while IFS= read -r line; do info "  $line"; done
 
-BINARY_PATH="$BUILD_DIR/costaffective"
+BINARY_PATH="$BUILD_DIR/costwise"
 if [[ ! -f "$BINARY_PATH" ]]; then
   err "Build failed — binary not found"
   exit 1
@@ -274,18 +274,18 @@ ok "Binary built: $(file "$BINARY_PATH" | sed 's/.*: //')"
 
 info "Phase 5: Installing globally..."
 
-sudo install -m755 "$BINARY_PATH" "$INSTALL_DIR/costaffective" 2>/dev/null || {
+sudo install -m755 "$BINARY_PATH" "$INSTALL_DIR/costwise" 2>/dev/null || {
   sudo mkdir -p "$INSTALL_DIR"
-  sudo cp "$BINARY_PATH" "$INSTALL_DIR/costaffective"
-  sudo chmod +x "$INSTALL_DIR/costaffective"
+  sudo cp "$BINARY_PATH" "$INSTALL_DIR/costwise"
+  sudo chmod +x "$INSTALL_DIR/costwise"
 }
 
 export PATH="$INSTALL_DIR:$PATH"
 
-ok "Installed: $INSTALL_DIR/costaffective"
+ok "Installed: $INSTALL_DIR/costwise"
 
-if command -v costaffective &>/dev/null; then
-  ok "Globally available: $(command -v costaffective)"
+if command -v costwise &>/dev/null; then
+  ok "Globally available: $(command -v costwise)"
 else
   warn "$INSTALL_DIR may not be in PATH"
   case "$(uname -s)" in
@@ -306,7 +306,7 @@ fi
 
 info "Phase 6: MCP Client Configuration..."
 
-MCP_COMMAND="$(command -v costaffective)"
+MCP_COMMAND="$(command -v costwise)"
 MCP_ARGS="serve"
 
 has_cmd() { command -v "$1" &>/dev/null; }
@@ -343,7 +343,7 @@ write_config_claude_code() {
 import json, sys
 with open('$config_file') as f:
     cfg = json.load(f)
-cfg.setdefault('mcpServers', {})['costaffective'] = {
+cfg.setdefault('mcpServers', {})['costwise'] = {
     'command': '$MCP_COMMAND',
     'args': ['$MCP_ARGS']
 }
@@ -354,7 +354,7 @@ json.dump(cfg, sys.stdout, indent=2)
     cat > "$config_file" <<EOF
 {
   "mcpServers": {
-    "costaffective": {
+    "costwise": {
       "command": "${MCP_COMMAND}",
       "args": ["${MCP_ARGS}"]
     }
@@ -371,7 +371,7 @@ write_config_cursor() {
   cat > "$config_dir/mcp.json" <<EOF
 {
   "mcpServers": {
-    "costaffective": {
+    "costwise": {
       "command": "${MCP_COMMAND}",
       "args": ["${MCP_ARGS}"]
     }
@@ -387,7 +387,7 @@ write_config_opencode() {
   cat > "$config_file" <<EOF
 {
   "mcp": {
-    "costaffective": {
+    "costwise": {
       "type": "local",
       "command": ["${MCP_COMMAND}", "${MCP_ARGS}"],
       "enabled": true
@@ -405,7 +405,7 @@ write_config_codex() {
   if [[ -f "$config_file" ]]; then echo "" >> "$config_file"; fi
   cat >> "$config_file" <<EOF
 
-[mcp_servers.costaffective]
+[mcp_servers.costwise]
 command = "${MCP_COMMAND}"
 args = ["${MCP_ARGS}"]
 EOF
@@ -422,7 +422,7 @@ write_config_antigravity() {
 import json, sys
 with open('$config_file') as f:
     cfg = json.load(f)
-cfg.setdefault('mcpServers', {})['costaffective'] = {
+cfg.setdefault('mcpServers', {})['costwise'] = {
     'command': '$MCP_COMMAND',
     'args': ['$MCP_ARGS']
 }
@@ -433,7 +433,7 @@ json.dump(cfg, sys.stdout, indent=2)
     cat > "$config_file" <<EOF
 {
   "mcpServers": {
-    "costaffective": {
+    "costwise": {
       "command": "${MCP_COMMAND}",
       "args": ["${MCP_ARGS}"]
     }
@@ -463,7 +463,7 @@ DETECTED=($(detect_clients))
 if [[ ${#DETECTED[@]} -eq 0 ]]; then
   warn "No supported AI coding clients detected."
   info "You can manually configure any MCP-compatible client later:"
-  info "  costaffective install"
+  info "  costwise install"
 else
   echo ""
   info "Detected clients:"
@@ -476,7 +476,7 @@ else
   for client in "${DETECTED[@]}"; do
     local label="$(client_label "$client")"
     echo ""
-    read -r -p "  Connect CostAffective to ${label}? [Y/n] " reply
+    read -r -p "  Connect CostWise to ${label}? [Y/n] " reply
     case "$reply" in
       [nN]|[nN][oO])
         info "Skipping $label"
@@ -497,10 +497,10 @@ echo "════════════════════════�
 echo "  Installation Complete!"
 echo "═══════════════════════════════════════════════"
 echo ""
-ok "CostAffective is globally available: $(command -v costaffective)"
+ok "CostWise is globally available: $(command -v costwise)"
 echo ""
-info "Run:  costaffective doctor     (health check)"
-info "Run:  costaffective install    (reconfigure clients)"
-info "Run:  costaffective serve      (start MCP server)"
+info "Run:  costwise doctor     (health check)"
+info "Run:  costwise install    (reconfigure clients)"
+info "Run:  costwise serve      (start MCP server)"
 echo ""
 info "Need help? https://github.com/$REPO"

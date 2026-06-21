@@ -3,15 +3,15 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/skill"
+	"github.com/okyashgajjar/costwise-mcp/internal/skill"
 
 	"github.com/spf13/cobra"
 )
 
 var skillCmd = &cobra.Command{
 	Use:   "skill",
-	Short: "Manage the costaffective-session awareness skill",
-	Long: `The costaffective-session skill steers AI coding tools to keep the
+	Short: "Manage the costwise-session awareness skill",
+	Long: `The costwise-session skill steers AI coding tools to keep the
 session cheap: route large output through stash_context/recall, persist durable
 facts with remember, and prefer narrow retrieval over reading whole files.
 
@@ -22,17 +22,17 @@ Antigravity/Gemini GEMINI.md, and a project-root AGENTS.md that Cursor, Windsurf
 Copilot, Zed and Aider also read.
 
 Examples:
-  costaffective skill install                  # Global + project rules files
-  costaffective skill install --scope global   # Only per-user files (~/.codex, ~/.gemini, …)
-  costaffective skill install --scope project  # Only ./AGENTS.md + ./.claude/skills
-  costaffective skill uninstall                # Remove the guidance everywhere
-  costaffective skill print                    # Print the guidance for manual placement
+  costwise skill install                  # Global + project rules files
+  costwise skill install --scope global   # Only per-user files (~/.codex, ~/.gemini, …)
+  costwise skill install --scope project  # Only ./AGENTS.md + ./.claude/skills
+  costwise skill uninstall                # Remove the guidance everywhere
+  costwise skill print                    # Print the guidance for manual placement
 `,
 }
 
 var skillInstallCmd = &cobra.Command{
 	Use:   "install",
-	Short: "Install the costaffective-session guidance into each client's rules file",
+	Short: "Install the costwise-session guidance into each client's rules file",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		scope, err := skill.ParseScope(mustString(cmd, "scope"))
 		if err != nil {
@@ -42,7 +42,7 @@ var skillInstallCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		cmd.Println("Installed costaffective-session guidance:")
+		cmd.Println("Installed costwise-session guidance:")
 		for _, r := range results {
 			cmd.Printf("  %-7s %-9s %s  [%s]\n", r.Scope, r.Target, r.Path, r.Action)
 		}
@@ -56,7 +56,7 @@ var skillInstallCmd = &cobra.Command{
 
 var skillUninstallCmd = &cobra.Command{
 	Use:   "uninstall",
-	Short: "Remove the costaffective-session guidance from each client's rules file",
+	Short: "Remove the costwise-session guidance from each client's rules file",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		scope, err := skill.ParseScope(mustString(cmd, "scope"))
 		if err != nil {

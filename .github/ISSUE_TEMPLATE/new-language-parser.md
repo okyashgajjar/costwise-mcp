@@ -11,7 +11,7 @@ assignees: ''
 
 **Tree-sitter grammar URL:**
 
-**Why this language matters for CostAffective users:**
+**Why this language matters for CostWise users:**
 
 **Checklist**
 - [ ] Grammar compiles with tree-sitter

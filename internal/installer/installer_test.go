@@ -13,8 +13,8 @@ import (
 var testBinaryPath string
 
 func TestMain(m *testing.M) {
-	// Build a real costaffective binary to use for osExecutable mock in tests
-	dir, err := os.MkdirTemp("", "costaffective-test")
+	// Build a real costwise binary to use for osExecutable mock in tests
+	dir, err := os.MkdirTemp("", "costwise-test")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "failed to create temp dir: %v\n", err)
 		os.Exit(1)
@@ -22,13 +22,13 @@ func TestMain(m *testing.M) {
 	// Note: on exit, we clean up the temp directory
 	defer func() { _ = os.RemoveAll(dir) }()
 
-	binName := "costaffective"
+	binName := "costwise"
 	if runtime.GOOS == "windows" {
 		binName += ".exe"
 	}
 	testBinaryPath = filepath.Join(dir, binName)
 
-	cmd := exec.Command("go", "build", "-o", testBinaryPath, "../../cmd/costaffective/")
+	cmd := exec.Command("go", "build", "-o", testBinaryPath, "../../cmd/costwise/")
 	if err := cmd.Run(); err != nil {
 		fmt.Fprintf(os.Stderr, "failed to build test binary: %v\n", err)
 		os.Exit(1)
@@ -52,7 +52,7 @@ func tempBinary(t *testing.T) string {
 	dir := t.TempDir()
 	out := filepath.Join(dir, binaryNameForTest())
 
-	cmd := exec.Command("go", "build", "-o", out, "../../cmd/costaffective/")
+	cmd := exec.Command("go", "build", "-o", out, "../../cmd/costwise/")
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
 		t.Fatalf("build temp binary: %v", err)
@@ -62,9 +62,9 @@ func tempBinary(t *testing.T) string {
 
 func binaryNameForTest() string {
 	if runtime.GOOS == "windows" {
-		return "costaffective_test.exe"
+		return "costwise_test.exe"
 	}
-	return "costaffective_test"
+	return "costwise_test"
 }
 
 func TestInstallBinary(t *testing.T) {
@@ -72,7 +72,7 @@ func TestInstallBinary(t *testing.T) {
 
 	// Simulate what InstallBinary does: copy to a target path
 	targetDir := filepath.Join(t.TempDir(), "bin")
-	targetPath := filepath.Join(targetDir, "costaffective")
+	targetPath := filepath.Join(targetDir, "costwise")
 	if err := os.MkdirAll(targetDir, 0755); err != nil {
 		t.Fatal(err)
 	}
@@ -141,7 +141,7 @@ func TestVerifyBinary(t *testing.T) {
 	}
 
 	// Test with non-existent path
-	err := VerifyBinary("/nonexistent/costaffective")
+	err := VerifyBinary("/nonexistent/costwise")
 	if err == nil {
 		t.Fatal("VerifyBinary should fail for nonexistent path")
 	}
@@ -152,12 +152,12 @@ func TestVerifyBinary(t *testing.T) {
 
 func TestDefaultBinaryPath(t *testing.T) {
 	path := DefaultBinaryPath()
-	if !strings.Contains(path, "costaffective") {
-		t.Fatalf("DefaultBinaryPath should contain 'costaffective': %s", path)
+	if !strings.Contains(path, "costwise") {
+		t.Fatalf("DefaultBinaryPath should contain 'costwise': %s", path)
 	}
-	wantSuffix := "costaffective"
+	wantSuffix := "costwise"
 	if runtime.GOOS == "windows" {
-		wantSuffix = "costaffective.exe"
+		wantSuffix = "costwise.exe"
 	}
 	if !strings.HasSuffix(path, wantSuffix) {
 		t.Fatalf("DefaultBinaryPath should end with %q: %s", wantSuffix, path)
@@ -165,7 +165,7 @@ func TestDefaultBinaryPath(t *testing.T) {
 }
 
 func TestGetMcpServerConfig(t *testing.T) {
-	testPath := "/home/testuser/.local/bin/costaffective"
+	testPath := "/home/testuser/.local/bin/costwise"
 	SetBinaryPath(testPath)
 	defer SetBinaryPath("")
 
@@ -194,7 +194,7 @@ func TestGetMcpServerConfig(t *testing.T) {
 }
 
 func TestTargetUsesAbsolutePath(t *testing.T) {
-	testPath := "/home/testuser/.local/bin/costaffective"
+	testPath := "/home/testuser/.local/bin/costwise"
 	SetBinaryPath(testPath)
 	defer SetBinaryPath("")
 
@@ -241,9 +241,9 @@ func TestActionableError(t *testing.T) {
 
 func TestBinaryPathDefault(t *testing.T) {
 	SetBinaryPath("")
-	want := "costaffective"
+	want := "costwise"
 	if runtime.GOOS == "windows" {
-		want = "costaffective.exe"
+		want = "costwise.exe"
 	}
 	if BinaryPath() != want {
 		t.Fatalf("default BinaryPath should be %q, got %q", want, BinaryPath())
@@ -256,8 +256,8 @@ func TestGetBinaryCandidates(t *testing.T) {
 		t.Fatal("should return at least one candidate")
 	}
 	for _, c := range candidates {
-		if !strings.Contains(c, "costaffective") {
-			t.Errorf("candidate %q should contain 'costaffective'", c)
+		if !strings.Contains(c, "costwise") {
+			t.Errorf("candidate %q should contain 'costwise'", c)
 		}
 	}
 }
@@ -322,7 +322,7 @@ func TestDeepEqual(t *testing.T) {
 
 func TestCopyBinary(t *testing.T) {
 	src := tempBinary(t)
-	dst := filepath.Join(t.TempDir(), "costaffective")
+	dst := filepath.Join(t.TempDir(), "costwise")
 
 	if err := copyBinary(src, dst); err != nil {
 		t.Fatalf("copyBinary should succeed: %v", err)
@@ -343,7 +343,7 @@ func TestCopyBinary(t *testing.T) {
 }
 
 func TestCopyBinary_NonExistentSrc(t *testing.T) {
-	err := copyBinary("/nonexistent/costaffective", filepath.Join(t.TempDir(), "costaffective"))
+	err := copyBinary("/nonexistent/costwise", filepath.Join(t.TempDir(), "costwise"))
 	if err == nil {
 		t.Fatal("copyBinary should fail for nonexistent src")
 	}
@@ -355,7 +355,7 @@ func TestCopyBinary_InvalidSrc(t *testing.T) {
 	if err := os.WriteFile(src, []byte("not an executable"), 0644); err != nil {
 		t.Fatal(err)
 	}
-	dst := filepath.Join(dir, "costaffective")
+	dst := filepath.Join(dir, "costwise")
 
 	err := copyBinary(src, dst)
 	if err == nil {
@@ -506,7 +506,7 @@ func TestCheckBinaryIncludesExecutable(t *testing.T) {
 }
 
 func TestInstallFromOutsideModule(t *testing.T) {
-	// Integration test: simulates running "costaffective install" from /tmp
+	// Integration test: simulates running "costwise install" from /tmp
 	// without a go.mod by verifying that EnsureBinary works (no go.mod lookup).
 	origDir, _ := os.Getwd()
 	defer os.Chdir(origDir)
@@ -553,16 +553,16 @@ func TestBinaryPathRoundTrip(t *testing.T) {
 
 	// Default should be just the filename
 	defaultPath := BinaryPath()
-	expected := "costaffective"
+	expected := "costwise"
 	if runtime.GOOS == "windows" {
-		expected = "costaffective.exe"
+		expected = "costwise.exe"
 	}
 	if defaultPath != expected {
 		t.Fatalf("default BinaryPath = %q, want %q", defaultPath, expected)
 	}
 
 	// After SetBinaryPath, should return the set value
-	testPath := "/custom/path/costaffective"
+	testPath := "/custom/path/costwise"
 	SetBinaryPath(testPath)
 	if BinaryPath() != testPath {
 		t.Fatalf("BinaryPath after SetBinaryPath = %q, want %q", BinaryPath(), testPath)

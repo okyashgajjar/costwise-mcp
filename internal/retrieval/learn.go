@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/kmemory"
+	"github.com/okyashgajjar/costwise-mcp/internal/kmemory"
 )
 
 func LearnFromResults(km *kmemory.KnowledgeMemory, query string, results []RetrievalResult) {

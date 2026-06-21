@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/answertype"
-	"github.com/okyashgajjar/costaffective-mcp/internal/classifier"
-	"github.com/okyashgajjar/costaffective-mcp/internal/repository"
-	"github.com/okyashgajjar/costaffective-mcp/internal/retrieval"
+	"github.com/okyashgajjar/costwise-mcp/internal/answertype"
+	"github.com/okyashgajjar/costwise-mcp/internal/classifier"
+	"github.com/okyashgajjar/costwise-mcp/internal/repository"
+	"github.com/okyashgajjar/costwise-mcp/internal/retrieval"
 )
 
 // TaskResult is the scored outcome of running one Task through the live pipeline.

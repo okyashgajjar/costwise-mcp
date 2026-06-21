@@ -1,19 +1,19 @@
 package cmd
 
 import (
-	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
-	_ "github.com/okyashgajjar/costaffective-mcp/internal/installer/targets"
+	"github.com/okyashgajjar/costwise-mcp/internal/installer"
+	_ "github.com/okyashgajjar/costwise-mcp/internal/installer/targets"
 
 	"github.com/spf13/cobra"
 )
 
 var installCmd = &cobra.Command{
 	Use:   "install",
-	Short: "Install CostAffective MCP server for AI coding clients",
-	Long: `Configures CostAffective as an MCP server for your AI coding clients.
+	Short: "Install CostWise MCP server for AI coding clients",
+	Long: `Configures CostWise as an MCP server for your AI coding clients.
 
 The installer will:
-  1. Find (or build) the binary and ensure it's at ~/.local/bin/costaffective
+  1. Find (or build) the binary and ensure it's at ~/.local/bin/costwise
   2. Detect which AI coding clients are installed
   3. Prompt you to select targets for configuration
   4. Write the correct MCP config with absolute binary paths for each client
@@ -24,14 +24,14 @@ Use --build to compile from source instead.
 Supported clients: claude, cursor, opencode, codex, antigravity
 
 Examples:
-  costaffective install              # Interactive: detect → prompt → install
-  costaffective install --all        # Configure all supported clients (non-interactive)
-  costaffective install --target claude  # Configure only Claude Code (non-interactive)
-  costaffective install --build      # Build binary from source before installing
-  costaffective install --dry-run    # Show what would be done without making changes
-  costaffective install --local      # Configure for current project only
-  costaffective install --yes        # Non-interactive: auto-detect + accept defaults
-  costaffective install --repair     # Fix stale configs and reinstall binary
+  costwise install              # Interactive: detect → prompt → install
+  costwise install --all        # Configure all supported clients (non-interactive)
+  costwise install --target claude  # Configure only Claude Code (non-interactive)
+  costwise install --build      # Build binary from source before installing
+  costwise install --dry-run    # Show what would be done without making changes
+  costwise install --local      # Configure for current project only
+  costwise install --yes        # Non-interactive: auto-detect + accept defaults
+  costwise install --repair     # Fix stale configs and reinstall binary
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		all, _ := cmd.Flags().GetBool("all")
@@ -73,11 +73,11 @@ Examples:
 func init() {
 	installCmd.Flags().Bool("all", false, "Install for all supported clients (non-interactive)")
 	installCmd.Flags().Bool("dry-run", false, "Show what would be done without making changes")
-	installCmd.Flags().Bool("build", false, "Build the CostAffective binary from source before installing")
+	installCmd.Flags().Bool("build", false, "Build the CostWise binary from source before installing")
 	installCmd.Flags().String("target", "", "Install only for a specific client (claude, cursor, opencode, codex, antigravity)")
 	installCmd.Flags().Bool("local", false, "Install for current project only (instead of global)")
 	installCmd.Flags().BoolP("yes", "y", false, "Non-interactive: auto-detect and accept defaults")
 	installCmd.Flags().Bool("repair", false, "Repair mode: reinstall binary and fix stale configs")
-	installCmd.Flags().Bool("no-skill", false, "Skip installing the costaffective-session awareness skill")
+	installCmd.Flags().Bool("no-skill", false, "Skip installing the costwise-session awareness skill")
 	rootCmd.AddCommand(installCmd)
 }

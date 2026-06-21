@@ -1,26 +1,26 @@
-# CostAffective MCP — Hermes Agent
+# CostWise MCP — Hermes Agent
 
 ## Installation
 
 ### Auto-install (recommended)
 
-Hermes is configured manually. Use `costaffective install` for other supported clients:
+Hermes is configured manually. Use `costwise install` for other supported clients:
 
 ```bash
-costaffective install --all
+costwise install --all
 ```
 
 ### Prerequisites
 
 - Go 1.25+ (`go version`)
 - Hermes Agent installed (`hermes --version`)
-- The CostAffective repository cloned
+- The CostWise repository cloned
 
 ### Build the binary
 
 ```bash
-cd /path/to/CostAffective-CLI/CLI
-go build -o /usr/local/bin/costaffective ./cmd/costaffective/
+cd /path/to/CostWise-CLI/CLI
+go build -o /usr/local/bin/costwise ./cmd/costwise/
 ```
 
 ## Configuration
@@ -29,8 +29,8 @@ Add to `~/.hermes/config.yaml`:
 
 ```yaml
 mcp_servers:
-  costaffective:
-    command: "costaffective"
+  costwise:
+    command: "costwise"
     args: ["serve"]
 ```
 
@@ -38,8 +38,8 @@ mcp_servers:
 
 ```yaml
 mcp_servers:
-  costaffective:
-    command: "costaffective"
+  costwise:
+    command: "costwise"
     args: ["serve"]
     tools:
       include:
@@ -59,8 +59,8 @@ mcp_servers:
 
 ```yaml
 mcp_servers:
-  costaffective:
-    command: "costaffective"
+  costwise:
+    command: "costwise"
     args: ["serve"]
     env:
       MYCLI_LOG_DIR: "/var/log/mycli"
@@ -82,7 +82,7 @@ hermes
 # "Search this repo for the function CompressForAnswerType"
 ```
 
-Expected: Hermes shows MCP tools prefixed as `mcp_costaffective_search_code`, `mcp_costaffective_find_symbol`, etc.
+Expected: Hermes shows MCP tools prefixed as `mcp_costwise_search_code`, `mcp_costwise_find_symbol`, etc.
 
 ## Troubleshooting
 
@@ -90,11 +90,11 @@ Expected: Hermes shows MCP tools prefixed as `mcp_costaffective_search_code`, `m
 |---------|-------|-----|
 | Server not loaded | Config syntax error | Validate YAML: `python3 -c "import yaml; yaml.safe_load(open('~/.hermes/config.yaml'))"` |
 | Tools not showing | Filter blocking | Remove `tools.include` to allow all tools |
-| Command not found | Not in PATH | Use absolute path: `/usr/local/bin/costaffective` |
+| Command not found | Not in PATH | Use absolute path: `/usr/local/bin/costwise` |
 
 ## Benchmark Setup
 
 ```bash
-cd /path/to/CostAffective-CLI/CLI
-hermes run "Run the costaffective benchmark suite on this project"
+cd /path/to/CostWise-CLI/CLI
+hermes run "Run the costwise benchmark suite on this project"
 ```

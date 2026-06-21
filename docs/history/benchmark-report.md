@@ -1,4 +1,4 @@
-> **Historical benchmark artifact. Not representative of current releases.** This report measures CostAffective retrievers against the CostAffective repository itself (85 queries, Campaign A). Accuracy metrics are unreliable — see `BENCHMARK_TRUST_REPORT.md` from the same run which found 0.0% keyword coverage across all retrievers and 23 false negatives. Router accuracy shows 0.0% because the dataset contained no routing queries.
+> **Historical benchmark artifact. Not representative of current releases.** This report measures CostWise retrievers against the CostWise repository itself (85 queries, Campaign A). Accuracy metrics are unreliable — see `BENCHMARK_TRUST_REPORT.md` from the same run which found 0.0% keyword coverage across all retrievers and 23 false negatives. Router accuracy shows 0.0% because the dataset contained no routing queries.
 
 # Benchmark Report
 

@@ -3,12 +3,12 @@ package mcpserver
 import (
 	"github.com/mark3labs/mcp-go/server"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/skill"
+	"github.com/okyashgajjar/costwise-mcp/internal/skill"
 )
 
 func NewServer() *server.MCPServer {
 	s := server.NewMCPServer(
-		"CostAffective Code Intelligence",
+		"CostWise Code Intelligence",
 		"1.0.0",
 		server.WithToolCapabilities(true),
 		// Cross-IDE, zero-install session-awareness guidance: every MCP client

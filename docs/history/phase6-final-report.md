@@ -1,4 +1,4 @@
-> **Historical benchmark artifact. Not representative of current releases.** This report measures CostAffective retrievers against the **Aider** codebase (Python project, not CostAffective itself). Campaign B continuation. Numbers here (99.2% retrieval) slightly differ from the excellence report (98.4%) due to incremental fixes. Overview category baseline (80%) contradicts the excellence report's claim of 100%.
+> **Historical benchmark artifact. Not representative of current releases.** This report measures CostWise retrievers against the **Aider** codebase (Python project, not CostWise itself). Campaign B continuation. Numbers here (99.2% retrieval) slightly differ from the excellence report (98.4%) due to incremental fixes. Overview category baseline (80%) contradicts the excellence report's claim of 100%.
 
 # Phase 6: Benchmark Excellence & Production Retrieval Sprint
 
@@ -785,5 +785,5 @@ Retriever Wins:
 ## Appendix: Benchmark Data
 
 The complete benchmark report is available in:
-- `/home/mryg/CostAffective-CLI/CLI/benchmark-report.json` (machine-readable)
-- `/home/mryg/CostAffective-CLI/CLI/benchmark-report.md` (human-readable)
+- `/home/mryg/CostWise-CLI/CLI/benchmark-report.json` (machine-readable)
+- `/home/mryg/CostWise-CLI/CLI/benchmark-report.md` (human-readable)

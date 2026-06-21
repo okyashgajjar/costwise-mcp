@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
+	"github.com/okyashgajjar/costwise-mcp/internal/installer"
 )
 
 type ClaudeTarget struct{}
@@ -30,7 +30,7 @@ func (t *ClaudeTarget) Detect(loc installer.Location) installer.DetectionResult 
 	path := t.mcpJSONPath(loc)
 	cfg := installer.ReadJSONFile(path)
 	mcpServers, _ := cfg["mcpServers"].(map[string]interface{})
-	_, alreadyConfigured := mcpServers["costaffective"]
+	_, alreadyConfigured := mcpServers["costwise"]
 
 	installed := installer.Exists(filepath.Join(installer.HomeDir(), ".claude")) ||
 		installer.Exists(path)
@@ -56,8 +56,9 @@ func (t *ClaudeTarget) Install(loc installer.Location, opts installer.InstallOpt
 func (t *ClaudeTarget) writeMcpEntry(loc installer.Location) installer.WriteResult {
 	file := t.mcpJSONPath(loc)
 	cfg := installer.ReadJSONFile(file)
+	installer.RemoveLegacyKeys(cfg)
 	before, _ := cfg["mcpServers"].(map[string]interface{})
-	beforeEntry := before["costaffective"]
+	beforeEntry := before["costwise"]
 	after := installer.GetMcpServerConfig()
 
 	if installer.DeepEqual(beforeEntry, after) {
@@ -71,7 +72,7 @@ func (t *ClaudeTarget) writeMcpEntry(loc installer.Location) installer.WriteResu
 	if cfg["mcpServers"] == nil {
 		cfg["mcpServers"] = make(map[string]interface{})
 	}
-	cfg["mcpServers"].(map[string]interface{})["costaffective"] = after
+	cfg["mcpServers"].(map[string]interface{})["costwise"] = after
 	if err := installer.WriteJSONFile(file, cfg); err != nil {
 		return installer.WriteResult{Path: file, Action: "error"}
 	}
@@ -99,16 +100,16 @@ func (t *ClaudeTarget) writePermissions(loc installer.Location) installer.WriteR
 	}
 
 	want := []string{
-		"mcp__costaffective__search_code",
-		"mcp__costaffective__find_symbol",
-		"mcp__costaffective__read_symbol",
-		"mcp__costaffective__find_references",
-		"mcp__costaffective__find_callers",
-		"mcp__costaffective__get_repository_summary",
-		"mcp__costaffective__index_repository",
-		"mcp__costaffective__remember",
-		"mcp__costaffective__stash_context",
-		"mcp__costaffective__recall",
+		"mcp__costwise__search_code",
+		"mcp__costwise__find_symbol",
+		"mcp__costwise__read_symbol",
+		"mcp__costwise__find_references",
+		"mcp__costwise__find_callers",
+		"mcp__costwise__get_repository_summary",
+		"mcp__costwise__index_repository",
+		"mcp__costwise__remember",
+		"mcp__costwise__stash_context",
+		"mcp__costwise__recall",
 	}
 
 	changed := false
@@ -155,8 +156,8 @@ func (t *ClaudeTarget) Uninstall(loc installer.Location) []installer.WriteResult
 	file := t.mcpJSONPath(loc)
 	cfg := installer.ReadJSONFile(file)
 	if mcpServers, ok := cfg["mcpServers"].(map[string]interface{}); ok {
-		if _, exists := mcpServers["costaffective"]; exists {
-			delete(mcpServers, "costaffective")
+		if _, exists := mcpServers["costwise"]; exists {
+			delete(mcpServers, "costwise")
 			if len(mcpServers) == 0 {
 				delete(cfg, "mcpServers")
 			}
@@ -181,7 +182,7 @@ func (t *ClaudeTarget) PrintConfig(loc installer.Location) string {
 	entry := installer.GetMcpServerConfig()
 	block := map[string]interface{}{
 		"mcpServers": map[string]interface{}{
-			"costaffective": entry,
+			"costwise": entry,
 		},
 	}
 	data, _ := json.MarshalIndent(block, "", "  ")

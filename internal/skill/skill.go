@@ -1,8 +1,8 @@
-// Package skill delivers the costaffective-session session-awareness guidance.
+// Package skill delivers the costwise-session session-awareness guidance.
 //
 // The same canonical policy (policy.md, embedded) is surfaced two ways:
 //   - via the MCP server `instructions` field (automatic, cross-IDE, zero install),
-//   - as native rules files written by `costaffective skill install`.
+//   - as native rules files written by `costwise skill install`.
 //
 // Native delivery targets the file each client actually reads, choosing one path
 // per client to avoid loading the policy twice (which would cost context budget):
@@ -30,11 +30,11 @@ import (
 
 // Name is the skill's identifier; it is also the SKILL.md directory name and the
 // /command users type in Claude Code.
-const Name = "costaffective-session"
+const Name = "costwise-session"
 
 // description is the auto-trigger hint loaded into the model's context. Kept
-// broad so the skill applies to general work in a costaffective-connected repo.
-const description = "Keep the session cheap when working in a costaffective-connected repository: route large output through stash_context/recall, persist durable facts with remember, and prefer narrow retrieval (search_code, find_symbol, get_repository_summary) over reading whole files."
+// broad so the skill applies to general work in a costwise-connected repo.
+const description = "Keep the session cheap when working in a costwise-connected repository: route large output through stash_context/recall, persist durable facts with remember, and prefer narrow retrieval (search_code, find_symbol, get_repository_summary) over reading whole files."
 
 //go:embed policy.md
 var policy string
@@ -106,8 +106,8 @@ const (
 // block delimiters for shared files (AGENTS.md / GEMINI.md). We only ever touch
 // the span between them, so user content is preserved.
 const (
-	blockStart = "<!-- costaffective-session:start (managed by `costaffective skill` — do not edit) -->"
-	blockEnd   = "<!-- costaffective-session:end -->"
+	blockStart = "<!-- costwise-session:start (managed by `costwise skill` — do not edit) -->"
+	blockEnd   = "<!-- costwise-session:end -->"
 )
 
 type target struct {

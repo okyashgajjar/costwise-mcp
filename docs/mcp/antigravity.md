@@ -1,30 +1,30 @@
-# CostAffective MCP — Antigravity (Google Gemini IDE)
+# CostWise MCP — Antigravity (Google Gemini IDE)
 
 ## Installation
 
 ### Auto-install (recommended)
 
 ```bash
-costaffective install --target antigravity
+costwise install --target antigravity
 ```
 
 Or let the auto-detector find it:
 
 ```bash
-costaffective install --all
+costwise install --all
 ```
 
 ### Prerequisites
 
 - Go 1.25+ (`go version`)
 - Antigravity IDE installed (latest version)
-- The CostAffective repository cloned
+- The CostWise repository cloned
 
 ### Build the binary
 
 ```bash
-cd /path/to/CostAffective-CLI/CLI
-go build -o /usr/local/bin/costaffective ./cmd/costaffective/
+cd /path/to/CostWise-CLI/CLI
+go build -o /usr/local/bin/costwise ./cmd/costwise/
 ```
 
 ## Configuration
@@ -45,8 +45,8 @@ Edit `~/.gemini/config/mcp_config.json`:
 ```json
 {
   "mcpServers": {
-    "costaffective": {
-      "command": "costaffective",
+    "costwise": {
+      "command": "costwise",
       "args": ["serve"]
     }
   }
@@ -58,7 +58,7 @@ Edit `~/.gemini/config/mcp_config.json`:
 ```json
 {
   "mcpServers": {
-    "costaffective": {
+    "costwise": {
       "serverUrl": "http://localhost:8080/mcp",
       "headers": {
         "Authorization": "Bearer your-token-here"
@@ -81,7 +81,7 @@ Edit `~/.gemini/config/mcp_config.json`:
 ## Verification
 
 1. Restart Antigravity
-2. In the Agent panel, the costaffective server should appear as connected
+2. In the Agent panel, the costwise server should appear as connected
 3. Ask the agent: *"Search this repo for the function CompressForAnswerType"*
 
 ## Troubleshooting
@@ -91,12 +91,12 @@ Edit `~/.gemini/config/mcp_config.json`:
 | Server shows error | Binary not found in PATH | Use absolute path in `command` |
 | Config not loading | Wrong file location | Check ~/.gemini/config/ vs ~/.gemini/antigravity/ |
 | "command not recognized" | args formatting | Ensure `args` is a JSON array: `["serve"]` |
-| Permission denied on Linux | Binary lacks execute | `chmod +x /path/to/costaffective` |
+| Permission denied on Linux | Binary lacks execute | `chmod +x /path/to/costwise` |
 
 ## Benchmark Setup
 
 ```bash
-cd /path/to/CostAffective-CLI/CLI
+cd /path/to/CostWise-CLI/CLI
 # Run the Go test suite
 go test ./... -bench=Benchmark -run=^$
 ```

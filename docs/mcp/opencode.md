@@ -1,30 +1,30 @@
-# CostAffective MCP — OpenCode
+# CostWise MCP — OpenCode
 
 ## Installation
 
 ### Auto-install (recommended)
 
 ```bash
-costaffective install --target opencode
+costwise install --target opencode
 ```
 
 Or let the auto-detector find it:
 
 ```bash
-costaffective install --all
+costwise install --all
 ```
 
 ### Prerequisites
 
 - Go 1.25+ (`go version`)
 - OpenCode CLI installed (`opencode --version`)
-- The CostAffective repository cloned
+- The CostWise repository cloned
 
 ### Build the binary
 
 ```bash
-cd /path/to/CostAffective-CLI/CLI
-go build -o /usr/local/bin/costaffective ./cmd/costaffective/
+cd /path/to/CostWise-CLI/CLI
+go build -o /usr/local/bin/costwise ./cmd/costwise/
 ```
 
 ## Configuration
@@ -34,9 +34,9 @@ go build -o /usr/local/bin/costaffective ./cmd/costaffective/
 ```bash
 opencode mcp add
 # Follow the interactive wizard:
-# - name: costaffective
+# - name: costwise
 # - type: local
-# - command: costaffective serve
+# - command: costwise serve
 ```
 
 ### Via config file (global)
@@ -47,9 +47,9 @@ Edit `~/.config/opencode/opencode.json` or `opencode.json` in your project root:
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
-    "costaffective": {
+    "costwise": {
       "type": "local",
-      "command": ["costaffective", "serve"],
+      "command": ["costwise", "serve"],
       "enabled": true
     }
   }
@@ -63,9 +63,9 @@ Create `opencode.json` in your project root:
 ```json
 {
   "mcp": {
-    "costaffective": {
+    "costwise": {
       "type": "local",
-      "command": ["costaffective", "serve"]
+      "command": ["costwise", "serve"]
     }
   }
 }
@@ -76,9 +76,9 @@ Create `opencode.json` in your project root:
 ```jsonc
 {
   "mcp": {
-    "costaffective": {
+    "costwise": {
       "type": "local",
-      "command": ["costaffective", "serve"],
+      "command": ["costwise", "serve"],
       "env": {
         "MYCLI_LOG_DIR": "/var/log/mycli"
       }
@@ -93,19 +93,19 @@ Create `opencode.json` in your project root:
 # List connected MCP servers
 opencode mcp list
 
-# You should see "costaffective" in the list
+# You should see "costwise" in the list
 
 # Test in a session
 opencode run "Search for the function CompressForAnswerType in this repo"
 ```
 
-Expected: OpenCode loads 7 tools from the `costaffective` MCP server.
+Expected: OpenCode loads 7 tools from the `costwise` MCP server.
 
 ## Troubleshooting
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|
-| `costaffective: command not found` | Not in PATH | Use absolute path in `command`: `"/usr/local/bin/costaffective"` |
+| `costwise: command not found` | Not in PATH | Use absolute path in `command`: `"/usr/local/bin/costwise"` |
 | Server not loading | Config syntax error | Validate JSON: `python3 -m json.tool opencode.json` |
 | Tools not available in chat | MCP disabled | Ensure `"enabled": true` |
 | `error: unknown command` | Wrong command format | OpenCode uses array for `command`, not string |
@@ -113,8 +113,8 @@ Expected: OpenCode loads 7 tools from the `costaffective` MCP server.
 ## Benchmark Setup
 
 ```bash
-cd /path/to/CostAffective-CLI/CLI
-opencode run "Run the costaffective benchmark suite on this project"
+cd /path/to/CostWise-CLI/CLI
+opencode run "Run the costwise benchmark suite on this project"
 ```
 
 Or directly with Go:

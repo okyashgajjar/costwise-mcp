@@ -1,4 +1,4 @@
-# Contributing to CostAffective
+# Contributing to CostWise
 
 ## The problem this project solves
 
@@ -12,7 +12,7 @@ The dominant cost in long sessions is not the model's output. It's the **prompt 
 
 ## The solution
 
-CostAffective is an open-source MCP server that runs locally and gives AI coding agents token-budgeted access to your repository. Instead of dumping files, it answers from a pre-built Tree-sitter index. Instead of pasting large output inline, it stashes content out of context behind a tiny handle. Instead of re-deriving facts, it remembers them per-repo.
+CostWise is an open-source MCP server that runs locally and gives AI coding agents token-budgeted access to your repository. Instead of dumping files, it answers from a pre-built Tree-sitter index. Instead of pasting large output inline, it stashes content out of context behind a tiny handle. Instead of re-deriving facts, it remembers them per-repo.
 
 **11 MCP tools across three categories:**
 
@@ -45,7 +45,7 @@ Plus a ~275-token session-awareness skill auto-delivered via MCP instructions fi
 
 ```
 cmd/                    # Entry points
-├── costaffective/
+├── costwise/
 │   └── main.go         # Binary entry point
 ├── install.go          # Interactive install
 ├── uninstall.go        # Remove MCP configs
@@ -111,7 +111,7 @@ internal/               # Core logic
 ```
 AI Client (MCP Host)
     │
-    ├── stdio transport ──► costaffective serve
+    ├── stdio transport ──► costwise serve
     │                           │
     │                           ├── Session Manager
     │                           ├── Tree-sitter Parser
@@ -135,8 +135,8 @@ All per-repo state lives under `.mycli-fts/` in the repo root. No cloud. No API 
 ## Getting started
 
 ```bash
-git clone https://github.com/okyashgajjar/costaffective-mcp.git
-cd costaffective-mcp
+git clone https://github.com/okyashgajjar/costwise-mcp.git
+cd costwise-mcp
 CGO_ENABLED=1 go build ./...
 CGO_ENABLED=1 go test ./...
 ```
@@ -191,7 +191,7 @@ Better examples, clearer install guides, more use case walkthroughs. Documentati
 
 ### Fix a labeled "bug" issue
 
-Check the [GitHub Issues](https://github.com/okyashgajjar/costaffective-mcp/issues) tab for open bugs.
+Check the [GitHub Issues](https://github.com/okyashgajjar/costwise-mcp/issues) tab for open bugs.
 
 ## How to contribute
 
@@ -216,4 +216,4 @@ This project follows the [Contributor Covenant](CODE_OF_CONDUCT.md). Be respectf
 
 ## Questions?
 
-Open a [Discussion](https://github.com/okyashgajjar/costaffective-mcp/discussions) or ask in an issue. We're happy to help you find a place to start.
+Open a [Discussion](https://github.com/okyashgajjar/costwise-mcp/discussions) or ask in an issue. We're happy to help you find a place to start.

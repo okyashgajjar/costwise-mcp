@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
-	_ "github.com/okyashgajjar/costaffective-mcp/internal/installer/targets"
+	"github.com/okyashgajjar/costwise-mcp/internal/installer"
+	_ "github.com/okyashgajjar/costwise-mcp/internal/installer/targets"
 )
 
 func TestDoctorBinaryCheck_PASS(t *testing.T) {
@@ -39,7 +39,7 @@ func TestDoctorBinaryCheck_PASS(t *testing.T) {
 
 func TestDoctorBinaryCheck_verifyNonexistent(t *testing.T) {
 	// Test that VerifyBinary produces proper error for nonexistent path
-	err := installer.VerifyBinary("/nonexistent/costaffective")
+	err := installer.VerifyBinary("/nonexistent/costwise")
 	if err == nil {
 		t.Fatal("VerifyBinary should fail for nonexistent path")
 	}
@@ -106,7 +106,7 @@ func TestDoctorMCPConfigs(t *testing.T) {
 	}
 	cursorConfig := map[string]interface{}{
 		"mcpServers": map[string]interface{}{
-			"costaffective": map[string]interface{}{
+			"costwise": map[string]interface{}{
 				"command": defaultBin,
 				"args":    []string{"serve"},
 				"type":    "stdio",
@@ -178,7 +178,7 @@ func TestDoctorCodexRepairRoundTrip(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read codex config: %v", err)
 	}
-	if !strings.Contains(string(content), "[mcp_servers.costaffective]") {
+	if !strings.Contains(string(content), "[mcp_servers.costwise]") {
 		t.Fatalf("codex config missing MCP entry: %s", string(content))
 	}
 	if !strings.Contains(string(content), defaultBin) {
@@ -249,7 +249,7 @@ func buildTempBinary(t *testing.T) string {
 	dir := t.TempDir()
 	out := filepath.Join(dir, binaryNameForTest())
 
-	cmd := exec.Command("go", "build", "-o", out, "../../cmd/costaffective/")
+	cmd := exec.Command("go", "build", "-o", out, "../../cmd/costwise/")
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
 		t.Fatalf("build temp binary: %v", err)
@@ -259,7 +259,7 @@ func buildTempBinary(t *testing.T) string {
 
 func binaryNameForTest() string {
 	if runtime.GOOS == "windows" {
-		return "costaffective_test.exe"
+		return "costwise_test.exe"
 	}
-	return "costaffective_test"
+	return "costwise_test"
 }

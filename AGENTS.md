@@ -9,7 +9,7 @@
 Three steps:
 1. **DONE — compact `repo_summary`.** `BuildRepositorySummaryCompact(ks, budget, module)` in `internal/retrieval/repository_summary.go`: token-budgeted (reuses `parseBudget`), top modules by symbol count + `+N more` rollup, dropped the unbounded `Layers` chain, optional `module` drill-down. Tool gained `budget`+`module` params. Legacy `BuildRepositorySummary`/`Format()` untouched. (50-module synthetic: 1192→216 tokens; capped regardless of repo size.)
 2. **DONE (code) — 3 cache-reducing tools** in `internal/mcpserver/tools.go`: `remember(repo_path,key,fact)` (durable fact → `kmemory` `UserNote` + per-repo `session_facts.json`), `stash_context(repo_path,content,label?)` (park large blob out of window → tiny handle; file-backed `internal/stash` at `<repoRoot>/.mycli-fts/stash/`), `recall(repo_path,query,source?,budget?)` (query-scoped read of a stash by handle, or facts; hard-capped via step-1 budgeting). Stores wired into `RepoSession` (`Stash`, `FactsPath`, `RememberFact`, `RecallFacts`). Chosen over compact/summarize/forget because the user requires **no context drop** — stash is lossless (relocates tokens, re-fetchable). All tool outputs stay tiny. New names added to `claude.go` allow-list. Tests: `internal/stash`, `internal/session/repo_session_v2_test.go`.
-3. **DONE — `costaffective-session` skill (session-awareness).** Teaches the model to keep the session lean (route large content through stash/recall, remember durable facts, prefer narrow retrieval). Single embedded source of truth: `internal/skill/policy.md` (`go:embed`, ~275 tok). Delivered two ways: (a) **automatic/cross-IDE** via `server.WithInstructions(skill.Instructions())` in `internal/mcpserver/server.go` — every MCP client auto-loads it, zero install; (b) **native Claude Code SKILL.md** via `costaffective skill {install,uninstall,print}` (`cmd/skill.go`) writing `~/.claude/skills/costaffective-session/SKILL.md` (or `.claude/...` with `--local`). `install` writes the skill by default (opt out `--no-skill`); `uninstall` removes it. Other IDEs rely on the instructions field + `skill print` for manual placement. `internal/skill` is standalone (NOT in the Target interface). Tests in `internal/skill/skill_test.go`.
+3. **DONE — `costwise-session` skill (session-awareness).** Teaches the model to keep the session lean (route large content through stash/recall, remember durable facts, prefer narrow retrieval). Single embedded source of truth: `internal/skill/policy.md` (`go:embed`, ~275 tok). Delivered two ways: (a) **automatic/cross-IDE** via `server.WithInstructions(skill.Instructions())` in `internal/mcpserver/server.go` — every MCP client auto-loads it, zero install; (b) **native Claude Code SKILL.md** via `costwise skill {install,uninstall,print}` (`cmd/skill.go`) writing `~/.claude/skills/costwise-session/SKILL.md` (or `.claude/...` with `--local`). `install` writes the skill by default (opt out `--no-skill`); `uninstall` removes it. Other IDEs rely on the instructions field + `skill print` for manual placement. `internal/skill` is standalone (NOT in the Target interface). Tests in `internal/skill/skill_test.go`.
 
 **LANDMINE:** `repo_memory`/`discovery_memory` Init with shared `os.TempDir()` paths (NOT per-repo) — a clobber risk (same class as the shared-index bug). New V2 stores MUST be per-repo (derive from `repoRoot` like `treesitter.NewSymbolDB`/`cache.NewCache`).
 
@@ -36,14 +36,14 @@ CGO_ENABLED=1 go build ./...
 CGO_ENABLED=1 go test ./...
 
 # Build binary
-CGO_ENABLED=1 go build -o costaffective ./cmd/costaffective/
+CGO_ENABLED=1 go build -o costwise ./cmd/costwise/
 
 # Build with version injection (for releases)
 go build -ldflags="\
-  -X github.com/okyashgajjar/costaffective-mcp/cmd.version=v1.0.0 \
-  -X github.com/okyashgajjar/costaffective-mcp/cmd.commit=$(git rev-parse --short HEAD) \
-  -X github.com/okyashgajjar/costaffective-mcp/cmd.date=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-  -o costaffective ./cmd/costaffective/
+  -X github.com/okyashgajjar/costwise-mcp/cmd.version=v1.0.0 \
+  -X github.com/okyashgajjar/costwise-mcp/cmd.commit=$(git rev-parse --short HEAD) \
+  -X github.com/okyashgajjar/costwise-mcp/cmd.date=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  -o costwise ./cmd/costwise/
 ```
 
 Default version (no ldflags): `dev`
@@ -58,8 +58,8 @@ Injected version example: `v1.0.0` with commit hash and build date
 
 ### Release artifact verification
 ```bash
-./costaffective --version
-# Expected: costaffective v1.0.0
+./costwise --version
+# Expected: costwise v1.0.0
 #           commit: abc1234
 #           built:  2026-06-10T00:00:00Z
 ```
@@ -90,7 +90,7 @@ goreleaser check
 
 ## Project Structure
 - `/home/mryg/Research-Architectures/CLI/` — Go module root
-- `cmd/costaffective/main.go` — entry point
+- `cmd/costwise/main.go` — entry point
 - `cmd/install.go` — interactive install (detect → prompt → MCP config; `--build` to rebuild)
 - `cmd/uninstall.go` — remove MCP configs from configured clients
 - `cmd/doctor.go` — diagnostic checks (binary, PATH, MCP configs, startup, repository)
@@ -167,14 +167,14 @@ When user asks "improve", "analyze", "review architecture", "suggest features":
 
 | Mode | Entry Point | When |
 |------|-------------|------|
-| **Use existing** | `EnsureBinary()` | Default: copies `os.Executable()` to `~/.local/bin/costaffective` |
+| **Use existing** | `EnsureBinary()` | Default: copies `os.Executable()` to `~/.local/bin/costwise` |
 | **Build from source** | `InstallBinary()` | `--build` flag: requires Go toolchain + `go.mod` in parent tree |
 | **Repair** | `runRepair()` | `--repair`: maps to `EnsureBinary()` or `InstallBinary()` depending on `--build` |
 
 **`EnsureBinary()` resolution order:**
 1. Binary already at `DefaultBinaryPath()` and verifiable → return it
 2. `os.Executable()` returns a valid path → copy to `DefaultBinaryPath()`, return it
-3. `exec.LookPath("costaffective")` succeeds → copy to `DefaultBinaryPath()`, return it
+3. `exec.LookPath("costwise")` succeeds → copy to `DefaultBinaryPath()`, return it
 4. None found → return `ActionableError` suggesting `--build`
 
 **Key invariants:**
@@ -191,11 +191,11 @@ When user asks "improve", "analyze", "review architecture", "suggest features":
 - All 12 answer types integrate into existing pipeline without breaking it
 - All 8 existing systems (SharedIndexer, SymbolDB, Auto Router, Query Classifier, retrievers, RepoSession, LRU Cache, Knowledge Store) remain as-is — new code integrates, never replaces.
 
-<!-- costaffective-session:start (managed by `costaffective skill` — do not edit) -->
+<!-- costwise-session:start (managed by `costwise skill` — do not edit) -->
 
-## costaffective-session
+## costwise-session
 
-This project is connected to the **costaffective** MCP server. Its tools keep the session cheap: in long sessions the dominant cost is the prompt cache re-reading everything in context each turn, so keep the window small. Apply this for the rest of the session — no need to be reminded again.
+This project is connected to the **costwise** MCP server. Its tools keep the session cheap: in long sessions the dominant cost is the prompt cache re-reading everything in context each turn, so keep the window small. Apply this for the rest of the session — no need to be reminded again.
 
 **Route large content out of context, don't paste it inline.**
 - For any large output (file, long command/test output, generated report), call `stash_context` to park it and get a short handle, then `recall(source=<handle>, query=…)` to pull back only the slice you need.
@@ -205,4 +205,4 @@ This project is connected to the **costaffective** MCP server. Its tools keep th
 - Pick the tool that fits: `find_symbol` to locate, `read_symbol` to see an implementation body, `find_references`/`find_callers` for usage, `search_code` for conceptual questions, `get_repository_summary` for structure. `recall` reads remembered facts/stashes, not code. For raw regex over files, use the host's own grep.
 - Default budget unless insufficient — one `large` call can add ~10k uncached tokens.
 
-<!-- costaffective-session:end -->
+<!-- costwise-session:end -->

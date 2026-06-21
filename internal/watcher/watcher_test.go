@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/session"
+	"github.com/okyashgajjar/costwise-mcp/internal/session"
 )
 
 func TestWatchdog(t *testing.T) {

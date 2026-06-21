@@ -19,9 +19,9 @@ All archived files include a prominent header:
 |---|---|
 | `benchmark-report.md` | Stale self-benchmark (85 queries). File matching was broken — 0.0% keyword coverage across all retrievers. |
 | `BENCHMARK_TRUST_REPORT.md` | Companion trust analysis. Confirmed 23 false negatives and invalid accuracy metrics. |
-| `benchmark-excellence-report.md` | Measured against Aider (Python project), not CostAffective. Overview accuracy (100%) contradicted by phase6 report (80%). |
+| `benchmark-excellence-report.md` | Measured against Aider (Python project), not CostWise. Overview accuracy (100%) contradicted by phase6 report (80%). |
 | `phase6-final-report.md` | Continuation of Aider benchmark. Overview baseline (80%) contradicted excellence report. |
-| `costaffective-benchmark-report.md` | Extended self-benchmark analysis with ground-truth format bug. |
+| `costwise-benchmark-report.md` | Extended self-benchmark analysis with ground-truth format bug. |
 | `architecture-validation.md` | Internal engineering review. Recommendations for FlowGraph rejection, token estimation fixes. |
 | Entire `reports/` directory | 8 files: cross-repo research outputs, leaderboards, comparison data (Campaign C). |
 
@@ -68,6 +68,6 @@ All archived files include a prominent header:
 |---|---|
 | `benchmark-report.md`'s accuracy metrics (62.4% treesitter, etc.) are from the same run where the trust report found 0.0% keyword coverage. | The README now notes these are "retrieval-evidence metrics" and references the trust report. The original files are archived with disclaimers. |
 | `medium-article.md` still exists in the repo with the claim "I reverse-engineered why AI coding agents burn cash." | Specific percentage claims removed. Remaining content describes the caching cost model qualitatively. |
-| Website at `costaffective-mcp.vercel.app` is outside the repository — cannot be audited. | README still links to it. This is an external dependency risk. |
+| Website at `costwise-mcp.vercel.app` is outside the repository — cannot be audited. | README still links to it. This is an external dependency risk. |
 | Archived reports contain the older contradictory numbers. | Each archived file has a disclaimer header explaining why it's not current and what its limitations are. |
 | `docs/mcp/` still references `references/` directory which no longer exists. | Removed. (Verified — no references left in that file.) |

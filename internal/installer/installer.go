@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/skill"
+	"github.com/okyashgajjar/costwise-mcp/internal/skill"
 )
 
 type Installer struct {
@@ -19,7 +19,7 @@ type Installer struct {
 	Uninstall bool
 	Yes       bool
 	Repair    bool
-	SkipSkill bool // --no-skill: don't write the costaffective-session skill
+	SkipSkill bool // --no-skill: don't write the costwise-session skill
 }
 
 func (inst *Installer) Run() error {
@@ -37,14 +37,14 @@ func (inst *Installer) runInstall() error {
 	if inst.DryRun {
 		fmt.Printf("  [DRY RUN] Would ensure binary at %s\n", Tildify(DefaultBinaryPath()))
 	} else if inst.Build {
-		fmt.Println("Building CostAffective binary from source...")
+		fmt.Println("Building CostWise binary from source...")
 		installedPath, err := InstallBinary()
 		if err != nil {
 			return fmt.Errorf("build failed: %w", err)
 		}
 		fmt.Printf("✓ Built and installed to %s\n", Tildify(installedPath))
 	} else {
-		fmt.Println("Finding CostAffective binary...")
+		fmt.Println("Finding CostWise binary...")
 		installedPath, err := EnsureBinary()
 		if err != nil {
 			return fmt.Errorf("installation failed: %w", err)
@@ -111,14 +111,14 @@ func (inst *Installer) runInstall() error {
 	return nil
 }
 
-// installSkill writes the costaffective-session skill (Claude Code) unless
+// installSkill writes the costwise-session skill (Claude Code) unless
 // disabled. Failures are reported but never fail the overall install.
 func (inst *Installer) installSkill(loc Location) {
 	if inst.SkipSkill {
 		return
 	}
 	fmt.Println()
-	fmt.Println("Session-awareness skill (costaffective-session):")
+	fmt.Println("Session-awareness skill (costwise-session):")
 	if inst.DryRun {
 		fmt.Println("  [DRY RUN] Would write each client's native rules file and rely on the MCP instructions field for the rest")
 		return
@@ -144,7 +144,7 @@ func skillScope(loc Location) skill.Scope {
 }
 
 func (inst *Installer) runRepair() error {
-	fmt.Println("CostAffective Repair Mode")
+	fmt.Println("CostWise Repair Mode")
 	fmt.Println()
 
 	// 1. Install binary (build from source or use existing)
@@ -198,7 +198,7 @@ func (inst *Installer) runRepair() error {
 			}
 		} else if d.Installed {
 			fmt.Printf("   - %s: detected but not configured. Skipping.\n", t.DisplayName())
-			fmt.Printf("     Run: costaffective install --target %s\n", t.ID())
+			fmt.Printf("     Run: costwise install --target %s\n", t.ID())
 		}
 	}
 	if fixed+skipped == 0 {
@@ -267,8 +267,8 @@ func (inst *Installer) promptTargets() ([]Target, error) {
 		fmt.Println("  (none detected)")
 		fmt.Println()
 		fmt.Println("You can still install for specific clients:")
-		fmt.Println("  costaffective install --target claude")
-		fmt.Println("  costaffective install --all")
+		fmt.Println("  costwise install --target claude")
+		fmt.Println("  costwise install --all")
 		return nil, nil
 	}
 
@@ -398,7 +398,7 @@ func (inst *Installer) resolveAutoAllow(targets []Target) bool {
 
 	reader := bufio.NewReader(os.Stdin)
 	for {
-		fmt.Printf("Auto-allow CostAffective commands in Claude Code? (Y/n) [default: Y]: ")
+		fmt.Printf("Auto-allow CostWise commands in Claude Code? (Y/n) [default: Y]: ")
 		input, _ := reader.ReadString('\n')
 		input = strings.TrimSpace(strings.ToLower(input))
 		if input == "" || input == "y" || input == "yes" {
@@ -435,10 +435,10 @@ func (inst *Installer) runUninstall() error {
 			}
 		}
 		if len(targets) == 0 {
-			fmt.Println("No configured costaffective MCP entries found in any client.")
+			fmt.Println("No configured costwise MCP entries found in any client.")
 			return nil
 		}
-		fmt.Println("Found costaffective MCP configs in:")
+		fmt.Println("Found costwise MCP configs in:")
 		for _, t := range targets {
 			fmt.Printf("  - %s\n", t.DisplayName())
 		}

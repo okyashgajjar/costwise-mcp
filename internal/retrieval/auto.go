@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/classifier"
-	"github.com/okyashgajjar/costaffective-mcp/internal/kmemory"
-	"github.com/okyashgajjar/costaffective-mcp/internal/repository"
-	"github.com/okyashgajjar/costaffective-mcp/internal/treesitter"
+	"github.com/okyashgajjar/costwise-mcp/internal/classifier"
+	"github.com/okyashgajjar/costwise-mcp/internal/kmemory"
+	"github.com/okyashgajjar/costwise-mcp/internal/repository"
+	"github.com/okyashgajjar/costwise-mcp/internal/treesitter"
 )
 
 type AutoRetriever struct {

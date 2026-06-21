@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
+	"github.com/okyashgajjar/costwise-mcp/internal/installer"
 )
 
 // opencodeConfigPath returns the config path for opencode, preferring .jsonc over .json.
@@ -47,7 +47,7 @@ func (t *OpencodeTarget) Detect(loc installer.Location) installer.DetectionResul
 	path := opencodeConfigPath(loc)
 	cfg := installer.ReadJSONFile(path)
 	mcp, _ := cfg["mcp"].(map[string]interface{})
-	_, alreadyConfigured := mcp["costaffective"]
+	_, alreadyConfigured := mcp["costwise"]
 
 	var installed bool
 	if loc == installer.LocationGlobal {
@@ -82,6 +82,7 @@ func (t *OpencodeTarget) getServerEntry() map[string]interface{} {
 func (t *OpencodeTarget) writeMcpEntry(loc installer.Location) installer.WriteResult {
 	file := opencodeConfigPath(loc)
 	cfg := installer.ReadJSONFile(file)
+	installer.RemoveLegacyKeys(cfg)
 
 	// Seed minimal config if file doesn't exist
 	if len(cfg) == 0 {
@@ -91,7 +92,7 @@ func (t *OpencodeTarget) writeMcpEntry(loc installer.Location) installer.WriteRe
 	mcp, _ := cfg["mcp"].(map[string]interface{})
 	var before interface{}
 	if mcp != nil {
-		before = mcp["costaffective"]
+		before = mcp["costwise"]
 	}
 	after := t.getServerEntry()
 
@@ -106,7 +107,7 @@ func (t *OpencodeTarget) writeMcpEntry(loc installer.Location) installer.WriteRe
 	if cfg["mcp"] == nil {
 		cfg["mcp"] = make(map[string]interface{})
 	}
-	cfg["mcp"].(map[string]interface{})["costaffective"] = after
+	cfg["mcp"].(map[string]interface{})["costwise"] = after
 
 	// Add $schema if missing
 	if _, ok := cfg["$schema"]; !ok {
@@ -127,8 +128,8 @@ func (t *OpencodeTarget) Uninstall(loc installer.Location) []installer.WriteResu
 
 	cfg := installer.ReadJSONFile(file)
 	if mcp, ok := cfg["mcp"].(map[string]interface{}); ok {
-		if _, exists := mcp["costaffective"]; exists {
-			delete(mcp, "costaffective")
+		if _, exists := mcp["costwise"]; exists {
+			delete(mcp, "costwise")
 			if len(mcp) == 0 {
 				delete(cfg, "mcp")
 			}
@@ -147,7 +148,7 @@ func (t *OpencodeTarget) PrintConfig(loc installer.Location) string {
 	block := map[string]interface{}{
 		"$schema": "https://opencode.ai/config.json",
 		"mcp": map[string]interface{}{
-			"costaffective": t.getServerEntry(),
+			"costwise": t.getServerEntry(),
 		},
 	}
 	data, _ := json.MarshalIndent(block, "", "  ")

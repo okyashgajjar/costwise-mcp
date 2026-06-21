@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
+	"github.com/okyashgajjar/costwise-mcp/internal/installer"
 )
 
 type CursorTarget struct{}
@@ -30,7 +30,7 @@ func (t *CursorTarget) Detect(loc installer.Location) installer.DetectionResult 
 	path := t.mcpJSONPath(loc)
 	cfg := installer.ReadJSONFile(path)
 	mcpServers, _ := cfg["mcpServers"].(map[string]interface{})
-	_, alreadyConfigured := mcpServers["costaffective"]
+	_, alreadyConfigured := mcpServers["costwise"]
 
 	var installed bool
 	if loc == installer.LocationGlobal {
@@ -62,11 +62,12 @@ func (t *CursorTarget) buildMcpConfig(loc installer.Location) map[string]interfa
 func (t *CursorTarget) writeMcpEntry(loc installer.Location) installer.WriteResult {
 	file := t.mcpJSONPath(loc)
 	cfg := installer.ReadJSONFile(file)
-	mcpServers, _ := cfg["mcpServers"].(map[string]interface{})
-	before := mcpServers["costaffective"]
-	after := t.buildMcpConfig(loc)
+	installer.RemoveLegacyKeys(cfg)
+	before, _ := cfg["mcpServers"].(map[string]interface{})
+	beforeEntry := before["costwise"]
+	after := installer.GetMcpServerConfig()
 
-	if installer.DeepEqual(before, after) {
+	if installer.DeepEqual(beforeEntry, after) {
 		return installer.WriteResult{Path: file, Action: "unchanged"}
 	}
 
@@ -77,7 +78,7 @@ func (t *CursorTarget) writeMcpEntry(loc installer.Location) installer.WriteResu
 	if cfg["mcpServers"] == nil {
 		cfg["mcpServers"] = make(map[string]interface{})
 	}
-	cfg["mcpServers"].(map[string]interface{})["costaffective"] = after
+	cfg["mcpServers"].(map[string]interface{})["costwise"] = after
 	if err := installer.WriteJSONFile(file, cfg); err != nil {
 		return installer.WriteResult{Path: file, Action: "error"}
 	}
@@ -88,8 +89,8 @@ func (t *CursorTarget) Uninstall(loc installer.Location) []installer.WriteResult
 	file := t.mcpJSONPath(loc)
 	cfg := installer.ReadJSONFile(file)
 	if mcpServers, ok := cfg["mcpServers"].(map[string]interface{}); ok {
-		if _, exists := mcpServers["costaffective"]; exists {
-			delete(mcpServers, "costaffective")
+		if _, exists := mcpServers["costwise"]; exists {
+			delete(mcpServers, "costwise")
 			if len(mcpServers) == 0 {
 				delete(cfg, "mcpServers")
 			}
@@ -107,7 +108,7 @@ func (t *CursorTarget) PrintConfig(loc installer.Location) string {
 	path := t.mcpJSONPath(loc)
 	block := map[string]interface{}{
 		"mcpServers": map[string]interface{}{
-			"costaffective": t.buildMcpConfig(loc),
+			"costwise": t.buildMcpConfig(loc),
 		},
 	}
 	data, _ := json.MarshalIndent(block, "", "  ")

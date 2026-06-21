@@ -1,10 +1,10 @@
 # MCP Installation Guides
 
-This directory contains installation guides for the CostAffective MCP server across all supported AI coding clients.
+This directory contains installation guides for the CostWise MCP server across all supported AI coding clients.
 
-## What is CostAffective MCP?
+## What is CostWise MCP?
 
-The CostAffective MCP server (`costaffective serve`) provides 7 retrieval and maintenance tools via the [Model Context Protocol](https://modelcontextprotocol.io), plus 3 context-control tools (see the main README for the full catalog):
+The CostWise MCP server (`costwise serve`) provides 7 retrieval and maintenance tools via the [Model Context Protocol](https://modelcontextprotocol.io), plus 3 context-control tools (see the main README for the full catalog):
 
 | Tool | Description |
 |------|-------------|
@@ -32,13 +32,13 @@ No API key is required — this is a pure retrieval server with no LLM dependenc
 
 ## Quick Install
 
-### Via CostAffective (recommended)
+### Via CostWise (recommended)
 
-The `costaffective install` command auto-detects installed AI coding clients and writes the correct MCP config for each:
+The `costwise install` command auto-detects installed AI coding clients and writes the correct MCP config for each:
 
 ```bash
-cd /path/to/CostAffective-CLI/CLI
-go run ./cmd/costaffective/ install
+cd /path/to/CostWise-CLI/CLI
+go run ./cmd/costwise/ install
 ```
 
 Options:
@@ -60,8 +60,8 @@ bash install.sh
 ## Build From Source
 
 ```bash
-cd /path/to/CostAffective-CLI/CLI
-go build -o /usr/local/bin/costaffective ./cmd/costaffective/
+cd /path/to/CostWise-CLI/CLI
+go build -o /usr/local/bin/costwise ./cmd/costwise/
 ```
 
 ## Verification
@@ -77,7 +77,7 @@ The client should automatically invoke the appropriate MCP tools.
 ```
 AI Client (MCP Host)
     │
-    ├── stdio transport ──► costaffective serve (MCP Server)
+    ├── stdio transport ──► costwise serve (MCP Server)
     │                           │
     │                           ├── search_code ───────────► tree-sitter AST match
     │                           ├── find_symbol ───────────► SymbolDB lookup
@@ -89,7 +89,7 @@ AI Client (MCP Host)
 
 ## Troubleshooting
 
-1. **Binary not found**: Ensure `costaffective` is in your PATH or use an absolute path
-2. **Server won't start**: Run `costaffective serve` directly to see error output
+1. **Binary not found**: Ensure `costwise` is in your PATH or use an absolute path
+2. **Server won't start**: Run `costwise serve` directly to see error output
 3. **Tools not appearing**: Restart your IDE/CLI client after making config changes
 4. **Config syntax errors**: Validate JSON with `python3 -m json.tool`

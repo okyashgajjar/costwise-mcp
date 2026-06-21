@@ -3,7 +3,7 @@ package retrieval
 import (
 	"testing"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/answertype"
+	"github.com/okyashgajjar/costwise-mcp/internal/answertype"
 )
 
 func TestCompressForAnswerTypeYesNo(t *testing.T) {
@@ -72,7 +72,7 @@ func TestCompressForAnswerTypeCaller(t *testing.T) {
 
 func TestCompressForAnswerTypeReference(t *testing.T) {
 	results := []RetrievalResult{
-		{File: "usage.go", Score: 0.9, Snippet: "import \"github.com/okyashgajjar/costaffective-mcp/internal/repomap\""},
+		{File: "usage.go", Score: 0.9, Snippet: "import \"github.com/okyashgajjar/costwise-mcp/internal/repomap\""},
 		{File: "test_test.go", Score: 0.8, Snippet: "func TestRepoMap(t *testing.T) {}"},
 	}
 	atc := answertype.Classification{Type: answertype.Reference}

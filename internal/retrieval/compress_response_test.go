@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/answertype"
+	"github.com/okyashgajjar/costwise-mcp/internal/answertype"
 )
 
 func TestNeedsCompression(t *testing.T) {

@@ -13,7 +13,7 @@ import (
 )
 
 // Task is one ground-truth benchmark entry. It tolerates both dataset schemas:
-// the per-repo schema (expected_files array) and the costaffective schema
+// the per-repo schema (expected_files array) and the costwise schema
 // (expected_file singular).
 type Task struct {
 	ID                string   `json:"id"`

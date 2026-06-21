@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/repository"
+	"github.com/okyashgajjar/costwise-mcp/internal/repository"
 )
 
 type NaiveRetriever struct {

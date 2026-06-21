@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
+	"github.com/okyashgajjar/costwise-mcp/internal/installer"
 )
 
 type Status string
@@ -44,6 +44,7 @@ func RunAll() []CheckResult {
 	results = append(results, CheckBinary()...)
 	results = append(results, CheckPATH()...)
 	results = append(results, CheckMCPConfigs()...)
+	results = append(results, CheckLegacyConfigs()...)
 	results = append(results, CheckMCPStartup()...)
 	results = append(results, CheckRepository()...)
 	return results
@@ -56,7 +57,7 @@ func CheckBinary() []CheckResult {
 		return []CheckResult{{
 			Name:   "Binary Found",
 			Status: FAIL,
-			Detail: "CostAffective binary was not found.\n\nInstall it:\n  costaffective install",
+			Detail: "CostWise binary was not found.\n\nInstall it:\n  costwise install",
 		}}
 	}
 
@@ -97,7 +98,7 @@ func CheckBinary() []CheckResult {
 }
 
 func CheckPATH() []CheckResult {
-	path, err := exec.LookPath("costaffective")
+	path, err := exec.LookPath("costwise")
 	if err != nil {
 		return []CheckResult{{
 			Name:   "Binary in PATH",
@@ -123,7 +124,7 @@ func CheckMCPConfigs() []CheckResult {
 		if !d.AlreadyConfigured {
 			if d.Installed {
 				check.Status = WARN
-				check.Detail = fmt.Sprintf("%s detected but not configured. Run: costaffective install --target %s", t.DisplayName(), t.ID())
+				check.Detail = fmt.Sprintf("%s detected but not configured. Run: costwise install --target %s", t.DisplayName(), t.ID())
 			} else {
 				check.Status = WARN
 				check.Detail = fmt.Sprintf("%s not detected. Install it first.", t.DisplayName())
@@ -166,6 +167,37 @@ func CheckMCPConfigs() []CheckResult {
 	return results
 }
 
+// CheckLegacyConfigs scans MCP client configs for the old "costaffective" key
+// from before the rename and warns users to re-run install.
+func CheckLegacyConfigs() []CheckResult {
+	allTargets := installer.AllTargets()
+	var results []CheckResult
+
+	for _, t := range allTargets {
+		d := t.Detect(installer.LocationGlobal)
+		if !d.AlreadyConfigured || d.ConfigPath == "" {
+			continue
+		}
+		data, err := os.ReadFile(d.ConfigPath)
+		if err != nil {
+			continue
+		}
+		content := string(data)
+
+		// Check for old "costaffective" key in JSON (mcpServers/mcp) or TOML
+		if strings.Contains(content, `"costaffective"`) ||
+			strings.Contains(content, "[mcp_servers.costaffective]") ||
+			strings.Contains(content, "mcp__costaffective__") {
+			results = append(results, CheckResult{
+				Name:   t.DisplayName() + " (legacy config)",
+				Status: WARN,
+				Detail: fmt.Sprintf("Found old 'costaffective' key in %s. Run: costwise install --target %s", installer.Tildify(d.ConfigPath), t.ID()),
+			})
+		}
+	}
+	return results
+}
+
 func validateMCPConfig(configPath string, data []byte) (Status, string) {
 	switch filepath.Ext(configPath) {
 	case ".toml":
@@ -191,10 +223,10 @@ func validateJSONMCPConfig(configPath, content string) (Status, string) {
 		if isKnownBinaryPath(command) {
 			return PASS, installer.Tildify(configPath)
 		}
-		if command == "costaffective" || command == "costaffective.exe" {
+		if command == "costwise" || command == "costwise.exe" {
 			return WARN, fmt.Sprintf("%s uses a relative binary path", installer.Tildify(configPath))
 		}
-		return FAIL, fmt.Sprintf("%s points at %q instead of an installed CostAffective binary", installer.Tildify(configPath), command)
+		return FAIL, fmt.Sprintf("%s points at %q instead of an installed CostWise binary", installer.Tildify(configPath), command)
 	}
 
 	return FAIL, fmt.Sprintf("Could not find MCP command entry in %s", installer.Tildify(configPath))
@@ -202,7 +234,7 @@ func validateJSONMCPConfig(configPath, content string) (Status, string) {
 
 func extractJSONCommand(parsed map[string]interface{}) (string, bool) {
 	if mcpServers, ok := parsed["mcpServers"].(map[string]interface{}); ok {
-		if server, ok := mcpServers["costaffective"].(map[string]interface{}); ok {
+		if server, ok := mcpServers["costwise"].(map[string]interface{}); ok {
 			if command, ok := server["command"].(string); ok {
 				return command, true
 			}
@@ -210,7 +242,7 @@ func extractJSONCommand(parsed map[string]interface{}) (string, bool) {
 	}
 
 	if mcp, ok := parsed["mcp"].(map[string]interface{}); ok {
-		if server, ok := mcp["costaffective"].(map[string]interface{}); ok {
+		if server, ok := mcp["costwise"].(map[string]interface{}); ok {
 			if command, ok := server["command"]; ok {
 				switch v := command.(type) {
 				case string:
@@ -230,7 +262,7 @@ func extractJSONCommand(parsed map[string]interface{}) (string, bool) {
 }
 
 func validateTOMLMCPConfig(configPath, content string) (Status, string) {
-	section := "[mcp_servers.costaffective]"
+	section := "[mcp_servers.costwise]"
 	if !strings.Contains(content, section) {
 		return FAIL, fmt.Sprintf("Missing %s in %s", section, installer.Tildify(configPath))
 	}
@@ -241,7 +273,7 @@ func validateTOMLMCPConfig(configPath, content string) (Status, string) {
 		}
 	}
 
-	if strings.Contains(content, "command = \"costaffective\"") || strings.Contains(content, "command = \"costaffective.exe\"") {
+	if strings.Contains(content, "command = \"costwise\"") || strings.Contains(content, "command = \"costwise.exe\"") {
 		return WARN, fmt.Sprintf("%s uses a relative binary path", installer.Tildify(configPath))
 	}
 	return FAIL, fmt.Sprintf("Codex config does not reference an installed binary: %s", installer.Tildify(configPath))
@@ -253,7 +285,7 @@ func validateYAMLMCPConfig(configPath, content string) (Status, string) {
 			return PASS, installer.Tildify(configPath)
 		}
 	}
-	if strings.Contains(content, "costaffective") || strings.Contains(content, "costaffective.exe") {
+	if strings.Contains(content, "costwise") || strings.Contains(content, "costwise.exe") {
 		return WARN, fmt.Sprintf("%s uses a relative binary path", installer.Tildify(configPath))
 	}
 	return PASS, installer.Tildify(configPath)

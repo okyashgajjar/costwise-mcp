@@ -20,10 +20,10 @@ built:  %s
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:     "costaffective",
+	Use:     "costwise",
 	Version: version,
 	Short:   "Code Intelligence Research Platform",
-	Long: `costaffective is a Code Intelligence Research Platform providing
+	Long: `costwise is a Code Intelligence Research Platform providing
 MCP (Model Context Protocol) server for AI coding clients.
 
 It provides:

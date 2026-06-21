@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/doctor"
+	"github.com/okyashgajjar/costwise-mcp/internal/doctor"
 
 	"github.com/spf13/cobra"
 )
@@ -13,7 +13,7 @@ var doctorCmd = &cobra.Command{
 	Use:   "doctor",
 	Short: "Diagnose installation and MCP configuration issues",
 	Long: `Runs a series of diagnostic checks to verify
-that CostAffective is installed and configured correctly.
+that CostWise is installed and configured correctly.
 
 Checks performed:
   - Binary: exists, executable, version
@@ -25,13 +25,13 @@ Checks performed:
 Exit code: 0 if all checks pass, 1 if any FAIL, 2 if any WARN only.
 
 Examples:
-  costaffective doctor
-  costaffective doctor --verbose
+  costwise doctor
+  costwise doctor --verbose
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		verbose, _ := cmd.Flags().GetBool("verbose")
 
-		fmt.Println("CostAffective Doctor")
+		fmt.Println("CostWise Doctor")
 		fmt.Println()
 
 		results := doctor.RunAll()
@@ -54,7 +54,7 @@ Examples:
 		if failCount > 0 {
 			fmt.Println()
 			fmt.Println("Issues found. Run:")
-			fmt.Println("  costaffective install --repair")
+			fmt.Println("  costwise install --repair")
 			os.Exit(1)
 		} else if warnCount > 0 {
 			fmt.Println()

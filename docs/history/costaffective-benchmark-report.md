@@ -1,10 +1,10 @@
-> **Historical benchmark artifact. Not representative of current releases.** Campaign A extended analysis — CostAffective self-benchmark with deeper failure analysis. Reports 23 false negatives and identifies that old-format flat files override richer ground-truth data.
+> **Historical benchmark artifact. Not representative of current releases.** Campaign A extended analysis — CostWise self-benchmark with deeper failure analysis. Reports 23 false negatives and identifies that old-format flat files override richer ground-truth data.
 
-# CostAffective Native Benchmark Report
+# CostWise Native Benchmark Report
 
 **Generated:** 2026-06-06
-**Repository:** CostAffective (self)
-**Benchmark Dataset:** `benchmarks/costaffective/` (85 queries, 4 categories)
+**Repository:** CostWise (self)
+**Benchmark Dataset:** `benchmarks/costwise/` (85 queries, 4 categories)
 **Retrievers:** treesitter, reference, callgraph, grep, architecture, flowgraph
 
 ---
@@ -21,7 +21,7 @@
 
 ### Definition Accuracy (96.0%)
 
-treesitter successfully locates 24/25 defined symbols in the CostAffective codebase. The single failure is likely a query phrasing mismatch (e.g., "Index method" vs. searching for just "Index").
+treesitter successfully locates 24/25 defined symbols in the CostWise codebase. The single failure is likely a query phrasing mismatch (e.g., "Index method" vs. searching for just "Index").
 
 ### Caller Accuracy (28.0%)
 
@@ -139,13 +139,13 @@ grep is 33x slower than treesitter (233ms vs 7ms). For real-time MCP responses, 
 
 | Component | Size |
 |---|---|
-| SQLite symbol DB | ~2 MB (current CostAffective codebase) |
+| SQLite symbol DB | ~2 MB (current CostWise codebase) |
 | SQLite reference DB | Shared (same DB file) |
 | SQLite callgraph DB | Shared (same DB file) |
 | Architecture DB | ~0.5 MB |
 | Knowledge memory | In-memory (lightweight) |
 
-For the ~500 file CostAffective codebase, total storage is under 3 MB. No noticeable memory pressure.
+For the ~500 file CostWise codebase, total storage is under 3 MB. No noticeable memory pressure.
 
 ---
 
@@ -180,7 +180,7 @@ Trust Score = (Validation Pass Rate × 0.3) + (1 - FalsePositives/Total × 0.3) 
 
 ## 8. Answer to Core Question
 
-> *"Does CostAffective retrieve the correct information while sending fewer tokens than raw retrieval?"*
+> *"Does CostWise retrieve the correct information while sending fewer tokens than raw retrieval?"*
 
 **Yes, with caveats.**
 
@@ -206,7 +206,7 @@ What needs improvement:
 | grep (current) | 15.3% | 1454 | 95.0 |
 | **Theoretical minimum** | 100% | ~5 (file:line) | 0.05 |
 
-**CostAffective achieves a 65.6% token reduction** over raw file content for definition queries (688 vs 2000 tokens), while maintaining 96.0% accuracy.
+**CostWise achieves a 65.6% token reduction** over raw file content for definition queries (688 vs 2000 tokens), while maintaining 96.0% accuracy.
 
 ---
 
@@ -216,7 +216,7 @@ What needs improvement:
 
 2. **Re-route overview queries** — 46.7% accuracy because classifier sends to treesitter. Overview queries about repository structure should be routed to architecture retriever or grep.
 
-3. **Use groundtruth format** — The groundtruth directory (`benchmarks/costaffective/groundtruth/`) has richer data (`expected_symbols`, `expected_keywords`) but isn't being used because the old-format flat files (`definitions.json`, etc.) take precedence. Remove flat files and use groundtruth-only format.
+3. **Use groundtruth format** — The groundtruth directory (`benchmarks/costwise/groundtruth/`) has richer data (`expected_symbols`, `expected_keywords`) but isn't being used because the old-format flat files (`definitions.json`, etc.) take precedence. Remove flat files and use groundtruth-only format.
 
 4. **Add compression benchmarks** — The compression engine's effectiveness is not measured by the current benchmark runner. Add a separate benchmark that measures CompressForAnswerType output tokens vs. input tokens per answer type.
 

@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/benchmark"
+	"github.com/okyashgajjar/costwise-mcp/internal/benchmark"
 
 	"github.com/spf13/cobra"
 )
@@ -20,8 +20,8 @@ tool, and reports per-category file-hit accuracy, routing accuracy, and average
 tokens per query.
 
 Examples:
-  costaffective bench --repo . --dataset benchmarks/costaffective
-  costaffective bench --repo ./targets/aider --dataset benchmarks/aider
+  costwise bench --repo . --dataset benchmarks/costwise
+  costwise bench --repo ./targets/aider --dataset benchmarks/aider
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		repoPath, _ := cmd.Flags().GetString("repo")

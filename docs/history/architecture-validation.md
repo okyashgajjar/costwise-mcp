@@ -1,6 +1,6 @@
 > **Historical analysis artifact. Not representative of current codebase state.** This architecture review was generated during development. Some issues flagged (FlowGraph rejection, token estimation errors) remain relevant; others have been addressed.
 
-# CostAffective Architecture Validation Report
+# CostWise Architecture Validation Report
 
 **Generated:** 2026-06-06
 **Scope:** Full architecture review, compression analysis, gap analysis, roadmap

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/treesitter"
+	"github.com/okyashgajjar/costwise-mcp/internal/treesitter"
 )
 
 func TestIsTestFile(t *testing.T) {

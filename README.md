@@ -1,11 +1,11 @@
 <div align="center">
 
-**CostAffective — MCP**
+**CostWise — MCP**
 
 <p align="center">
   <img
-    src="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/logo(1).png"
-    alt="CostAffective Logo"
+    src="https://raw.githubusercontent.com/okyashgajjar/costwise-mcp/main/logo(1).png"
+    alt="CostWise Logo"
     width="500"
   />
 </p>
@@ -19,29 +19,29 @@ Coding agents that explore less, remember more, and carry less context.
 [![Claude Code](https://img.shields.io/badge/Claude_Code-supported-blueviolet.svg)](#supported-clients--config)
 [![Cursor](https://img.shields.io/badge/Cursor-supported-blueviolet.svg)](#supported-clients--config)
 [![OpenCode](https://img.shields.io/badge/OpenCode-supported-blueviolet.svg)](#supported-clients--config)
-[![GitHub Stars](https://img.shields.io/github/stars/okyashgajjar/costaffective-mcp?style=social)](https://github.com/okyashgajjar/costaffective-mcp)
+[![GitHub Stars](https://img.shields.io/github/stars/okyashgajjar/costwise-mcp?style=social)](https://github.com/okyashgajjar/costwise-mcp)
 
 ```
-curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costwise-mcp/main/install.sh | bash
 ```
 
 One command on Linux, macOS, or Windows (via WSL). Detects your OS, installs Go if needed, builds from source, and connects your AI coding client.
 
-**Star this repo** — it helps others find CostAffective.
+**Star this repo** — it helps others find CostWise.
 
 <table>
   <tr>
     <td align="center">
-      <a href="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/without-mcp-smallrepo-opencode.png">
-        <img src="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/without-mcp-smallrepo-opencode.png" width="400" alt="Without CostAffective">
+      <a href="https://raw.githubusercontent.com/okyashgajjar/costwise-mcp/main/proofs/without-mcp-smallrepo-opencode.png">
+        <img src="https://raw.githubusercontent.com/okyashgajjar/costwise-mcp/main/proofs/without-mcp-smallrepo-opencode.png" width="400" alt="Without CostWise">
       </a>
-      <br><strong>Without CostAffective</strong><br><a href="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/opencode-without-costaffective.webm">▶ watch video</a>
+      <br><strong>Without CostWise</strong><br><a href="https://raw.githubusercontent.com/okyashgajjar/costwise-mcp/main/proofs/opencode-without-costwise.webm">▶ watch video</a>
     </td>
     <td align="center">
-      <a href="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/with-mcp-smallrepo-opencode.png">
-        <img src="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/with-mcp-smallrepo-opencode.png" width="400" alt="With CostAffective">
+      <a href="https://raw.githubusercontent.com/okyashgajjar/costwise-mcp/main/proofs/with-mcp-smallrepo-opencode.png">
+        <img src="https://raw.githubusercontent.com/okyashgajjar/costwise-mcp/main/proofs/with-mcp-smallrepo-opencode.png" width="400" alt="With CostWise">
       </a>
-      <br><strong>With CostAffective</strong><br><a href="https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/proofs/opencode-with-costaffective.webm">▶ watch video</a>
+      <br><strong>With CostWise</strong><br><a href="https://raw.githubusercontent.com/okyashgajjar/costwise-mcp/main/proofs/opencode-with-costwise.webm">▶ watch video</a>
     </td>
   </tr>
 </table>
@@ -63,21 +63,21 @@ They remember where things live. They open only what they need. They hold facts,
 
 Most AI coding agents do the opposite. They re-explore the same repository over and over. They dump whole files into context. They grow the conversation window until every turn becomes expensive — not because the answer is hard, but because *everything else* in the window has to be re-read and re-cached.
 
-CostAffective is a local MCP server that makes coding agents behave more like that experienced engineer. It gives them fast, token-budgeted access to your repository — so they stop reading whole files to find small facts.
+CostWise is a local MCP server that makes coding agents behave more like that experienced engineer. It gives them fast, token-budgeted access to your repository — so they stop reading whole files to find small facts.
 
 ---
 
-## How CostAffective fixes it
+## How CostWise fixes it
 
 A tool that connects over MCP cannot control how or when the client caches. Cache breakpoints and TTLs are the client's decision. There is exactly one lever the server controls:
 
 > **How many tokens ever enter the resident context window in the first place.**
 
-Shrink that, and both costs fall: a smaller window is cheaper to read every turn *and* cheaper to rewrite when the cache is invalidated. CostAffective does four things in service of that goal.
+Shrink that, and both costs fall: a smaller window is cheaper to read every turn *and* cheaper to rewrite when the cache is invalidated. CostWise does four things in service of that goal.
 
 ### 1. Answer from a local index, not from files
 
-CostAffective parses your repository once with Tree-sitter and stores symbols, references, and call edges in a local SQLite index. Navigation questions — "where is this defined," "who calls this," "what references this" — are answered from the index in a few tokens instead of by dumping source files.
+CostWise parses your repository once with Tree-sitter and stores symbols, references, and call edges in a local SQLite index. Navigation questions — "where is this defined," "who calls this," "what references this" — are answered from the index in a few tokens instead of by dumping source files.
 
 Results are compressed scopes sized to the kind of question asked. The model gets the location, not the file; the implementation body, not the whole module; the caller list, not the grep output.
 
@@ -106,14 +106,14 @@ It is also installable as a native Claude Code skill, AGENTS.md entry, or rules 
 
 <br>
 
-> Full installation guide with platform-specific variants: [costaffective-mcp.vercel.app/docs/install](https://costaffective-mcp.vercel.app/docs/install)
+> Full installation guide with platform-specific variants: [costwise-mcp.vercel.app/docs/install](https://costwise-mcp.vercel.app/docs/install)
 
 ### Quick Install (Linux / macOS / Windows via WSL)
 
 The recommended way — one command:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costwise-mcp/main/install.sh | bash
 ```
 
 The script does everything:
@@ -121,7 +121,7 @@ The script does everything:
 2. Checks for Go and installs it if missing
 3. Checks for a C compiler (a CGO dependency) and installs it if missing
 4. Clones the repo and builds from source
-5. Installs to `/usr/local/bin/costaffective`
+5. Installs to `/usr/local/bin/costwise`
 6. Detects AI coding clients and asks which to connect
 7. Configures MCP for the selected clients (and installs the session skill unless `--no-skill`)
 
@@ -130,10 +130,10 @@ The script does everything:
 Not recommended unless you already have Go and gcc. Build manually:
 
 ```powershell
-git clone https://github.com/okyashgajjar/costaffective-mcp.git
-cd costaffective-mcp
+git clone https://github.com/okyashgajjar/costwise-mcp.git
+cd costwise-mcp
 $env:CGO_ENABLED=1
-go build -o costaffective.exe ./cmd/costaffective/
+go build -o costwise.exe ./cmd/costwise/
 ```
 
 Or use the recommended path — install WSL (Windows 10 2004+ / Windows 11):
@@ -143,7 +143,7 @@ Or use the recommended path — install WSL (Windows 10 2004+ / Windows 11):
 wsl --install
 
 # Then in WSL:
-curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costwise-mcp/main/install.sh | bash
 ```
 
 ### macOS / Linux (Manual Build)
@@ -151,11 +151,11 @@ curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main
 Requires Go 1.25+ and a C compiler (CGO is mandatory — see the build notes below).
 
 ```bash
-git clone https://github.com/okyashgajjar/costaffective-mcp.git
-cd costaffective-mcp
-CGO_ENABLED=1 go build -o costaffective ./cmd/costaffective/
-sudo mv costaffective /usr/local/bin/
-costaffective --version
+git clone https://github.com/okyashgajjar/costwise-mcp.git
+cd costwise-mcp
+CGO_ENABLED=1 go build -o costwise ./cmd/costwise/
+sudo mv costwise /usr/local/bin/
+costwise --version
 ```
 
 </details>
@@ -164,7 +164,7 @@ costaffective --version
 
 ## What you get
 
-CostAffective provides **10 MCP tools** that fall into three categories.
+CostWise provides **10 MCP tools** that fall into three categories.
 
 **Retrieval tools** answer questions from a pre-built index instead of by reading files:
 
@@ -190,7 +190,7 @@ CostAffective provides **10 MCP tools** that fall into three categories.
 
 <br>
 
-> Interactive tool catalog with schemas and examples: [costaffective-mcp.vercel.app/tools](https://costaffective-mcp.vercel.app/tools)
+> Interactive tool catalog with schemas and examples: [costwise-mcp.vercel.app/tools](https://costwise-mcp.vercel.app/tools)
 
 ### Retrieval tools
 
@@ -279,7 +279,7 @@ Take back **only what you need**: the budgeted slice of a stashed blob (by handl
 ---
 
 <details>
-<summary><strong>End-to-end workflow: a real CostAffective session</strong></summary>
+<summary><strong>End-to-end workflow: a real CostWise session</strong></summary>
 
 <br>
 
@@ -288,7 +288,7 @@ See what a typical session looks like from first command to final answer — and
 **Step 1 — Install and index**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costwise-mcp/main/install.sh | bash
 # Script detects OS, installs Go + C compiler if needed,
 # builds binary, detects AI coding clients, and writes MCP config.
 # The server auto-indexes your repo on first connection.
@@ -296,7 +296,7 @@ curl -fsSL https://raw.githubusercontent.com/okyashgajjar/costaffective-mcp/main
 
 **Step 2 — Start a coding session**
 
-Your AI agent connects to CostAffective via MCP. On connect, the agent receives the ~275-token session skill — it now knows to use stash/recall/remember instead of pasting things inline.
+Your AI agent connects to CostWise via MCP. On connect, the agent receives the ~275-token session skill — it now knows to use stash/recall/remember instead of pasting things inline.
 
 **Step 3 — Ask a navigation question**
 
@@ -312,7 +312,7 @@ read_symbol("UserService")
   }
 ```
 
-Cost: ~50 tokens. Without CostAffective: the agent reads `user_service.go` (potentially 500+ lines) into the window.
+Cost: ~50 tokens. Without CostWise: the agent reads `user_service.go` (potentially 500+ lines) into the window.
 
 **Step 4 — Trace an impact**
 
@@ -325,7 +325,7 @@ find_callers("validateInput")
     → validateInput (validator.go:45)
 ```
 
-Cost: ~30 tokens. Without CostAffective: the agent opens each file, reads the callers, reconstructs the chain. Hundreds of tokens entering the window.
+Cost: ~30 tokens. Without CostWise: the agent opens each file, reads the callers, reconstructs the chain. Hundreds of tokens entering the window.
 
 **Step 5 — Run tests, get a failure**
 
@@ -347,7 +347,7 @@ recall(source="abc123", query="FAIL|panic|error")
     error: database connection refused
 ```
 
-Cost: ~40 tokens (just the matching lines). Without CostAffective: the agent re-reads or re-pastes the whole 2,000-line log.
+Cost: ~40 tokens (just the matching lines). Without CostWise: the agent re-reads or re-pastes the whole 2,000-line log.
 
 **Step 7 — Remember what you found**
 
@@ -369,7 +369,7 @@ No need to re-derive the fix. Cost: ~15 tokens.
 
 **Bottom line**
 
-| Step | Without CostAffective | With CostAffective |
+| Step | Without CostWise | With CostWise |
 |------|---------------------|-------------------|
 | Find `UserService` | 500+ tokens (whole file) | ~15 tokens (location) |
 | Read implementation | 500+ tokens (whole file) | ~40 tokens (body only) |
@@ -387,7 +387,7 @@ Over a full session, those savings compound to 80%+ fewer tokens in the resident
 
 <br>
 
-**Why it exists:** the context-control tools above only help if the model actually reaches for them. Left to its defaults, a model will happily paste a whole file inline. The `costaffective-session` skill is a small piece of session-awareness guidance that teaches the model the lean workflow **once per session**, after which it applies automatically — route large output through `stash_context` / `recall`, persist durable facts with `remember`, and prefer narrow retrieval over reading whole files.
+**Why it exists:** the context-control tools above only help if the model actually reaches for them. Left to its defaults, a model will happily paste a whole file inline. The `costwise-session` skill is a small piece of session-awareness guidance that teaches the model the lean workflow **once per session**, after which it applies automatically — route large output through `stash_context` / `recall`, persist durable facts with `remember`, and prefer narrow retrieval over reading whole files.
 
 It is deliberately tiny (about 275 tokens). That is a fixed, one-time cost per session, and it pays for itself the first time it prevents a single large blob from entering the window.
 
@@ -395,16 +395,16 @@ It is delivered two ways, so it works everywhere with no ongoing effort from you
 
 1. **Automatically, in every editor.** The MCP server advertises the guidance through the protocol's `instructions` field. Every MCP client loads it on connect — Claude Code, Cursor, Codex, OpenCode, Antigravity, and any other MCP-compatible client. No setup, no per-editor files.
 
-2. **As a native Claude Code skill.** Running `costaffective install` also writes `~/.claude/skills/costaffective-session/SKILL.md` (opt out with `--no-skill`). You can manage it directly:
+2. **As a native Claude Code skill.** Running `costwise install` also writes `~/.claude/skills/costwise-session/SKILL.md` (opt out with `--no-skill`). You can manage it directly:
 
    ```bash
-   costaffective skill install      # write the skill (global)
-   costaffective skill install --local   # write it into the current project only
-   costaffective skill uninstall    # remove it
-   costaffective skill print        # print the guidance for manual placement in any tool
+   costwise skill install      # write the skill (global)
+   costwise skill install --local   # write it into the current project only
+   costwise skill uninstall    # remove it
+   costwise skill print        # print the guidance for manual placement in any tool
    ```
 
-For editors that read their own rules or instructions files, `costaffective skill print` outputs the guidance to paste in. The same single source of truth backs both delivery paths.
+For editors that read their own rules or instructions files, `costwise skill print` outputs the guidance to paste in. The same single source of truth backs both delivery paths.
 
 </details>
 
@@ -414,12 +414,12 @@ For editors that read their own rules or instructions files, `costaffective skil
 
 <br>
 
-> Interactive architecture diagram with component deep-dives: [costaffective-mcp.vercel.app/architecture](https://costaffective-mcp.vercel.app/architecture)
+> Interactive architecture diagram with component deep-dives: [costwise-mcp.vercel.app/architecture](https://costwise-mcp.vercel.app/architecture)
 
 ```text
 AI Client (MCP Host)
     │
-    ├── stdio transport ──► costaffective serve (MCP Server)
+    ├── stdio transport ──► costwise serve (MCP Server)
     │                           │   advertises session guidance via the MCP instructions field
     │                           │
     │                           ├── Session Manager (per-repo, persistent across tool calls)
@@ -455,18 +455,18 @@ All per-repository state (index, stash, facts) lives under the repository's loca
 
 | Command                          | Description                              |
 | -------------------------------- | ---------------------------------------- |
-| `costaffective install`          | Interactive installation                 |
-| `costaffective install --all`    | Configure all detected clients           |
-| `costaffective install --target` | Configure a specific client              |
-| `costaffective install --build`  | Build from source before installing      |
-| `costaffective install --repair` | Repair installation                      |
-| `costaffective install --no-skill` | Install without the session skill      |
-| `costaffective skill install`    | Install the costaffective-session skill  |
-| `costaffective skill uninstall`  | Remove the session skill                 |
-| `costaffective skill print`      | Print the guidance for manual setup      |
-| `costaffective doctor`           | Validate installation                    |
-| `costaffective serve`            | Start the MCP server                     |
-| `costaffective uninstall`        | Remove MCP configuration                 |
+| `costwise install`          | Interactive installation                 |
+| `costwise install --all`    | Configure all detected clients           |
+| `costwise install --target` | Configure a specific client              |
+| `costwise install --build`  | Build from source before installing      |
+| `costwise install --repair` | Repair installation                      |
+| `costwise install --no-skill` | Install without the session skill      |
+| `costwise skill install`    | Install the costwise-session skill  |
+| `costwise skill uninstall`  | Remove the session skill                 |
+| `costwise skill print`      | Print the guidance for manual setup      |
+| `costwise doctor`           | Validate installation                    |
+| `costwise serve`            | Start the MCP server                     |
+| `costwise uninstall`        | Remove MCP configuration                 |
 
 </details>
 
@@ -478,7 +478,7 @@ All per-repository state (index, stash, facts) lives under the repository's loca
 1. Remove MCP client configs (this also removes the session skill):
 
 ```bash
-costaffective uninstall --all
+costwise uninstall --all
 ```
 
 2. Delete the binary:
@@ -486,13 +486,13 @@ costaffective uninstall --all
 **Linux / macOS:**
 
 ```bash
-rm -f "$(command -v costaffective)"
+rm -f "$(command -v costwise)"
 ```
 
 **Windows:**
 
 ```powershell
-Remove-Item (Get-Command costaffective).Source -Force
+Remove-Item (Get-Command costwise).Source -Force
 ```
 
 </details>
@@ -504,7 +504,7 @@ Remove-Item (Get-Command costaffective).Source -Force
 
 <br>
 
-All CostAffective data lives in two places. Here is where to find and delete it if needed.
+All CostWise data lives in two places. Here is where to find and delete it if needed.
 
 ### Per-repository storage (`.mycli-fts/`)
 
@@ -553,8 +553,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for full details.
 **Quick start for contributors:**
 
 ```bash
-git clone https://github.com/okyashgajjar/costaffective-mcp.git
-cd costaffective-mcp
+git clone https://github.com/okyashgajjar/costwise-mcp.git
+cd costwise-mcp
 CGO_ENABLED=1 go build ./...
 CGO_ENABLED=1 go test ./...
 ```
@@ -578,8 +578,8 @@ Don't know where to start? Open an issue asking for guidance.
 CGO is mandatory. The project depends on `go-sqlite3` and `go-tree-sitter`, both of which use C bindings; builds with `CGO_ENABLED=0` will fail.
 
 ```bash
-git clone https://github.com/okyashgajjar/costaffective-mcp.git
-cd costaffective-mcp
+git clone https://github.com/okyashgajjar/costwise-mcp.git
+cd costwise-mcp
 CGO_ENABLED=1 go build ./...
 CGO_ENABLED=1 go test ./...
 ```
@@ -609,7 +609,7 @@ On Ubuntu/Debian: `sudo apt install gcc libsqlite3-dev`. On macOS: Xcode Command
 
 <br>
 
-**Why it exists:** the model should know whether the index it is querying is trustworthy. CostAffective tracks three states and behaves accordingly.
+**Why it exists:** the model should know whether the index it is querying is trustworthy. CostWise tracks three states and behaves accordingly.
 
 | State       | Meaning                                  |
 | ----------- | ---------------------------------------- |
@@ -626,7 +626,7 @@ Agent mode can auto-index when needed; interactive modes prompt first.
 
 <br>
 
-> Explore detailed use case studies: [costaffective-mcp.vercel.app/use-cases](https://costaffective-mcp.vercel.app/use-cases)
+> Explore detailed use case studies: [costwise-mcp.vercel.app/use-cases](https://costwise-mcp.vercel.app/use-cases)
 
 * **AI coding agents** — reduce token spend with compressed, scope-level lookups, and keep long sessions cheap by parking large content out of context.
 * **Large monorepos** — fast SQLite index queries in microseconds instead of disk scans, and budgeted summaries that stay small regardless of repo size.
@@ -641,7 +641,7 @@ Agent mode can auto-index when needed; interactive modes prompt first.
 
 <br>
 
-`costaffective doctor` checks:
+`costwise doctor` checks:
 
 - Binary existence and permissions
 - PATH visibility
@@ -658,16 +658,16 @@ Agent mode can auto-index when needed; interactive modes prompt first.
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|
-| `costaffective: command not found` | Binary not in PATH | Add `~/.local/bin` or `/usr/local/bin` to PATH, or use absolute path |
-| Server shows "disconnected" | Binary crashed or missing | Run `costaffective serve` directly to see error output |
+| `costwise: command not found` | Binary not in PATH | Add `~/.local/bin` or `/usr/local/bin` to PATH, or use absolute path |
+| Server shows "disconnected" | Binary crashed or missing | Run `costwise serve` directly to see error output |
 | Tools not appearing in client | Config syntax error | Validate JSON: `python3 -m json.tool ~/.claude.json` |
 | `CGO_ENABLED=0` build failure | CGO required by go-sqlite3 and tree-sitter | Always use `CGO_ENABLED=1` |
-| Permission denied | Binary lacks execute bit | `chmod +x $(which costaffective)` |
+| Permission denied | Binary lacks execute bit | `chmod +x $(which costwise)` |
 | Index seems stale | Files changed after last index | Call `index_repository` or wait for auto-watchdog |
 | Stashed blobs missing | `.mycli-fts/stash/` was deleted | Re-stash the content — old handles will not work |
-| Session skill not working | MCP instructions field not supported in older clients | Upgrade to latest client version, or manually install the skill with `costaffective skill install` |
+| Session skill not working | MCP instructions field not supported in older clients | Upgrade to latest client version, or manually install the skill with `costwise skill install` |
 
-Still stuck? Run `costaffective doctor` and open an issue with the output.
+Still stuck? Run `costwise doctor` and open an issue with the output.
 
 </details>
 
@@ -693,14 +693,14 @@ Pre-built release binaries are available for Linux amd64 and Windows amd64. All 
 
 | Resource | Link |
 | -------- | ---- |
-| Website and interactive tools | [costaffective-mcp.vercel.app](https://costaffective-mcp.vercel.app) |
-| Full benchmark suite | [costaffective-mcp.vercel.app/benchmarks](https://costaffective-mcp.vercel.app/benchmarks) |
-| Developer documentation | [costaffective-mcp.vercel.app/docs/install](https://costaffective-mcp.vercel.app/docs/install) |
-| MCP tool catalog | [costaffective-mcp.vercel.app/tools](https://costaffective-mcp.vercel.app/tools) |
-| Architecture guide | [costaffective-mcp.vercel.app/architecture](https://costaffective-mcp.vercel.app/architecture) |
-| FAQ | [costaffective-mcp.vercel.app/faq](https://costaffective-mcp.vercel.app/faq) |
-| Blog and research | [costaffective-mcp.vercel.app/blog](https://costaffective-mcp.vercel.app/blog) |
-| Compare with alternatives | [costaffective-mcp.vercel.app/compare/codegraph](https://costaffective-mcp.vercel.app/compare/codegraph) |
+| Website and interactive tools | [costwise-mcp.vercel.app](https://costwise-mcp.vercel.app) |
+| Full benchmark suite | [costwise-mcp.vercel.app/benchmarks](https://costwise-mcp.vercel.app/benchmarks) |
+| Developer documentation | [costwise-mcp.vercel.app/docs/install](https://costwise-mcp.vercel.app/docs/install) |
+| MCP tool catalog | [costwise-mcp.vercel.app/tools](https://costwise-mcp.vercel.app/tools) |
+| Architecture guide | [costwise-mcp.vercel.app/architecture](https://costwise-mcp.vercel.app/architecture) |
+| FAQ | [costwise-mcp.vercel.app/faq](https://costwise-mcp.vercel.app/faq) |
+| Blog and research | [costwise-mcp.vercel.app/blog](https://costwise-mcp.vercel.app/blog) |
+| Compare with alternatives | [costwise-mcp.vercel.app/compare/codegraph](https://costwise-mcp.vercel.app/compare/codegraph) |
 
 </details>
 

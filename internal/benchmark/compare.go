@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/answertype"
-	"github.com/okyashgajjar/costaffective-mcp/internal/repository"
-	"github.com/okyashgajjar/costaffective-mcp/internal/retrieval"
+	"github.com/okyashgajjar/costwise-mcp/internal/answertype"
+	"github.com/okyashgajjar/costwise-mcp/internal/repository"
+	"github.com/okyashgajjar/costwise-mcp/internal/retrieval"
 )
 
 // CompareRow records the per-prompt cost of answering with our MCP versus the

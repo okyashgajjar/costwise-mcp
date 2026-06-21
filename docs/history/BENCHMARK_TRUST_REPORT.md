@@ -1,4 +1,4 @@
-> **Historical benchmark artifact. Not representative of current releases.** This trust report was generated alongside `benchmark-report.md` (Campaign A — CostAffective self-benchmark, 85 queries). It found 0.0% keyword coverage for all 6 retrievers and 23 false negatives, indicating the file-matching accuracy metrics were unreliable due to path normalization mismatches.
+> **Historical benchmark artifact. Not representative of current releases.** This trust report was generated alongside `benchmark-report.md` (Campaign A — CostWise self-benchmark, 85 queries). It found 0.0% keyword coverage for all 6 retrievers and 23 false negatives, indicating the file-matching accuracy metrics were unreliable due to path normalization mismatches.
 
 # Benchmark Trust Report
 

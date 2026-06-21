@@ -78,8 +78,8 @@ func EnsureBinary() (string, error) {
 	}
 
 	return "", ActionableError{
-		Message: "CostAffective binary not found.",
-		Action:  "Build from source: costaffective install --build\nOr download from: https://github.com/okyashgajjar/costaffective-mcp/releases",
+		Message: "CostWise binary not found.",
+		Action:  "Build from source: costwise install --build\nOr download from: https://github.com/okyashgajjar/costwise-mcp/releases",
 	}
 }
 
@@ -145,17 +145,17 @@ func InstallBinary() (string, error) {
 
 	if err := os.MkdirAll(installDir, 0755); err != nil {
 		// Fallback to /usr/local/bin
-		outputPath = filepath.Join(FallbackBinaryDir, "costaffective")
+		outputPath = filepath.Join(FallbackBinaryDir, "costwise")
 		installDir = filepath.Dir(outputPath)
 		if err := os.MkdirAll(installDir, 0755); err != nil {
 			return "", ActionableError{
-				Message: fmt.Sprintf("CostAffective was not installed to %s.", DefaultBinaryPath()),
-				Action:  fmt.Sprintf("mkdir -p %s\nor rerun:\n  costaffective install --repair", installDir),
+				Message: fmt.Sprintf("CostWise was not installed to %s.", DefaultBinaryPath()),
+				Action:  fmt.Sprintf("mkdir -p %s\nor rerun:\n  costwise install --repair", installDir),
 			}
 		}
 	}
 
-	cmd := exec.Command("go", "build", "-o", outputPath, "./cmd/costaffective/")
+	cmd := exec.Command("go", "build", "-o", outputPath, "./cmd/costwise/")
 	cmd.Dir = root
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
@@ -178,8 +178,8 @@ func InstallBinary() (string, error) {
 func VerifyBinary(binaryPath string) error {
 	if !Exists(binaryPath) {
 		return ActionableError{
-			Message: fmt.Sprintf("CostAffective was not found at %s.", binaryPath),
-			Action:  "Rerun: costaffective install --repair",
+			Message: fmt.Sprintf("CostWise was not found at %s.", binaryPath),
+			Action:  "Rerun: costwise install --repair",
 		}
 	}
 
@@ -187,13 +187,13 @@ func VerifyBinary(binaryPath string) error {
 	if err != nil {
 		return ActionableError{
 			Message: fmt.Sprintf("Cannot check %s: %s", binaryPath, err),
-			Action:  "Check file permissions and ownership, then rerun: costaffective install --repair",
+			Action:  "Check file permissions and ownership, then rerun: costwise install --repair",
 		}
 	}
 	if fi.Mode()&0111 == 0 {
 		return ActionableError{
 			Message: fmt.Sprintf("%s exists but is not executable.", binaryPath),
-			Action:  fmt.Sprintf("Run: chmod +x %s\nor rerun: costaffective install --repair", binaryPath),
+			Action:  fmt.Sprintf("Run: chmod +x %s\nor rerun: costwise install --repair", binaryPath),
 		}
 	}
 
@@ -201,7 +201,7 @@ func VerifyBinary(binaryPath string) error {
 	if version == "" {
 		return ActionableError{
 			Message: fmt.Sprintf("%s exists but did not respond to --version.", binaryPath),
-			Action:  "The binary may be corrupted. Rerun: costaffective install --repair",
+			Action:  "The binary may be corrupted. Rerun: costwise install --repair",
 		}
 	}
 
@@ -263,7 +263,7 @@ func findGoModRoot(dir string) string {
 }
 
 func IsDirWritable(dir string) bool {
-	tmpfile := filepath.Join(dir, ".costaffective_write_test")
+	tmpfile := filepath.Join(dir, ".costwise_write_test")
 	f, err := os.Create(tmpfile)
 	if err != nil {
 		return false

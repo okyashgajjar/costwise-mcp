@@ -4,21 +4,21 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/updater"
+	"github.com/okyashgajjar/costwise-mcp/internal/updater"
 
 	"github.com/spf13/cobra"
 )
 
 var updateCmd = &cobra.Command{
 	Use:   "update",
-	Short: "Update costaffective to the latest released version",
+	Short: "Update costwise to the latest released version",
 	Long: `Checks GitHub for the latest release and, if it is newer than the
 running binary, downloads the build for this platform and replaces the current
 executable in place.
 
 Examples:
-  costaffective update           # update if a newer version is available
-  costaffective update --check   # only report whether an update exists`,
+  costwise update           # update if a newer version is available
+  costwise update --check   # only report whether an update exists`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		checkOnly, _ := cmd.Flags().GetBool("check")
 

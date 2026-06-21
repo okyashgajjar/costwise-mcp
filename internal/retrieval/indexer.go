@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/treesitter"
+	"github.com/okyashgajjar/costwise-mcp/internal/treesitter"
 )
 
 // IndexConfig controls which parse stages the SharedIndexer runs.

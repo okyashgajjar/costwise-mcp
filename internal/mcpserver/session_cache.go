@@ -7,8 +7,9 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/session"
-	"github.com/okyashgajjar/costaffective-mcp/internal/watcher"
+	"github.com/okyashgajjar/costwise-mcp/internal/ledger"
+	"github.com/okyashgajjar/costwise-mcp/internal/session"
+	"github.com/okyashgajjar/costwise-mcp/internal/watcher"
 )
 
 type sessionEntry struct {
@@ -91,6 +92,7 @@ func CloseAllSessions() {
 		if entry.rs != nil {
 			entry.rs.Close()
 		}
+		ledger.Close(path)
 		delete(globalCache.sessions, path)
 	}
 }

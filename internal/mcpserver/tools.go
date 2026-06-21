@@ -3,15 +3,17 @@ package mcpserver
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/answertype"
-	"github.com/okyashgajjar/costaffective-mcp/internal/repository"
-	"github.com/okyashgajjar/costaffective-mcp/internal/retrieval"
+	"github.com/okyashgajjar/costwise-mcp/internal/answertype"
+	"github.com/okyashgajjar/costwise-mcp/internal/ledger"
+	"github.com/okyashgajjar/costwise-mcp/internal/repository"
+	"github.com/okyashgajjar/costwise-mcp/internal/retrieval"
 )
 
 func RegisterTools(s *server.MCPServer) {
@@ -93,6 +95,14 @@ func RegisterTools(s *server.MCPServer) {
 		mcp.WithString("source", mcp.Description("A stash handle to read from, or 'facts' for remembered facts. Omit to search both.")),
 		mcp.WithString("budget", mcp.Description("Token budget: small (~500), medium (~1500), large (~3000). Default small."), mcp.Enum("small", "medium", "large")),
 	), recallHandler)
+
+	// session_brief — compact catch-up on past sessions in this repo.
+	s.AddTool(mcp.NewTool("session_brief",
+		mcp.WithDescription("Get a compact summary of what happened in past session(s) on this repo — facts remembered, content stashed, files reindexed. Use this to catch up before starting work, instead of re-deriving context from scratch."),
+		mcp.WithString("repo_path", mcp.Required(), mcp.Description("Absolute path to the repository root")),
+		mcp.WithString("scope", mcp.Description("Scope: \"last\" (default, since last session boundary), \"today\", \"all\".")),
+		mcp.WithString("budget", mcp.Description("Token budget (default 300). Events are oldest-first within scope.")),
+	), sessionBriefHandler)
 }
 
 func getStringArg(args interface{}, key string) string {
@@ -364,6 +374,15 @@ func indexRepoHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.Ca
 		return mcp.NewToolResultError(fmt.Sprintf("Indexing failed: %v", err)), nil
 	}
 
+	if err := ledger.Append(repoPath, ledger.Event{
+		Kind:    "index",
+		Action:  "reindex",
+		Files:   result.Changed,
+		Trigger: "manual",
+	}); err != nil {
+		log.Printf("ledger: append error: %v", err)
+	}
+
 	return mcp.NewToolResultText(fmt.Sprintf("Repository re-indexed successfully.\nChanged: %d\nSkipped: %d\nDeleted: %d\nTotal: %d", result.Changed, result.Skipped, result.Deleted, result.Total)), nil
 }
 
@@ -383,6 +402,18 @@ func rememberHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.Cal
 
 	if err := rs.RememberFact(key, fact); err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("Failed to remember: %v", err)), nil
+	}
+
+	summary := fact
+	if len([]rune(summary)) > 200 {
+		summary = string([]rune(summary)[:200])
+	}
+	if err := ledger.Append(repoPath, ledger.Event{
+		Kind:    "fact",
+		Action:  "add",
+		Summary: summary,
+	}); err != nil {
+		log.Printf("ledger: append error: %v", err)
 	}
 
 	return mcp.NewToolResultText(fmt.Sprintf("Remembered %q. Use recall(query=%q) to retrieve it.", key, key)), nil
@@ -405,6 +436,25 @@ func stashContextHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp
 	e, err := rs.Stash.Store(content, label)
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("Failed to stash: %v", err)), nil
+	}
+
+	summary := label
+	if summary == "" {
+		r := []rune(content)
+		if len(r) > 40 {
+			summary = string(r[:40]) + "..."
+		} else {
+			summary = string(r)
+		}
+	}
+	if err := ledger.Append(repoPath, ledger.Event{
+		Kind:    "stash",
+		Action:  "create",
+		Handle:  e.Handle,
+		Tokens:  e.Tokens,
+		Summary: summary,
+	}); err != nil {
+		log.Printf("ledger: append error: %v", err)
 	}
 
 	labelPart := ""
@@ -439,6 +489,14 @@ func recallHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallT
 		if err != nil {
 			return mcp.NewToolResultError(err.Error()), nil
 		}
+		if err := ledger.Append(repoPath, ledger.Event{
+			Kind:   "recall",
+			Action: "read",
+			Query:  query,
+			Source: source,
+		}); err != nil {
+			log.Printf("ledger: append error: %v", err)
+		}
 		return mcp.NewToolResultText(out), nil
 	}
 
@@ -465,11 +523,59 @@ func recallHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallT
 		}
 	}
 
+	if err := ledger.Append(repoPath, ledger.Event{
+		Kind:   "recall",
+		Action: "read",
+		Query:  query,
+		Source: source,
+	}); err != nil {
+		log.Printf("ledger: append error: %v", err)
+	}
+
 	if len(lines) == 0 {
 		return mcp.NewToolResultText(fmt.Sprintf("Nothing remembered or stashed matches %q.", query)), nil
 	}
 
 	return mcp.NewToolResultText(trimToBudget(lines, budget)), nil
+}
+
+func sessionBriefHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	repoPath := getStringArg(request.Params.Arguments, "repo_path")
+	if repoPath == "" {
+		return mcp.NewToolResultError("repo_path is required"), nil
+	}
+
+	scope := ledger.ScopeLast
+	if s := getStringArg(request.Params.Arguments, "scope"); s != "" {
+		switch s {
+		case "last", "today", "all":
+			scope = ledger.Scope(s)
+		default:
+			return mcp.NewToolResultError(fmt.Sprintf("invalid scope %q; must be 'last', 'today', or 'all'", s)), nil
+		}
+	}
+
+	budgetStr := getStringArg(request.Params.Arguments, "budget")
+	budget := 300
+	if b, err := fmt.Sscanf(budgetStr, "%d", &budget); budgetStr != "" && (err != nil || b != 1) {
+		// If budget is a keyword like "small"/"medium"/"large", map it
+		switch budgetStr {
+		case "small":
+			budget = 300
+		case "medium":
+			budget = 1500
+		case "large":
+			budget = 3000
+		default:
+			budget = 300
+		}
+	}
+
+	summary, err := ledger.SessionBrief(repoPath, scope, budget)
+	if err != nil {
+		return mcp.NewToolResultError(fmt.Sprintf("session_brief error: %v", err)), nil
+	}
+	return mcp.NewToolResultText(summary), nil
 }
 
 // trimToBudget joins lines up to an approximate token budget (len/4), appending

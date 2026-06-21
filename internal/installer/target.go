@@ -86,9 +86,9 @@ func DefaultBinaryPath() string {
 
 func binaryFilename() string {
 	if runtime.GOOS == "windows" {
-		return "costaffective.exe"
+		return "costwise.exe"
 	}
-	return "costaffective"
+	return "costwise"
 }
 
 func GetMcpServerConfig() map[string]interface{} {
@@ -149,4 +149,19 @@ func Tildify(p string) string {
 		return "~" + p[len(home):]
 	}
 	return p
+}
+
+// RemoveLegacyKeys strips old "costaffective" entries from JSON MCP configs
+// so that install/repair auto-migrates users who installed before the rename.
+// It handles both "mcpServers" and "mcp" top-level keys.
+func RemoveLegacyKeys(cfg map[string]interface{}) (removed bool) {
+	for _, key := range []string{"mcpServers", "mcp"} {
+		if m, ok := cfg[key].(map[string]interface{}); ok {
+			if _, exists := m["costaffective"]; exists {
+				delete(m, "costaffective")
+				removed = true
+			}
+		}
+	}
+	return removed
 }

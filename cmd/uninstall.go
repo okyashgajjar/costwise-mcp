@@ -1,24 +1,24 @@
 package cmd
 
 import (
-	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
-	_ "github.com/okyashgajjar/costaffective-mcp/internal/installer/targets"
+	"github.com/okyashgajjar/costwise-mcp/internal/installer"
+	_ "github.com/okyashgajjar/costwise-mcp/internal/installer/targets"
 
 	"github.com/spf13/cobra"
 )
 
 var uninstallCmd = &cobra.Command{
 	Use:   "uninstall",
-	Short: "Remove CostAffective MCP configs from AI coding clients",
-	Long: `Removes the costaffective MCP server entry from configured
+	Short: "Remove CostWise MCP configs from AI coding clients",
+	Long: `Removes the costwise MCP server entry from configured
 AI coding clients. Sweeps both unified and legacy config paths.
 
 Examples:
-  costaffective uninstall            # Interactive: detect → confirm → remove
-  costaffective uninstall --all      # Remove from all supported clients
-  costaffective uninstall --target claude  # Remove only from Claude Code
-  costaffective uninstall --dry-run  # Show what would be removed without making changes
-  costaffective uninstall --yes      # Non-interactive: remove all detected configs
+  costwise uninstall            # Interactive: detect → confirm → remove
+  costwise uninstall --all      # Remove from all supported clients
+  costwise uninstall --target claude  # Remove only from Claude Code
+  costwise uninstall --dry-run  # Show what would be removed without making changes
+  costwise uninstall --yes      # Non-interactive: remove all detected configs
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		all, _ := cmd.Flags().GetBool("all")

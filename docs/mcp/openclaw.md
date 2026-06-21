@@ -1,26 +1,26 @@
-# CostAffective MCP — OpenClaw
+# CostWise MCP — OpenClaw
 
 ## Installation
 
 ### Auto-install (recommended)
 
-OpenClaw is configured manually. Use `costaffective install` for other supported clients:
+OpenClaw is configured manually. Use `costwise install` for other supported clients:
 
 ```bash
-costaffective install --all
+costwise install --all
 ```
 
 ### Prerequisites
 
 - Go 1.25+ (`go version`)
 - OpenClaw CLI installed (`openclaw --version`)
-- The CostAffective repository cloned
+- The CostWise repository cloned
 
 ### Build the binary
 
 ```bash
-cd /path/to/CostAffective-CLI/CLI
-go build -o /usr/local/bin/costaffective ./cmd/costaffective/
+cd /path/to/CostWise-CLI/CLI
+go build -o /usr/local/bin/costwise ./cmd/costwise/
 ```
 
 ## Configuration
@@ -28,8 +28,8 @@ go build -o /usr/local/bin/costaffective ./cmd/costaffective/
 ### CLI
 
 ```bash
-openclaw mcp add costaffective \
-  --command costaffective \
+openclaw mcp add costwise \
+  --command costwise \
   --args '["serve"]'
 ```
 
@@ -40,8 +40,8 @@ Add to `~/.openclaw/openclaw.json`:
 ```json
 {
   "mcpServers": {
-    "costaffective": {
-      "command": "costaffective",
+    "costwise": {
+      "command": "costwise",
       "args": ["serve"]
     }
   }
@@ -51,8 +51,8 @@ Add to `~/.openclaw/openclaw.json`:
 ### Via McPorter (if installed)
 
 ```bash
-mcporter install costaffective --target openclaw \
-  --command costaffective --args '["serve"]'
+mcporter install costwise --target openclaw \
+  --command costwise --args '["serve"]'
 ```
 
 ## Verification
@@ -65,17 +65,17 @@ openclaw mcp list
 openclaw mcp status --verbose
 
 # Probe server
-openclaw mcp probe costaffective
+openclaw mcp probe costwise
 
 # Run diagnostic
-openclaw mcp doctor costaffective --probe
+openclaw mcp doctor costwise --probe
 ```
 
 ## Troubleshooting
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|
-| Server shows "disconnected" | Binary not found | Verify `which costaffective` or use absolute path |
+| Server shows "disconnected" | Binary not found | Verify `which costwise` or use absolute path |
 | Tools not discovered | Config not reloaded | Run `openclaw mcp reload` |
 | Permission error | Config ownership | Ensure `~/.openclaw/openclaw.json` is readable |
 | Duplicate entry | Multiple config sources | Check both global and project config for duplicates |
@@ -83,6 +83,6 @@ openclaw mcp doctor costaffective --probe
 ## Benchmark Setup
 
 ```bash
-cd /path/to/CostAffective-CLI/CLI
-openclaw run "Run the costaffective benchmark on this repo and report results"
+cd /path/to/CostWise-CLI/CLI
+openclaw run "Run the costwise benchmark on this repo and report results"
 ```

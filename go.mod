@@ -1,5 +1,5 @@
-// module costaffective
-module github.com/okyashgajjar/costaffective-mcp
+// module costwise
+module github.com/okyashgajjar/costwise-mcp
 
 go 1.25.5
 

@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
+	"github.com/okyashgajjar/costwise-mcp/internal/installer"
 )
 
 // Codex uses TOML for config, not JSON.
@@ -33,7 +33,7 @@ func (t *CodexTarget) Detect(loc installer.Location) installer.DetectionResult {
 	alreadyConfigured := false
 	if installer.Exists(path) {
 		data, _ := os.ReadFile(path)
-		alreadyConfigured = strings.Contains(string(data), "[mcp_servers.costaffective]")
+		alreadyConfigured = strings.Contains(string(data), "[mcp_servers.costwise]")
 	}
 	installed := installer.Exists(filepath.Join(installer.HomeDir(), ".codex"))
 	return installer.DetectionResult{
@@ -51,7 +51,7 @@ func (t *CodexTarget) Install(loc installer.Location, opts installer.InstallOpti
 }
 
 func (t *CodexTarget) buildTomlBlock() string {
-	return fmt.Sprintf(`[mcp_servers.costaffective]
+	return fmt.Sprintf(`[mcp_servers.costwise]
 command = "%s"
 args = ["serve"]
 `, installer.BinaryPath())
@@ -71,9 +71,12 @@ func (t *CodexTarget) writeMcpEntry() installer.WriteResult {
 		existing = string(data)
 	}
 
+	// Strip old [mcp_servers.costaffective] section if present
+	existing = removeOldTomlSection(existing)
+
 	created := len(existing) == 0
 
-	if strings.Contains(existing, "[mcp_servers.costaffective]") {
+	if strings.Contains(existing, "[mcp_servers.costwise]") {
 		// Already has our entry; skip
 		if strings.Contains(existing, block) {
 			return installer.WriteResult{Path: file, Action: "unchanged"}
@@ -116,7 +119,7 @@ func (t *CodexTarget) Uninstall(loc installer.Location) []installer.WriteResult 
 	}
 	content := string(data)
 
-	if !strings.Contains(content, "[mcp_servers.costaffective]") {
+	if !strings.Contains(content, "[mcp_servers.costwise]") {
 		return []installer.WriteResult{{Path: file, Action: "not-found"}}
 	}
 
@@ -125,11 +128,11 @@ func (t *CodexTarget) Uninstall(loc installer.Location) []installer.WriteResult 
 	var newLines []string
 	skip := false
 	for _, line := range lines {
-		if strings.TrimSpace(line) == "[mcp_servers.costaffective]" {
+		if strings.TrimSpace(line) == "[mcp_servers.costwise]" {
 			skip = true
 			continue
 		}
-		if skip && strings.HasPrefix(strings.TrimSpace(line), "[") && !strings.HasPrefix(strings.TrimSpace(line), "[mcp_servers.costaffective]") {
+		if skip && strings.HasPrefix(strings.TrimSpace(line), "[") && !strings.HasPrefix(strings.TrimSpace(line), "[mcp_servers.costwise]") {
 			skip = false
 		}
 		if !skip {
@@ -142,6 +145,30 @@ func (t *CodexTarget) Uninstall(loc installer.Location) []installer.WriteResult 
 		return []installer.WriteResult{{Path: file, Action: "error"}}
 	}
 	return []installer.WriteResult{{Path: file, Action: "removed"}}
+}
+
+// removeOldTomlSection strips the [mcp_servers.costaffective] section from
+// TOML content, migrating users who installed before the rename.
+func removeOldTomlSection(content string) string {
+	if !strings.Contains(content, "[mcp_servers.costaffective]") {
+		return content
+	}
+	lines := strings.Split(content, "\n")
+	var out []string
+	skip := false
+	for _, line := range lines {
+		if strings.TrimSpace(line) == "[mcp_servers.costaffective]" {
+			skip = true
+			continue
+		}
+		if skip && strings.HasPrefix(strings.TrimSpace(line), "[") {
+			skip = false
+		}
+		if !skip {
+			out = append(out, line)
+		}
+	}
+	return strings.TrimLeft(strings.Join(out, "\n"), "\n")
 }
 
 func (t *CodexTarget) PrintConfig(loc installer.Location) string {

@@ -19,7 +19,7 @@ import (
 	"time"
 )
 
-const repoSlug = "okyashgajjar/costaffective-mcp"
+const repoSlug = "okyashgajjar/costwise-mcp"
 
 // ErrUpToDate is returned by Update when no newer release is available.
 var ErrUpToDate = errors.New("already up to date")
@@ -93,9 +93,9 @@ func parseSemver(v string) []int {
 	return out
 }
 
-// assetPrefix matches the goreleaser name_template costaffective_<os>_<arch>.
+// assetPrefix matches the goreleaser name_template costwise_<os>_<arch>.
 func assetPrefix() string {
-	return fmt.Sprintf("costaffective_%s_%s", runtime.GOOS, runtime.GOARCH)
+	return fmt.Sprintf("costwise_%s_%s", runtime.GOOS, runtime.GOARCH)
 }
 
 // Update fetches the latest release and, if newer than current, downloads the
@@ -126,9 +126,9 @@ func Update(current string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	binName := "costaffective"
+	binName := "costwise"
 	if runtime.GOOS == "windows" {
-		binName = "costaffective.exe"
+		binName = "costwise.exe"
 	}
 	binData, err := extractFromZip(archive, binName)
 	if err != nil {
@@ -184,7 +184,7 @@ func extractFromZip(data []byte, binName string) ([]byte, error) {
 // overwritten while executing).
 func replaceExecutable(path string, data []byte) error {
 	dir := filepath.Dir(path)
-	tmp, err := os.CreateTemp(dir, ".costaffective-update-*")
+	tmp, err := os.CreateTemp(dir, ".costwise-update-*")
 	if err != nil {
 		return fmt.Errorf("cannot write to %s (try with elevated permissions): %w", dir, err)
 	}

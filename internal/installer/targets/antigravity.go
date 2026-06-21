@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/installer"
+	"github.com/okyashgajjar/costwise-mcp/internal/installer"
 )
 
 // Antigravity (Google Gemini IDE) uses ~/.gemini/config/mcp_config.json.
@@ -40,7 +40,7 @@ func (t *AntigravityTarget) Detect(loc installer.Location) installer.DetectionRe
 	path := antigravityConfigPath()
 	cfg := installer.ReadJSONFile(path)
 	mcpServers, _ := cfg["mcpServers"].(map[string]interface{})
-	_, alreadyConfigured := mcpServers["costaffective"]
+	_, alreadyConfigured := mcpServers["costwise"]
 
 	installed := installer.Exists(filepath.Join(installer.HomeDir(), ".gemini"))
 	return installer.DetectionResult{
@@ -68,8 +68,9 @@ func (t *AntigravityTarget) writeMcpEntry() installer.WriteResult {
 	file := antigravityConfigPath()
 
 	cfg := installer.ReadJSONFile(file)
+	installer.RemoveLegacyKeys(cfg)
 	mcpServers, _ := cfg["mcpServers"].(map[string]interface{})
-	before := mcpServers["costaffective"]
+	before := mcpServers["costwise"]
 	after := t.buildEntry()
 
 	if installer.DeepEqual(before, after) {
@@ -83,7 +84,7 @@ func (t *AntigravityTarget) writeMcpEntry() installer.WriteResult {
 	if cfg["mcpServers"] == nil {
 		cfg["mcpServers"] = make(map[string]interface{})
 	}
-	cfg["mcpServers"].(map[string]interface{})["costaffective"] = after
+	cfg["mcpServers"].(map[string]interface{})["costwise"] = after
 	if err := installer.WriteJSONFile(file, cfg); err != nil {
 		return installer.WriteResult{Path: file, Action: "error"}
 	}
@@ -124,8 +125,8 @@ func (t *AntigravityTarget) removeFromFile(file string) installer.WriteResult {
 	}
 	cfg := installer.ReadJSONFile(file)
 	if mcpServers, ok := cfg["mcpServers"].(map[string]interface{}); ok {
-		if _, exists := mcpServers["costaffective"]; exists {
-			delete(mcpServers, "costaffective")
+		if _, exists := mcpServers["costwise"]; exists {
+			delete(mcpServers, "costwise")
 			if len(mcpServers) == 0 {
 				delete(cfg, "mcpServers")
 			}
@@ -143,7 +144,7 @@ func (t *AntigravityTarget) PrintConfig(loc installer.Location) string {
 	path := antigravityConfigPath()
 	block := map[string]interface{}{
 		"mcpServers": map[string]interface{}{
-			"costaffective": t.buildEntry(),
+			"costwise": t.buildEntry(),
 		},
 	}
 	data, _ := json.MarshalIndent(block, "", "  ")

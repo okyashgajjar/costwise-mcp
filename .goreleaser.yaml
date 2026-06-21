@@ -1,15 +1,15 @@
 version: 2
 
-project_name: costaffective
+project_name: costwise
 
 before:
   hooks:
     - go mod tidy
 
 builds:
-  - id: costaffective
-    main: ./cmd/costaffective
-    binary: costaffective
+  - id: costwise
+    main: ./cmd/costwise
+    binary: costwise
     env:
       - CGO_ENABLED=1
       - CC=gcc
@@ -20,9 +20,9 @@ builds:
       - amd64
     ldflags:
       - -s -w
-      - -X github.com/okyashgajjar/costaffective-mcp/cmd.version={{ .Version }}
-      - -X github.com/okyashgajjar/costaffective-mcp/cmd.commit={{ .Commit }}
-      - -X github.com/okyashgajjar/costaffective-mcp/cmd.date={{ .Date }}
+      - -X github.com/okyashgajjar/costwise-mcp/cmd.version={{ .Version }}
+      - -X github.com/okyashgajjar/costwise-mcp/cmd.commit={{ .Commit }}
+      - -X github.com/okyashgajjar/costwise-mcp/cmd.date={{ .Date }}
     mod_timestamp: "{{ .CommitTimestamp }}"
     flags:
       - -trimpath

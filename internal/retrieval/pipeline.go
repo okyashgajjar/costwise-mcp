@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/okyashgajjar/costaffective-mcp/internal/answertype"
-	"github.com/okyashgajjar/costaffective-mcp/internal/classifier"
+	"github.com/okyashgajjar/costwise-mcp/internal/answertype"
+	"github.com/okyashgajjar/costwise-mcp/internal/classifier"
 )
 
 type PipelineStep int

@@ -10,11 +10,11 @@ import (
 
 func TestMCPServerStarts(t *testing.T) {
 	// Build the binary
-	binName := "costaffective_test"
+	binName := "costwise_test"
 	if runtime.GOOS == "windows" {
 		binName += ".exe"
 	}
-	cmd := exec.Command("go", "build", "-o", binName, "../cmd/costaffective")
+	cmd := exec.Command("go", "build", "-o", binName, "../cmd/costwise")
 	if err := cmd.Run(); err != nil {
 		t.Fatalf("Failed to build binary: %v", err)
 	}
