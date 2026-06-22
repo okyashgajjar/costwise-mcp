@@ -17,6 +17,11 @@ import (
 	"github.com/okyashgajjar/costwise-mcp/internal/retrieval"
 )
 
+const (
+	maxStashContentBytes = 1 << 20 // 1 MB
+	maxFactBytes         = 10 << 10 // 10 KB
+)
+
 func RegisterTools(s *server.MCPServer) {
 	// search_code
 	s.AddTool(mcp.NewTool("search_code",
@@ -412,6 +417,10 @@ func rememberHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.Cal
 		return mcp.NewToolResultError("repo_path, key, and fact are required"), nil
 	}
 
+	if len(fact) > maxFactBytes {
+		return mcp.NewToolResultError(fmt.Sprintf("fact too large: %d bytes (max %d)", len(fact), maxFactBytes)), nil
+	}
+
 	rs, err := GetOrCreateRepoSession(ctx, repoPath)
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -443,6 +452,10 @@ func stashContextHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp
 
 	if repoPath == "" || content == "" {
 		return mcp.NewToolResultError("repo_path and content are required"), nil
+	}
+
+	if len(content) > maxStashContentBytes {
+		return mcp.NewToolResultError(fmt.Sprintf("content too large: %d bytes (max %d)", len(content), maxStashContentBytes)), nil
 	}
 
 	rs, err := GetOrCreateRepoSession(ctx, repoPath)
