@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	maxStashContentBytes = 1 << 20 // 1 MB
+	maxStashContentBytes = 1 << 20  // 1 MB
 	maxFactBytes         = 10 << 10 // 10 KB
 )
 
