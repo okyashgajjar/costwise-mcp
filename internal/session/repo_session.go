@@ -3,7 +3,6 @@ package session
 import (
 	"context"
 	"fmt"
-	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -98,12 +97,13 @@ func newRepoSession(ctx context.Context, repoRoot string, sessionID string, shou
 		return nil, fmt.Errorf("failed to open cache: %w", err)
 	}
 
-	repoMemPath := filepath.Join(os.TempDir(), "repo_memory.db")
+	idxDir := filepath.Join(info.Root, ".mycli-fts")
+	repoMemPath := filepath.Join(idxDir, "repo_memory.db")
 	repoMem, err := repo_memory.Init(repoMemPath)
 	if err != nil {
 		return nil, fmt.Errorf("init repo memory: %w", err)
 	}
-	discMemPath := filepath.Join(os.TempDir(), "discovery_memory.db")
+	discMemPath := filepath.Join(idxDir, "discovery_memory.db")
 	discMem, err := discovery_memory.Init(discMemPath)
 	if err != nil {
 		return nil, fmt.Errorf("init discovery memory: %w", err)
