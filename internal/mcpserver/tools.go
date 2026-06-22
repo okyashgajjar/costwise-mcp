@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/mark3labs/mcp-go/mcp"
@@ -233,6 +234,12 @@ func readSymbolHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.C
 	// Read the top match's body straight from its known line range — one file
 	// slice, independent of repo size.
 	top := results[0]
+
+	// Defense-in-depth: verify the symbol DB result doesn't point outside the repo
+	if !isPathWithinRoot(rs.Repo.Root, top.File) {
+		return mcp.NewToolResultError(fmt.Sprintf("symbol path %s is outside repo root", top.File)), nil
+	}
+
 	budget := parseBudget(request.Params.Arguments, 1500)
 	body, err := readLineRange(top.File, top.LineFrom, top.LineTo, budget*4)
 	if err != nil {
@@ -276,6 +283,16 @@ func readLineRange(path string, from, to, maxChars int) (string, error) {
 		body = body[:maxChars] + "\n… (truncated; raise budget to see the rest)"
 	}
 	return body, nil
+}
+
+// isPathWithinRoot checks that abs stays inside root (defense-in-depth against
+// corrupt symbol DB results or path traversal).
+func isPathWithinRoot(root, abs string) bool {
+	rel, err := filepath.Rel(root, abs)
+	if err != nil {
+		return false
+	}
+	return !strings.HasPrefix(rel, "..") && !filepath.IsAbs(rel)
 }
 
 // relToRepo renders an absolute file path relative to the repo root for display.
