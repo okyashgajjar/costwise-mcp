@@ -251,10 +251,10 @@ func (r *GrepRetriever) Retrieve(ctx context.Context, query string) ([]Retrieval
 		}
 
 		if hasRG {
-			cmd := exec.Command(rgPath, append(searchFlags, keyword, r.repo.Root)...)
+			cmd := exec.Command(rgPath, append(searchFlags, "--", keyword, r.repo.Root)...)
 			searchInFileContent(cmd, 1.0)
 		} else if hasGrep {
-			cmd := exec.Command(grepPath, append(searchFlags, "-r", keyword, r.repo.Root)...)
+			cmd := exec.Command(grepPath, append(searchFlags, "-r", "--", keyword, r.repo.Root)...)
 			searchInFileContent(cmd, 1.0)
 		}
 	}
@@ -406,6 +406,11 @@ func extractKeywords(query string) []string {
 	for _, w := range words {
 		w = strings.Trim(w, ".,!?;:'\"()[]{}/\\")
 		if len(w) < 2 || stopWords[w] {
+			continue
+		}
+		// Reject flag-like tokens that would be interpreted as rg/grep flags
+		// (e.g. --no-ignore, -e, -g). These are never valid search keywords.
+		if w[0] == '-' && len(w) > 1 && (w[1] == '-' || (w[1] >= 'a' && w[1] <= 'z')) {
 			continue
 		}
 		keywords = append(keywords, w)
