@@ -572,7 +572,11 @@ We welcome contributions of all kinds — bug fixes, new language parsers, bette
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for full details.
 
-**Quick start for contributors:**
+**Key documentation for contributors:**
+
+- [**Confidence & Accuracy Scoring**](docs/scoring.md) — the complete map of how every retrieval tool scores, ranks, and applies confidence thresholds. Exact formulas, confidence ceilings, quality gates, and decision logic for FTS, Tree-sitter, Grep, Reference, Call Graph, Architecture, Flow Graph, and the Query/Answer Type classifiers.
+
+**Quick start:**
 
 ```bash
 git clone https://github.com/okyashgajjar/costwise-mcp.git
