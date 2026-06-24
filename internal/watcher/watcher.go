@@ -53,7 +53,7 @@ func (wd *Watchdog) Start() error {
 		}
 		if info.IsDir() {
 			base := filepath.Base(path)
-			if base == ".git" || base == "node_modules" || base == "vendor" || base == ".codegraph" {
+			if base == ".git" || base == "node_modules" || base == "vendor" || base == ".codegraph" || base == ".mycli-fts" {
 				return filepath.SkipDir
 			}
 			_ = wd.watcher.Add(path)
