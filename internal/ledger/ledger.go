@@ -152,7 +152,8 @@ const (
 
 // SessionBrief reads the ledger, filters by scope, renders a compact summary,
 // and applies a token budget (oldest events dropped first if over budget).
-func SessionBrief(repoPath string, scope Scope, budget int) (string, error) {
+// If sessions > 0, returns the last N sessions (overrides scope for "last" style queries).
+func SessionBrief(repoPath string, scope Scope, budget int, sessions ...int) (string, error) {
 	if budget <= 0 {
 		budget = defaultBudget
 	}
@@ -164,7 +165,12 @@ func SessionBrief(repoPath string, scope Scope, budget int) (string, error) {
 		return "No session events recorded for this repository yet.\n", nil
 	}
 
-	events = filterByScope(events, scope)
+	n := 0
+	if len(sessions) > 0 {
+		n = sessions[0]
+	}
+
+	events = filterByScope(events, scope, n)
 	if len(events) == 0 {
 		return "No session events match the requested scope.\n", nil
 	}
@@ -178,11 +184,12 @@ func SessionBrief(repoPath string, scope Scope, budget int) (string, error) {
 	kindCount := countByKind(events)
 
 	// Header
-	scopeLabel := string(scope)
 	if len(events) > 0 {
 		first := events[len(events)-1].TS
 		last := events[0].TS
-		if scope == ScopeLast {
+		if n > 1 {
+			fmt.Fprintf(&b, "Last %d sessions – %s to %s (", n, first.Format("2006-01-02 15:04"), last.Format("2006-01-02 15:04"))
+		} else if scope == ScopeLast || n == 1 {
 			fmt.Fprintf(&b, "Session %s – %s (", first.Format("15:04"), last.Format("15:04"))
 		} else {
 			fmt.Fprintf(&b, "%s (", first.Format("2006-01-02"))
@@ -199,7 +206,7 @@ func SessionBrief(repoPath string, scope Scope, budget int) (string, error) {
 		}
 		b.WriteString(")\n")
 	} else {
-		fmt.Fprintf(&b, "%s (0 events)\n", scopeLabel)
+		fmt.Fprintf(&b, "%s (0 events)\n", string(scope))
 	}
 
 	// Append rendered events, newest first, applying budget
@@ -235,7 +242,16 @@ func countByKind(events []Event) map[string]int {
 	return m
 }
 
-func filterByScope(events []Event, scope Scope) []Event {
+func filterByScope(events []Event, scope Scope, sessions ...int) []Event {
+	n := 0
+	if len(sessions) > 0 {
+		n = sessions[0]
+	}
+
+	if n > 0 {
+		return lastNSessions(events, n)
+	}
+
 	if scope == ScopeAll {
 		return reverseEvents(events)
 	}
@@ -257,6 +273,68 @@ func filterByScope(events []Event, scope Scope) []Event {
 
 	// ScopeLast: events since the most recent gap > IdleThreshold before the latest event
 	return latestSession(events)
+}
+
+func lastNSessions(events []Event, n int) []Event {
+	if n <= 0 || len(events) == 0 {
+		return nil
+	}
+
+	// Cap at max 5 sessions.
+	if n > 5 {
+		n = 5
+	}
+
+	// Events are chronological (oldest first).
+	// Split into sessions at kind="session" markers (set on server start/restart).
+	// Everything before the first marker is its own session.
+	var boundaries []int
+	for i, e := range events {
+		if e.Kind == "session" && e.Action == "start" {
+			boundaries = append(boundaries, i)
+		}
+	}
+
+	// Build session intervals: each session is between two consecutive boundaries,
+	// excluding the boundary events themselves.
+	var sessions [][2]int // [start, end) pairs
+	if len(boundaries) == 0 {
+		// No markers — everything is one session
+		sessions = append(sessions, [2]int{0, len(events)})
+	} else {
+		// Before first marker
+		if boundaries[0] > 0 {
+			sessions = append(sessions, [2]int{0, boundaries[0]})
+		}
+		for i := 0; i < len(boundaries); i++ {
+			end := len(events)
+			if i+1 < len(boundaries) {
+				end = boundaries[i+1]
+			}
+			// Skip the boundary event itself
+			start := boundaries[i] + 1
+			if start < end {
+				sessions = append(sessions, [2]int{start, end})
+			}
+		}
+	}
+
+	// Take last N sessions
+	if len(sessions) > n {
+		sessions = sessions[len(sessions)-n:]
+	}
+
+	// Flatten sessions into newest-first events, skipping watch events
+	var out []Event
+	for si := len(sessions) - 1; si >= 0; si-- {
+		s := sessions[si]
+		for i := s[1] - 1; i >= s[0]; i-- {
+			if events[i].Kind != "watch" {
+				out = append(out, events[i])
+			}
+		}
+	}
+	return out
 }
 
 func latestSession(events []Event) []Event {
@@ -294,7 +372,9 @@ func reverseEvents(events []Event) []Event {
 func renderEvents(events []Event) []string {
 	var lines []string
 	for _, e := range events {
-		lines = append(lines, renderEvent(e))
+		if line := renderEvent(e); line != "" {
+			lines = append(lines, line)
+		}
 	}
 	return lines
 }
@@ -306,8 +386,10 @@ func renderEvent(e Event) string {
 	}
 
 	switch e.Kind {
+	case "session":
+		return ""
 	case "fact":
-		return fmt.Sprintf(`%s fact:   remembered: "%s"`, prefix, e.Summary)
+		return fmt.Sprintf(`+ fact:   remembered: "%s"`, e.Summary)
 	case "recall":
 		src := e.Source
 		if src == "" {

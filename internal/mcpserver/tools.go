@@ -108,6 +108,7 @@ func RegisterTools(s *server.MCPServer) {
 		mcp.WithString("repo_path", mcp.Required(), mcp.Description("Absolute path to the repository root")),
 		mcp.WithString("scope", mcp.Description("Scope: \"last\" (default, since last session boundary), \"today\", \"all\".")),
 		mcp.WithString("budget", mcp.Description("Token budget (default 300). Events are oldest-first within scope.")),
+		mcp.WithString("sessions", mcp.Description("Number of past sessions to return (e.g. \"5\" for last 5). Overrides scope. Default: 1 (last session).")),
 	), sessionBriefHandler)
 }
 
@@ -588,7 +589,6 @@ func sessionBriefHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp
 	budgetStr := getStringArg(request.Params.Arguments, "budget")
 	budget := 300
 	if b, err := fmt.Sscanf(budgetStr, "%d", &budget); budgetStr != "" && (err != nil || b != 1) {
-		// If budget is a keyword like "small"/"medium"/"large", map it
 		switch budgetStr {
 		case "small":
 			budget = 300
@@ -601,7 +601,14 @@ func sessionBriefHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp
 		}
 	}
 
-	summary, err := ledger.SessionBrief(repoPath, scope, budget)
+	sessions := 0
+	if s := getStringArg(request.Params.Arguments, "sessions"); s != "" {
+		if n, err := fmt.Sscanf(s, "%d", &sessions); err != nil || n != 1 || sessions < 0 {
+			sessions = 0
+		}
+	}
+
+	summary, err := ledger.SessionBrief(repoPath, scope, budget, sessions)
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("session_brief error: %v", err)), nil
 	}

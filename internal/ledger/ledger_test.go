@@ -415,6 +415,136 @@ func TestLatestSession(t *testing.T) {
 	}
 }
 
+func TestLastNSessions(t *testing.T) {
+	base := time.Now().UTC()
+
+	events := []Event{
+		{TS: base, Kind: "fact", Action: "add", Summary: "session0 work"},
+		{TS: base.Add(1 * time.Second), Kind: "fact", Action: "add", Summary: "session0 more"},
+		{TS: base.Add(2 * time.Second), Kind: "session", Action: "start"},
+		{TS: base.Add(3 * time.Second), Kind: "fact", Action: "add", Summary: "session1 work"},
+		{TS: base.Add(4 * time.Second), Kind: "stash", Action: "create", Handle: "s1", Summary: "session1 data"},
+		{TS: base.Add(5 * time.Second), Kind: "session", Action: "start"},
+		{TS: base.Add(6 * time.Second), Kind: "fact", Action: "add", Summary: "session2 work"},
+		{TS: base.Add(7 * time.Second), Kind: "fact", Action: "add", Summary: "session2 more"},
+		{TS: base.Add(8 * time.Second), Kind: "fact", Action: "add", Summary: "session2 even more"},
+	}
+
+	t.Run("n=1 returns last session only", func(t *testing.T) {
+		out := lastNSessions(events, 1)
+		if len(out) != 3 {
+			t.Fatalf("got %d events, want 3 (session2 events)", len(out))
+		}
+		if out[0].Summary != "session2 even more" || out[2].Summary != "session2 work" {
+			t.Errorf("expected all from session2, got: %v", summaries(out))
+		}
+	})
+
+	t.Run("n=2 returns last 2 sessions", func(t *testing.T) {
+		out := lastNSessions(events, 2)
+		if len(out) != 5 {
+			t.Fatalf("got %d events, want 5 (session2 + session1)", len(out))
+		}
+		if out[0].Summary != "session2 even more" || out[4].Summary != "session1 work" {
+			t.Errorf("expected session2 then session1, got: %v", summaries(out))
+		}
+	})
+
+	t.Run("n=3 returns all 3 sessions", func(t *testing.T) {
+		out := lastNSessions(events, 3)
+		if len(out) != 7 {
+			t.Fatalf("got %d events, want 7 (all sessions)", len(out))
+		}
+		if out[0].Summary != "session2 even more" || out[6].Summary != "session0 work" {
+			t.Errorf("expected all sessions, got: %v", summaries(out))
+		}
+	})
+
+	t.Run("caps at max 5", func(t *testing.T) {
+		// Create events with 7 session markers
+		e := []Event{}
+		for i := 0; i < 7; i++ {
+			if i > 0 {
+				e = append(e, Event{TS: base.Add(time.Duration(i*10) * time.Second), Kind: "session", Action: "start"})
+			}
+			e = append(e, Event{TS: base.Add(time.Duration(i*10+1) * time.Second), Kind: "fact", Action: "add", Summary: "work"})
+		}
+		out := lastNSessions(e, 99) // request 99, should cap at 5
+		if len(out) != 5 {
+			t.Fatalf("expected capping at 5 sessions, got %d events (should be 5 facts)", len(out))
+		}
+	})
+
+	t.Run("n=0 returns nil", func(t *testing.T) {
+		out := lastNSessions(events, 0)
+		if out != nil {
+			t.Errorf("expected nil for n=0")
+		}
+	})
+
+	t.Run("empty events returns nil", func(t *testing.T) {
+		out := lastNSessions(nil, 5)
+		if out != nil {
+			t.Errorf("expected nil for empty events")
+		}
+	})
+
+	t.Run("no session markers treats everything as one session", func(t *testing.T) {
+		e := []Event{
+			{TS: base, Kind: "fact", Action: "add", Summary: "a"},
+			{TS: base.Add(1 * time.Hour), Kind: "fact", Action: "add", Summary: "b"},
+		}
+		out := lastNSessions(e, 1)
+		if len(out) != 2 {
+			t.Fatalf("expected all events as one session, got %d", len(out))
+		}
+	})
+
+	t.Run("skips watch events", func(t *testing.T) {
+		e := []Event{
+			{TS: base, Kind: "session", Action: "start"},
+			{TS: base.Add(1 * time.Second), Kind: "fact", Action: "add", Summary: "real work"},
+			{TS: base.Add(2 * time.Second), Kind: "watch", Action: "auto_reindex", ChangedFiles: []string{"a.go"}},
+			{TS: base.Add(3 * time.Second), Kind: "watch", Action: "auto_reindex", ChangedFiles: []string{"b.go"}},
+		}
+		out := lastNSessions(e, 1)
+		if len(out) != 1 {
+			t.Fatalf("expected 1 non-watch event, got %d", len(out))
+		}
+		if out[0].Summary != "real work" {
+			t.Errorf("expected 'real work', got %q", out[0].Summary)
+		}
+	})
+}
+
+func summaries(events []Event) []string {
+	s := make([]string, len(events))
+	for i, e := range events {
+		s[i] = e.Summary
+	}
+	return s
+}
+
+func TestSessionBriefWithSessions(t *testing.T) {
+	repo := setupTestRepo(t)
+	defer closeLedger(t, repo)
+
+	_ = Append(repo, Event{Kind: "fact", Action: "add", Summary: "some work"})
+	_ = Append(repo, Event{Kind: "stash", Action: "create", Handle: "abc", Tokens: 100, Summary: "data"})
+
+	// sessions param should be accepted and return events
+	out, err := SessionBrief(repo, ScopeLast, 300, 2)
+	if err != nil {
+		t.Fatalf("SessionBrief with sessions=2: %v", err)
+	}
+	if !strings.Contains(out, "some work") {
+		t.Errorf("expected event content in output:\n%s", out)
+	}
+	if !strings.Contains(out, "abc") {
+		t.Errorf("expected stash handle in output:\n%s", out)
+	}
+}
+
 func TestCloseAll(t *testing.T) {
 	repo1 := setupTestRepo(t)
 	repo2 := setupTestRepo(t)

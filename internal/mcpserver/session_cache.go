@@ -108,6 +108,12 @@ func GetOrCreateRepoSession(ctx context.Context, repoPath string) (*session.Repo
 		return nil, fmt.Errorf("failed to create repo session for %s: %w", key, err)
 	}
 
+	// Mark a new session boundary (captures server start/restart)
+	_ = ledger.Append(key, ledger.Event{
+		Kind:   "session",
+		Action: "start",
+	})
+
 	// Initialize and start the watchdog
 	wd, err := watcher.NewWatchdog(rs)
 	if err != nil {
