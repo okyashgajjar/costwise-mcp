@@ -102,6 +102,12 @@ func RegisterTools(s *server.MCPServer) {
 		mcp.WithString("budget", mcp.Description("Token budget: small (~500), medium (~1500), large (~3000). Default small."), mcp.Enum("small", "medium", "large")),
 	), recallHandler)
 
+	// allow_dir — grant runtime permission for a path outside the default allowlist.
+	s.AddTool(mcp.NewTool("allow_dir",
+		mcp.WithDescription("Grant temporary permission to access a directory that is not in the default allowed paths. Call this only after getting explicit approval from the user. After adding, retry the original tool call with the same repo_path."),
+		mcp.WithString("repo_path", mcp.Required(), mcp.Description("Absolute path to the directory to allow (must exist)")),
+	), allowDirHandler)
+
 	// session_brief — compact catch-up on past sessions in this repo.
 	s.AddTool(mcp.NewTool("session_brief",
 		mcp.WithDescription("Get a compact summary of what happened in past session(s) on this repo — facts remembered, content stashed, files reindexed. Use this to catch up before starting work, instead of re-deriving context from scratch."),
@@ -568,6 +574,33 @@ func recallHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallT
 	}
 
 	return mcp.NewToolResultText(trimToBudget(lines, budget)), nil
+}
+
+func allowDirHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	repoPath := getStringArg(request.Params.Arguments, "repo_path")
+	if repoPath == "" {
+		return mcp.NewToolResultError("repo_path is required"), nil
+	}
+
+	// Normalize the same way GetOrCreateRepoSession does, so the subsequent
+	// tool call resolves to the same key.
+	normalized := normalizeRepoPath(repoPath)
+
+	if err := AllowPath(normalized); err != nil {
+		return mcp.NewToolResultError(err.Error()), nil
+	}
+
+	// Pre-create the session so the next tool call is fast.
+	// Non-fatal if it fails (the next tool will try again).
+	if _, err := GetOrCreateRepoSession(ctx, normalized); err != nil {
+		// Still allowed even if session init fails — the raw path access is
+		// permitted; the next tool call will surface the actual error.
+		log.Printf("allow_dir: session init for %s: %v", normalized, err)
+	}
+
+	return mcp.NewToolResultText(
+		fmt.Sprintf("Path %q is now allowed. Retry your original tool call with repo_path=%q.", normalized, normalized),
+	), nil
 }
 
 func sessionBriefHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {

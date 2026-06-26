@@ -55,26 +55,35 @@ func Init(paths []string) {
 }
 
 // validateRepoPath checks that the resolved absolute path lives inside one
-// of the allowed prefixes. If no paths have been configured (Init was never
-// called) the check is skipped for backward compatibility.
+// of the allowed prefixes (static or dynamic). If no paths have been
+// configured (Init was never called) only the dynamic list is used.
 func validateRepoPath(path string) error {
-	if len(allowedPaths) == 0 {
+	if len(allowedPaths) == 0 && len(dynamicAllowedPaths) == 0 {
 		return nil
 	}
+	// Check static prefixes (configured at startup via --allow-path).
 	for _, prefix := range allowedPaths {
-		// Ensure an exact prefix match at a dir boundary:
-		//   prefix="/home/user"  path="/home/user2"  → rejected (no / after)
-		//   prefix="/home/user"  path="/home/user/"  → accepted
-		//   prefix="/home/user"  path="/home/user/projects/repo" → accepted
-		rel, err := filepath.Rel(prefix, path)
-		if err == nil && !strings.HasPrefix(rel, "..") && rel != "." {
-			return nil
-		}
-		if err == nil && rel == "." {
+		if pathUnderPrefix(prefix, path) {
 			return nil
 		}
 	}
-	return fmt.Errorf("%w (allowed: %v)", errPathNotAllowed, allowedPaths)
+	// Check dynamic prefixes (added at runtime via allow_dir).
+	if isPathDynamicallyAllowed(path) {
+		return nil
+	}
+	return fmt.Errorf("path %q: %w (allowed: %v, dynamically-allowed: %d). "+
+		"Ask the user for permission, then call `allow_dir` with repo_path=%q to add it, then retry",
+		path, errPathNotAllowed, allowedPaths, len(dynamicAllowedPaths), path)
+}
+
+// pathUnderPrefix reports whether path is under (or equal to) prefix, matching
+// at a directory boundary.
+func pathUnderPrefix(prefix, path string) bool {
+	rel, err := filepath.Rel(prefix, path)
+	if err != nil {
+		return false
+	}
+	return rel == "." || !strings.HasPrefix(rel, "..")
 }
 
 func GetOrCreateRepoSession(ctx context.Context, repoPath string) (*session.RepoSession, error) {
