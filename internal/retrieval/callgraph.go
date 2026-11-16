@@ -3,6 +3,7 @@ package retrieval
 import (
 	"context"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"sort"
@@ -269,7 +270,31 @@ func extractCtxLine(repoRoot, filePath string, line int) string {
 	if !filepath.IsAbs(fullPath) && repoRoot != "" {
 		fullPath = filepath.Join(repoRoot, fullPath)
 	}
-	data, err := os.ReadFile(fullPath)
+	// File paths come from the symbols DB, which may be repo-controlled
+	// (poisoned remote artifact or crafted .lsif). Never read anything outside
+	// the repo root, and cap the read so a bogus path can't hang the call.
+	if repoRoot != "" {
+		if abs, err := filepath.Abs(fullPath); err == nil {
+			root, err2 := filepath.Abs(repoRoot)
+			if err2 != nil {
+				return ""
+			}
+			rel, err3 := filepath.Rel(root, abs)
+			if err3 != nil || strings.HasPrefix(rel, "..") || filepath.IsAbs(rel) {
+				return ""
+			}
+		}
+	}
+	if resolved, err := filepath.EvalSymlinks(fullPath); err == nil {
+		fullPath = resolved
+	}
+
+	f, err := os.Open(fullPath)
+	if err != nil {
+		return ""
+	}
+	defer f.Close()
+	data, err := io.ReadAll(io.LimitReader(f, 1<<20))
 	if err != nil {
 		return ""
 	}

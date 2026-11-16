@@ -121,8 +121,27 @@ func (s *Store) pruneLocked(max int) int {
 	}
 	sort.Slice(entries, func(i, j int) bool { return entries[i].CreatedAt.After(entries[j].CreatedAt) })
 	removed := 0
+	dirAbs, dirErr := filepath.Abs(s.dir)
 	for _, e := range entries[max:] {
-		_ = os.Remove(filepath.Join(s.dir, e.Handle+".txt"))
+		// Defense in depth: never delete anything that is not a regular file
+		// directly inside the stash dir. load() already rejects non-hex
+		// handles, but pruneLocked must not trust the index unconditionally —
+		// a poisoned manifest could otherwise prune files outside the stash
+		// dir via path traversal, or follow a planted symlink.
+		if !isHexHandle(e.Handle) {
+			continue
+		}
+		path := filepath.Join(s.dir, e.Handle+".txt")
+		if fi, err := os.Lstat(path); err != nil || !fi.Mode().IsRegular() {
+			continue // missing, symlink, or special file: never remove
+		}
+		if dirErr == nil {
+			abs, err := filepath.Abs(path)
+			if err != nil || abs != filepath.Join(dirAbs, e.Handle+".txt") {
+				continue
+			}
+		}
+		_ = os.Remove(path)
 		delete(s.idx, e.Handle)
 		removed++
 	}
@@ -210,6 +229,13 @@ func (s *Store) load() {
 		return
 	}
 	for _, e := range entries {
+		// The manifest is repo-controlled content (it lives inside the repo),
+		// so treat every handle as untrusted: only well-formed hex handles may
+		// enter the index, otherwise a poisoned manifest could later prune
+		// (os.Remove) files outside the stash dir via path traversal.
+		if !isHexHandle(e.Handle) {
+			continue
+		}
 		s.idx[e.Handle] = e
 	}
 }

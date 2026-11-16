@@ -3,6 +3,7 @@ package mcpserver
 import (
 	"context"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
@@ -266,13 +267,19 @@ func readSymbolHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.C
 	// slice, independent of repo size.
 	top := results[0]
 
-	// Defense-in-depth: verify the symbol DB result doesn't point outside the repo
-	if !isPathWithinRoot(rs.Repo.Root, top.File) {
+	// Defense-in-depth: verify the symbol DB result doesn't point outside the repo.
+	// The indexer stores repo-relative paths, so resolve relative to the repo root
+	// first, then follow symlinks to their real target before checking containment.
+	file := resolveRepoFile(rs.Repo.Root, top.File)
+	if resolved, err := filepath.EvalSymlinks(file); err == nil {
+		file = resolved
+	}
+	if !isPathWithinRoot(rs.Repo.Root, file) {
 		return mcp.NewToolResultError(fmt.Sprintf("symbol path %s is outside repo root", top.File)), nil
 	}
 
 	budget := parseBudget(request.Params.Arguments, 1500)
-	body, err := readLineRange(top.File, top.LineFrom, top.LineTo, budget*4)
+	body, err := readLineRange(file, top.LineFrom, top.LineTo, budget*4)
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("read %s: %v", top.File, err)), nil
 	}
@@ -292,10 +299,28 @@ func readSymbolHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.C
 	return mcp.NewToolResultText(b.String()), nil
 }
 
+// resolveRepoFile returns an absolute path for a file recorded by the indexer.
+// The indexer stores repo-relative paths, so bare paths must be joined with the
+// repo root before any containment check or read; absolute paths pass through.
+func resolveRepoFile(root, file string) string {
+	if filepath.IsAbs(file) {
+		return file
+	}
+	return filepath.Join(root, file)
+}
+
 // readLineRange returns lines [from, to] (1-based, inclusive) of a file, capped
-// to maxChars. Reading a single source file is cheap regardless of repo size.
+// to maxChars. Reading a single source file is cheap regardless of repo size;
+// the read is size-capped so a poisoned DB entry can't point at /dev/zero or a
+// multi-GB file and hang the tool call.
 func readLineRange(path string, from, to, maxChars int) (string, error) {
-	data, err := os.ReadFile(path)
+	f, err := os.Open(path)
+	if err != nil {
+		return "", err
+	}
+	defer f.Close()
+	const maxReadBytes = 1 << 20 // 1 MiB
+	data, err := io.ReadAll(io.LimitReader(f, maxReadBytes))
 	if err != nil {
 		return "", err
 	}
@@ -745,6 +770,14 @@ func validateCodeHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp
 			if d != nil && d.IsDir() && (d.Name() == ".git" || d.Name() == "node_modules" || d.Name() == "vendor") {
 				return filepath.SkipDir
 			}
+			return nil
+		}
+		// Skip non-regular files (symlinks could point outside the repo) and
+		// cap read size so a hostile tree can't OOM the tool call.
+		if !d.Type().IsRegular() {
+			return nil
+		}
+		if info, ierr := d.Info(); ierr == nil && info.Size() > 1<<20 {
 			return nil
 		}
 

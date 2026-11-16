@@ -47,6 +47,14 @@ var validateCmd = &cobra.Command{
 				}
 				return nil
 			}
+			// Skip non-regular files (symlinks could point outside the repo —
+			// e.g. to secrets or /dev/zero) and cap read size against DoS.
+			if !d.Type().IsRegular() {
+				return nil
+			}
+			if info, ierr := d.Info(); ierr == nil && info.Size() > 1<<20 {
+				return nil
+			}
 
 			data, err := os.ReadFile(path)
 			if err != nil {

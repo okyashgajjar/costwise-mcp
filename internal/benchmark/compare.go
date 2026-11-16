@@ -52,13 +52,30 @@ func grepTerm(t Task) string {
 	return best
 }
 
+// isSafeSearchTerm rejects flag-like tokens (e.g. "--pre=sh", "-e") so they can
+// never be interpreted as rg flags. Mirrors the defense in retrieval/grep.go.
+func isSafeSearchTerm(term string) bool {
+	if term == "" {
+		return false
+	}
+	if term[0] != '-' {
+		return true
+	}
+	// A lone "-" is a valid stdin-style pattern for rg, but flag-like tokens
+	// (--*, -x) are never legitimate search keywords.
+	return !(len(term) > 1 && (term[1] == '-' || (term[1] >= 'a' && term[1] <= 'z')))
+}
+
 // grepSymbol returns the (capped) ripgrep output for term and the repo-relative
 // file with the most matches — the file a no-MCP agent would open.
 func grepSymbol(repoRoot, term string, capLines int) (output, topFile string) {
-	if term == "" {
+	if !isSafeSearchTerm(term) {
 		return "", ""
 	}
-	out, _ := exec.Command("rg", "-n", "--no-heading", "--no-messages", "-F", term, repoRoot).Output()
+	// "--" ends flag parsing, so a dataset-controlled term can never be
+	// interpreted as an rg option (e.g. --pre=sh would pipe matched files
+	// through an arbitrary shell command).
+	out, _ := exec.Command("rg", "-n", "--no-heading", "--no-messages", "-F", "--", term, repoRoot).Output()
 	counts := map[string]int{}
 	var kept []string
 	for _, ln := range strings.Split(strings.TrimRight(string(out), "\n"), "\n") {

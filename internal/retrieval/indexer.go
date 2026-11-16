@@ -29,6 +29,10 @@ type IndexResult struct {
 	LatencyMs int64 `json:"latency_ms"`
 }
 
+// maxIndexedFileSize caps per-file reads during indexing so a malicious or
+// bloated repo can't OOM the indexer. Mirrors grep.go's 1 MB content cap.
+const maxIndexedFileSize = 1 << 20 // 1 MiB
+
 // SharedIndexer provides a single indexing pass for all retrievers,
 // replacing the duplicate indexRepo() methods in treesitter.go, reference.go,
 // and callgraph.go. It uses proper SHA256 hashing for file change detection
@@ -88,7 +92,19 @@ func (idx *SharedIndexer) Index(ctx context.Context) (*IndexResult, error) {
 		if fi.IsDir() && skipDir(path) {
 			return filepath.SkipDir
 		}
+		// Only regular files are indexed. os.ReadFile would happily follow a
+		// file symlink, so a malicious repo could plant `evil.go -> /dev/zero`
+		// (hang/OOM) or `notes.md -> ~/.aws/credentials` (secret content gets
+		// hashed into the semantic index and surfaced by retrieval).
+		if !fi.Mode().IsRegular() {
+			return nil
+		}
 		if fi.IsDir() || fi.Size() == 0 {
+			return nil
+		}
+		// Cap per-file read size so a huge file can't OOM the indexer; larger
+		// files contribute little retrieval value. Mirrors grep.go's 1 MB cap.
+		if fi.Size() > maxIndexedFileSize {
 			return nil
 		}
 		if !treesitter.IsSupported(path) {

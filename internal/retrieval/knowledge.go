@@ -69,10 +69,19 @@ func (ks *KnowledgeStore) GetFileSummary(path string) (*FileSummary, error) {
 		}
 	}
 
-	// Count lines from file on disk
+	// Count lines from file on disk (paths come from the symbols DB, which may
+	// be repo-controlled: skip anything outside the repo root or oversized).
 	fullPath := filepath.Join(ks.repoRoot, path)
-	if data, err := os.ReadFile(fullPath); err == nil {
-		summary.Lines = strings.Count(string(data), "\n") + 1
+	if fi, err := os.Stat(fullPath); err == nil && fi.Mode().IsRegular() && fi.Size() <= 1<<20 {
+		if abs, aerr := filepath.Abs(fullPath); aerr == nil {
+			root, rerr := filepath.Abs(ks.repoRoot)
+			rel, relerr := filepath.Rel(root, abs)
+			if rerr == nil && relerr == nil && !strings.HasPrefix(rel, "..") && !filepath.IsAbs(rel) {
+				if data, err := os.ReadFile(fullPath); err == nil {
+					summary.Lines = strings.Count(string(data), "\n") + 1
+				}
+			}
+		}
 	}
 
 	return summary, nil

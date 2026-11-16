@@ -1,7 +1,9 @@
 package installer
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -100,21 +102,56 @@ func GetMcpServerConfig() map[string]interface{} {
 	}
 }
 
-func ReadJSONFile(filePath string) map[string]interface{} {
+// parseJSONConfig parses a client config file. A missing file is an empty
+// config; a whitespace-only file is also treated as empty (clients sometimes
+// create those). An existing, non-empty, unparseable file is an error: the
+// file holds client state (history, settings) that must never be silently
+// replaced.
+func parseJSONConfig(filePath string) (map[string]interface{}, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
-		return make(map[string]interface{})
+		if os.IsNotExist(err) {
+			return make(map[string]interface{}), nil
+		}
+		return nil, err
+	}
+	if len(bytes.TrimSpace(data)) == 0 {
+		return make(map[string]interface{}), nil
 	}
 	var result map[string]interface{}
 	if err := json.Unmarshal(data, &result); err != nil {
+		return nil, fmt.Errorf("%s is not valid JSON (%v); refusing to overwrite it — fix or remove the file, then retry", filePath, err)
+	}
+	if result == nil {
+		result = make(map[string]interface{})
+	}
+	return result, nil
+}
+
+func ReadJSONFile(filePath string) map[string]interface{} {
+	result, err := parseJSONConfig(filePath)
+	if err != nil {
+		// Callers treat an empty map as "no config"; the destructive write is
+		// blocked separately in WriteJSONFile so the invalid file survives.
 		return make(map[string]interface{})
 	}
 	return result
 }
 
 func WriteJSONFile(filePath string, data map[string]interface{}) error {
+	if fi, err := os.Lstat(filePath); err == nil {
+		if fi.Mode()&os.ModeSymlink != 0 {
+			return fmt.Errorf("%s is a symlink; refusing to write it", filePath)
+		}
+		// Never overwrite an existing unparseable config: ReadJSONFile would
+		// have handed callers an empty map, and writing that back would wipe
+		// the client's own state (e.g. ~/.claude.json) with no backup.
+		if _, perr := parseJSONConfig(filePath); perr != nil {
+			return perr
+		}
+	}
 	dir := filepath.Dir(filePath)
-	if err := os.MkdirAll(dir, 0755); err != nil {
+	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return err
 	}
 	content, err := json.MarshalIndent(data, "", "  ")
@@ -122,7 +159,33 @@ func WriteJSONFile(filePath string, data map[string]interface{}) error {
 		return err
 	}
 	content = append(content, '\n')
-	return os.WriteFile(filePath, content, 0644)
+	// Atomic replace: temp file + rename so a concurrent writer (the client
+	// itself rewrites ~/.claude.json frequently) can never observe a torn or
+	// half-written config.
+	tmp, err := os.CreateTemp(dir, filepath.Base(filePath)+".tmp-*")
+	if err != nil {
+		return err
+	}
+	tmpName := tmp.Name()
+	if _, err := tmp.Write(content); err != nil {
+		tmp.Close()
+		os.Remove(tmpName)
+		return err
+	}
+	if err := tmp.Sync(); err != nil {
+		tmp.Close()
+		os.Remove(tmpName)
+		return err
+	}
+	if err := tmp.Close(); err != nil {
+		os.Remove(tmpName)
+		return err
+	}
+	if err := os.Chmod(tmpName, 0o644); err != nil {
+		os.Remove(tmpName)
+		return err
+	}
+	return os.Rename(tmpName, filePath)
 }
 
 func DeepEqual(a, b interface{}) bool {
